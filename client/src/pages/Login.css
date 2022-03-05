@@ -1,0 +1,79 @@
+
+h1{
+    position: absolute;
+    width: 590px;
+    height: 74px;
+    left: 71px;
+    top: 56px;
+    
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 56px;
+    line-height: 84px;
+    letter-spacing: 0.06em;
+    
+    color: #383F4B;
+}
+
+h2{
+    position: absolute;
+    width: 590px;
+    height: 74px;
+    left: 628px;
+    top: 297px;
+    
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 54px;
+    letter-spacing: 0.06em;
+    
+    color: #383F4B;    
+}
+
+h3{
+    position: absolute;
+    width: 359px;
+    height: 34px;
+    left: 1088px;
+    top: 96px;
+    
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+    
+    color: #C4C4C4;    
+}
+
+input{
+    width: 359px;
+    height: 34px;
+    
+    background: #FFFFFF;
+    border-radius: 12px;
+}
+
+button{
+    width: 359px;
+    height: 34px;
+
+    background: #76ABDE;
+    color: #FFFFFF;
+    border-radius: 12px;
+}
+
+temp{
+position: absolute;
+width: 642px;
+height: 456px;
+left: 435px;
+top: 277px;
+z-index: -10;
+
+background: linear-gradient(0deg, #FFFFFF -40.2%, rgba(255, 255, 255, 0) 0%), #DCEEFF;
+border-radius: 37px;
+}
