@@ -1,5 +1,5 @@
 
-h1{
+h1.page-title{
     position: absolute;
     width: 590px;
     height: 74px;
@@ -16,12 +16,12 @@ h1{
     color: #383F4B;
 }
 
-h2{
+h2.sub-title{
     position: absolute;
     width: 590px;
     height: 74px;
-    left: 628px;
-    top: 297px;
+    left: 243px;
+    top: 20px;
     
     font-family: Poppins;
     font-style: normal;
@@ -33,7 +33,7 @@ h2{
     color: #383F4B;    
 }
 
-h3{
+h3.create-account-message{
     position: absolute;
     width: 359px;
     height: 34px;
@@ -49,24 +49,58 @@ h3{
     color: #C4C4C4;    
 }
 
-input{
-    width: 359px;
-    height: 34px;
+input.Email{
+    width: 529px;
+    height: 64px;
     
     background: #FFFFFF;
     border-radius: 12px;
+
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 30px;
+    padding-left: 23px;
+    color: #C4C4C4;
 }
 
-button{
-    width: 359px;
-    height: 34px;
+input.Password{
+    width: 529px;
+    height: 64px;
+    
+    background: #FFFFFF;
+    border-radius: 12px;
+
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 30px;
+    padding-left: 23px;
+    color: #C4C4C4;
+}
+
+button.login-button{
+    position: absolute;
+    top: 337px;
+    left: 46px;
+    width: 549px;
+    height: 64px;
 
     background: #76ABDE;
-    color: #FFFFFF;
     border-radius: 12px;
+
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+
+    color: #FFFFFF;
 }
 
-temp{
+div.square{
 position: absolute;
 width: 642px;
 height: 456px;
