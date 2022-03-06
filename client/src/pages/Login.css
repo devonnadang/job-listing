@@ -55,6 +55,7 @@ input.Email{
     
     background: #FFFFFF;
     border-radius: 12px;
+    border-style: hidden;
 
     font-family: Poppins;
     font-style: normal;
@@ -71,6 +72,7 @@ input.Password{
     
     background: #FFFFFF;
     border-radius: 12px;
+    border-style: hidden;
 
     font-family: Poppins;
     font-style: normal;
@@ -90,6 +92,7 @@ button.login-button{
 
     background: #76ABDE;
     border-radius: 12px;
+    border-style: hidden;
 
     font-family: Poppins;
     font-style: normal;
@@ -104,8 +107,9 @@ div.square{
 position: absolute;
 width: 642px;
 height: 456px;
-left: 435px;
-top: 277px;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -25%);
 z-index: -10;
 
 background: linear-gradient(0deg, #FFFFFF -40.2%, rgba(255, 255, 255, 0) 0%), #DCEEFF;
