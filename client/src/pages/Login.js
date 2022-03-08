@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import styles from './Login.css';
 
-function Login (){
-        return (<div>
+class Login extends React.Component{
+        render () {return (<div>
         <div className='login-page'></div>
             <h1 className='page-title'>job finder</h1>
             <h3 className='create-account-message'>Dont have an account? Sign up</h3>
@@ -19,6 +19,7 @@ function Login (){
                 </button>
             </div>
         </div>);
+        }
 }
 
 class TextInput extends React.Component{
