@@ -83,7 +83,26 @@ input.Password{
     color: #C4C4C4;
 }
 
-input.login-button{
+button.login-button{
+    position: absolute;
+    top: 337px;
+    left: 46px;
+    width: 549px;
+    height: 64px;
+
+    background: #76ABDE;
+    border-radius: 12px;
+    border-style: hidden;
+
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+
+    color: #FFFFFF;
+}
+div.submit{
     position: absolute;
     top: 337px;
     left: 46px;

@@ -1,25 +1,37 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import Login from './pages/Login'
+import UserDashboard from './pages/UserDashboard';
+import UserProfile from './pages/UserProfile'
+import CreateAccount from './pages/CreateAccount'
+import EmployerDashboard from './pages/EmployerDashboard'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+class App extends React.Component {
+  render() {return (
+    <Router>
+    <div>
+      <Link to="/">Login</Link>
+      <Link to="/Dashboard">Dashboard</Link>
+      <Link to="/UserProf">UserProf</Link>
+      <Link to="/CreateAccount">CreateAccount</Link>
+      <Link to="/EmployerDash">EmployerDash</Link>
+      <Switch>
+        <Route path="/Dashboard"><UserDashboard /></Route>
+        <Route path="/UserProf"><UserProfile /></Route>
+        <Route path="/CreateAccount"><CreateAccount /></Route>
+        <Route path="/EmployerDash"><EmployerDashboard /></Route>
+        <Route path="/"><Login /></Route>
+      </Switch>
     </div>
-  );
+    </Router>
+  );}
 }
 
 export default App;

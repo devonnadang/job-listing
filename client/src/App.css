@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+div.toDash{
+    position: absolute;
+    top: 337px;
+    left: 46px;
+    width: 549px;
+    height: 64px;
+
+    background: #76ABDE;
+    border-radius: 12px;
+    border-style: hidden;
+}
