@@ -83,7 +83,7 @@ input.Password{
     color: #C4C4C4;
 }
 
-button.login-button{
+input.login-button{
     position: absolute;
     top: 337px;
     left: 46px;
