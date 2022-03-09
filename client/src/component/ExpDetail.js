@@ -7,6 +7,7 @@ function ExpDetail(props) {
             <p> {props.company} </p>
             <p> {props.start} - {props.end} | {props.locationCity}, {props.locationState} </p>
             <p> {props.description} </p>
+            <br></br>
         </div>
     );
 }

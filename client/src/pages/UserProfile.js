@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import uuid from 'react-uuid';
 import EduDetail from "../component/EduDetail";
 import ExpDetail from "../component/ExpDetail"
+import SkillTag from "../component/SkillTag";
+import Stack from '@mui/material/Stack';
 
 
 
@@ -9,42 +11,78 @@ import ExpDetail from "../component/ExpDetail"
 
 function UserProfile(props) {
 
-    // var eduList;
+    const [schools, setSchools] = useState([
+        {
+            id: uuid(),
+            name: "San Jose State University",
+            start: "Aug 2019",
+            end: "May 2023",
+            major: "Computer Science",
+            gpa: "3.7"
+        },
+        {
+            id: uuid(),
+            name: "SJ High School",
+            start: "Aug 2015",
+            end: "May 2019",
+            major: "",
+            gpa: "3.7"
+        }
+    ]);
 
-    // const [schools, setSchools] = useState([]);
+    const [skills, setSkills] = useState([
+        {
+            id: uuid(),
+            skill: "React"
+        },
+        {
+            id: uuid(),
+            skill: "Javascript"
+        },
+        {
+            id: uuid(),
+            skill: "Java"
+        },
+        {
+            id: uuid(),
+            skill: "Github"
+        },
+    ]);
 
-    // function addSchool(name) {
-    //     let newSchool = 
-    //     {
-    //         id: uuid(),
-    //         name: name
-    //     }
-    //     const newEduData = [...schools, newSchool];
-    //     setSchools(newEduData);
-    // }
+    function addSchool (name, start, end, major, gpa) {
+        let newSchool = 
+        {
+            id: uuid(),
+            name: name,
+            start: start,
+            end: end,
+            major: major,
+            gpa: gpa
+        }
+        setSchools(schools => [...schools, newSchool]);
+    }
 
+    function editSchools() {
+        alert("add school function here");
+    }
 
-    // addSchool("San Jose High School");
-    // addSchool("San Jose State University");
-
-    // eduList = schools.map(school => (
-    //     <EduDetail
-    //         id={school.id}
-    //         name={school.name}
-    //         />
-    // ));
+    function deleteSkill() {
+        alert("delete skill function here");
+    }
 
     return  (
         <div>
             <h1> Jane Doe </h1>
             <h2> Education Details </h2>
-            <EduDetail 
-                name="San Jose Sate University" 
-                start="Aug 2019" 
-                end="May 2023" 
-                major="Computer Science" 
-                gpa="3.7"
-                />
+            {
+                schools.map((school) => (<EduDetail 
+                    name={school.name} 
+                    start={school.start}
+                    end={school.end}
+                    major={school.major}
+                    gpa={school.gpa}/>))
+            }
+            <button onClick={editSchools}> Add School </button>
             <h2> Experience Details </h2>
             <ExpDetail 
                 title="Software Developer Intern" 
@@ -57,6 +95,12 @@ function UserProfile(props) {
                 -Developed 3 projects during duration. -Collaborated in a team of 10" 
                 />
             <h2> Skills </h2>
+            <Stack spacing={2} direction="row" alignItems="center" justifyContent="center">
+            {
+                skills.map((skill) => <SkillTag name={skill.skill} deleteSkill={deleteSkill}/>)
+            }
+            </Stack>
+        
             <h2> Your Interests </h2>
         </div>
 

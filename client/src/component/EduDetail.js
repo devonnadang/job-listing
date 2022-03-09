@@ -7,6 +7,7 @@ function EduDetail(props) {
             <p> {props.start} - {props.end} </p>
             <p> {props.major} </p>
             <p> {props.gpa} </p>
+            <br></br>
         </div>
     );
 }
