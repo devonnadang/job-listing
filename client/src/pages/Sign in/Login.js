@@ -1,16 +1,16 @@
 import React from 'react';
 import { Redirect } from 'react-router';
-import './Login.css';
+import { Link } from 'react-router-dom';
+import styles from './Login.module.css';
 
 
 class Login extends React.Component{
         render () {return (
         <div>
-        <div className='login-page'></div>
-            <h1 className='page-title'>job finder</h1>
-            <h3 className='create-account-message'>Dont have an account? Sign up</h3>
-            <div className='square'>
-            <h2 className='sub-title'>Sign In</h2>
+            <h1 className={styles.pageTitle}>job finder</h1>
+            <h3 className={styles.createAccountMessage}>Dont have an account? <Link to="/CreateAccount">Sign up</Link></h3>
+            <div className={styles.square}>
+            <h2 className={styles.subTitle}>Sign In</h2>
                 <LoginForm />
             </div>
         </div>);
@@ -54,13 +54,13 @@ class LoginForm extends React.Component{
         return (   
         <form onSubmit={this.handleSubmit}>           
             <div style={{position: 'absolute', top: 122, left: 46}}>
-                <input className="Email" type="text" value={this.state.field1} onChange={this.handleChangeField1} placeholder={"Email"}/>
+                <input className={styles.Email} type="text" value={this.state.field1} onChange={this.handleChangeField1} placeholder={"Email"}/>
             </div>
             <div style={{position: 'absolute', top: 214, left: 46}}>
-                <input className="Password" type="text" value={this.state.field2} onChange={this.handleChangeField2} placeholder={"Password"}/>
+                <input className={styles.Password} type="text" value={this.state.field2} onChange={this.handleChangeField2} placeholder={"Password"}/>
             </div>
             <div>
-                <button type="submit" className='login-button'>Sign in</button>
+                <button type="submit" className={styles.loginButton}>Sign in</button>
             </div>
         </form>  );
     }

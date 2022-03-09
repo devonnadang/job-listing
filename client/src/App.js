@@ -1,9 +1,8 @@
-import './App.css';
 import React from 'react';
-import Login from './pages/Login'
+import Login from './pages/Sign in/Login'
 import UserDashboard from './pages/UserDashboard';
 import UserProfile from './pages/UserProfile'
-import CreateAccount from './pages/CreateAccount'
+import CreateAccount from './pages/Sign up/CreateAccount'
 import EmployerDashboard from './pages/EmployerDashboard'
 import {
   BrowserRouter as Router,
