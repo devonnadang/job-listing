@@ -1,12 +1,12 @@
 import React from 'react';
 import Navigation from './Navigation';
 
-const EmployerDashboard = () =>{
+const Saved = () =>{
     return (
         <div>
             <Navigation />
-            <label>Employer Dashboard</label>
+            <label>Saved</label>
         </div>);
 }
 
-export default EmployerDashboard
+export default Saved

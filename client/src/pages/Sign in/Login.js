@@ -59,9 +59,7 @@ class LoginForm extends React.Component{
             <div style={{position: 'absolute', top: 214, left: 46}}>
                 <input className={styles.Password} type="text" value={this.state.field2} onChange={this.handleChangeField2} placeholder={"Password"}/>
             </div>
-            <div>
-                <button type="submit" className={styles.loginButton}>Sign in</button>
-            </div>
+            <button type="submit" className={styles.loginButton}>Sign in</button>
         </form>  );
     }
 }

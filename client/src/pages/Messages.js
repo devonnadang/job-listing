@@ -1,12 +1,12 @@
 import React from 'react';
 import Navigation from './Navigation';
 
-const EmployerDashboard = () =>{
+const Messages = () =>{
     return (
         <div>
             <Navigation />
-            <label>Employer Dashboard</label>
+            <label>Messages</label>
         </div>);
 }
 
-export default EmployerDashboard
+export default Messages

@@ -1,9 +1,11 @@
 import React from 'react';
+import Navigation from './Navigation';
 
 const UserDashboard = () =>{
     return (
         <div>
-            <h1>Dashboard</h1>
+            <div><Navigation /></div>
+            <label>Dashboard</label>
         </div>);
 }
 

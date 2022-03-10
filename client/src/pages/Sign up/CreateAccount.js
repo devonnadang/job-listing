@@ -10,7 +10,7 @@ class CreateAccount extends React.Component{
             <h1 className={styles.pageTitle}>job finder</h1>
             <h3 className={styles.signInMessage}>Already have an account? <Link to="/">Sign in</Link></h3>
             <div className={styles.square}>
-            <h2 className={styles.subTitle}>Create an Account</h2>
+            <h2 className={styles.subTitle}>create an account</h2>
                 <LoginForm />
             </div>
         </div>);
@@ -57,7 +57,10 @@ class LoginForm extends React.Component{
     }
 
     handleSubmit(event){
-        alert("field1: " + this.state.field1 + "\nfield2: " + this.state.field2)
+        alert("field1: " + this.state.field1 + 
+        "\nfield2: " + this.state.field2 +
+        "\nfield3: " + this.state.field3 +
+        "\nfield4: " + this.state.field4)
         event.preventDefault();
         if (this.state.field1.match("hello"))
             this.setState({redirect: true});

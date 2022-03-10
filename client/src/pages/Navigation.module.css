@@ -1,0 +1,103 @@
+.title{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 13px;
+
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 56px;
+    line-height: 84px;
+    letter-spacing: 0.06em;
+
+    color: #383F4B;
+}
+    
+.dashLink{
+    position: absolute;
+    left: 22.7%;
+    right: 65.87%;
+    top: 36.78%;
+    bottom: 24.14%;
+    
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+    
+    color: #76ABDE;
+}
+
+.messageLink{
+    position: absolute;
+    left: 58.28%;
+    right: 30.3%;
+    top: 31.03%;
+    bottom: 29.89%;
+
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+    
+    color: #76ABDE;
+}
+
+.appliedLink{
+    position: absolute;
+    left: 68.62%;
+    right: 25.16%;
+    top: 32.18%;
+    bottom: 28.74%;
+    
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+    
+    color: #76ABDE;
+}
+
+.savedLink{
+    position: absolute;
+    left: 78.02%;
+    right: 15.84%;
+    top: 32.18%;
+    bottom: 28.74%;
+    
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+    
+    color: #76ABDE;
+}
+
+.profileLink{
+    position: absolute;
+    left: 91.4%;
+    right: 2.39%;
+    top: 31.03%;
+    bottom: 29.89%;
+    
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+    
+    color: #76ABDE;
+}
+
+.navGroup{
+    position: absolute;
+    width: 1383px;
+    height: 87px;
+    left: 65px;
+    top: 46px;
+}

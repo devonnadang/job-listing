@@ -48,3 +48,7 @@ div.toDash{
     border-radius: 12px;
     border-style: hidden;
 }
+
+h1{
+  position: relative;
+}
