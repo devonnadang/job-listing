@@ -4,6 +4,8 @@ import EduDetail from "../component/EduDetail";
 import ExpDetail from "../component/ExpDetail"
 import SkillTag from "../component/SkillTag";
 import Stack from '@mui/material/Stack';
+import Navigation from './Navigation';
+
 
 
 
@@ -72,6 +74,7 @@ function UserProfile(props) {
 
     return  (
         <div>
+            <Navigation />
             <h1> Jane Doe </h1>
             <h2> Education Details </h2>
             {
