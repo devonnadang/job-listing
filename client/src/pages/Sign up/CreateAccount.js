@@ -1,7 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
-import { Formik, Field, Form } from "formik";
 import styles from './CreateAccount.module.css';
 
 
@@ -19,24 +18,77 @@ class CreateAccount extends React.Component{
 }
 
 class LoginForm extends React.Component{
-    render(){      
+    constructor(props){
+        super(props);
+        this.state = {
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+        }
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    
+    handleUserInput (e){
+        const name = e.target.name;
+        const value = e.target.value;
+        this.setState({[name]: value});
+    }
+
+    handleSubmit (e){
+        alert(
+            "firstName: " + this.state.firstName + 
+            "\nlastName: " + this.state.lastName +
+            "\nemail: " + this.state.email +
+            "\npassword: " + this.state.password);
+        this.setState({redirect: true})
+    }
+
+    render(){
+        if (this.state.redirect) {
+            return <Redirect push to="/Dashboard" />
+        }      
         return (           
-        <Formik 
-            initialValues={{ firstName: '', lastName: '', email: '', password: ''}}
-            onSubmit={async (values) => {
-                await new Promise((resolve) => setTimeout(resolve, 500));
-                alert(JSON.stringify(values, null, 2));
-            }}>
-            <Form>
-              <Field className={styles.FirstName} name="firstName" type="text"  placeholder="First Name"/>
-              <Field className={styles.LastName} name="lastName" type="text" placeholder="Last Name"/>
-              <Field className={styles.Email} name="email" type="email" placeholder="Email"/>
-              <Field className={styles.Password} name="password" type="password" placeholder="Password"/>
-              <button className={styles.submit} type="submit">Sign up</button>
-            </Form>
-      </Formik>
+            <form onSubmit={this.handleSubmit}>
+                <input 
+                className={styles.FirstName} 
+                name="firstName"
+                type="text"
+                value={this.state.firstName}
+                placeholder="First Name"
+                onChange={
+                    (event) => this.handleUserInput(event)} />
+                <input 
+                className={styles.LastName} 
+                name="lastName"
+                type="text"
+                value={this.state.lastName}
+                placeholder="Last Name"
+                onChange={
+                    (event) => this.handleUserInput(event)} />
+                <input 
+                className={styles.Email} 
+                name="email"
+                type="email"
+                value={this.state.email}
+                placeholder="Email"
+                onChange={
+                    (event) => this.handleUserInput(event)} />
+                <input 
+                className={styles.Password} 
+                name="password"
+                type="password"
+                value={this.state.password}
+                placeholder="Password"
+                onChange={
+                    (event) => this.handleUserInput(event)} />
+                <button 
+                className={styles.submit} 
+                type="submit" >Sign Up</button>
+            </form>
         );
     }
 }
 
 export default CreateAccount
+
