@@ -8,7 +8,7 @@ class Login extends React.Component{
         render () {return (
         <div>
             <h1 className={styles.pageTitle}>job finder</h1>
-            <h3 className={styles.createAccountMessage}>Dont have an account? <Link to="/CreateAccount">Sign up</Link></h3>
+            <h3 className={styles.createAccountMessage}>Dont have an account? <Link to="/CreateAccount" style={{textDecoration: 'none'}}>Sign up</Link></h3>
             <div className={styles.square}>
             <h2 className={styles.subTitle}>Sign In</h2>
                 <LoginForm />

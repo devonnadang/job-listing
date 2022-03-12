@@ -103,6 +103,16 @@
     color: #FFFFFF;
 }
 
+.loginButton:hover{
+    background: #36ABDE;
+}
+
+.loginButton:active{
+    background: #36abde;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
 .submit{
     position: absolute;
     top: 337px;

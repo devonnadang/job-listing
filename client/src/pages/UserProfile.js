@@ -4,10 +4,9 @@ import EduDetail from "../component/EduDetail";
 import ExpDetail from "../component/ExpDetail"
 import SkillTag from "../component/SkillTag";
 import Stack from '@mui/material/Stack';
-import Navigation from './Navigation';
-
-
-
+import Navigation from '../component/Navigation';
+import { StylesContext } from "@material-ui/styles";
+import styles from './UserProfile.module.css';
 
 
 
@@ -68,6 +67,10 @@ function UserProfile(props) {
         alert("add school function here");
     }
 
+    function editExperience() {
+        alert("add experience function here");
+    }
+
     function deleteSkill() {
         alert("delete skill function here");
     }
@@ -75,6 +78,7 @@ function UserProfile(props) {
     return  (
         <div>
             <Navigation />
+            <div className={styles.contents}>
             <h1> Jane Doe </h1>
             <h2> Education Details </h2>
             {
@@ -85,7 +89,7 @@ function UserProfile(props) {
                     major={school.major}
                     gpa={school.gpa}/>))
             }
-            <button onClick={editSchools}> Add School </button>
+            <button className={styles.button} onClick={editSchools}> Add School </button>
             <h2> Experience Details </h2>
             <ExpDetail 
                 title="Software Developer Intern" 
@@ -97,14 +101,16 @@ function UserProfile(props) {
                 description="
                 -Developed 3 projects during duration. -Collaborated in a team of 10" 
                 />
+            <button className={styles.button} onClick={editExperience}> Add Experience </button>
             <h2> Skills </h2>
-            <Stack spacing={2} direction="row" alignItems="center" justifyContent="center">
+            <Stack className={styles.skills} spacing={2} direction="column" alignItems="center" justifyContent="center">
             {
                 skills.map((skill) => <SkillTag name={skill.skill} deleteSkill={deleteSkill}/>)
             }
             </Stack>
         
             <h2> Your Interests </h2>
+            </div>
         </div>
 
     );
