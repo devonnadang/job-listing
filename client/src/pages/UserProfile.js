@@ -34,6 +34,77 @@ function UserProfile(props) {
             gpa: "3.7"
         }
     ]);
+    
+    const [experiences, setExperience] = useState([
+            {
+                title:"Software Engineer Summer Intern",
+                company:"Amazon",
+                start:"May 2019",
+                end:"Aug 2019",
+                locationCity: "San Francisco",
+                locationState:"CA",
+                description:"-Collaborate with experienced cross-disciplinary Amazonians to conceive, design, and bring to market innovative products and services.",
+    
+            },
+            {
+                title:"Software Developer Intern",
+                company:"Apple",
+                start:"May 2020", 
+                end:"Aug 2020",
+                locationCity:"Cupertino", 
+                locationState:"CA",
+                description:"-Developed 3 projects during duration. -Collaborated in a team of 10",
+    
+            },
+            {
+                title:"Web Developer Intership",
+                company:"Office Depot",
+                start:"May 2021",
+                end:"Aug 2021",
+                locationCity:"San Francisco",
+                locationState:"CA",
+                description:"- Writes unit tests and automated tests to ensure software quality. Writes automated software deployment pipelines.",
+
+        }
+            
+        ]);
+
+    function addExperience (title, company, start, end, locationCity, locationState, description) {
+            let newExperience = 
+            {
+                title: title,
+                company: company,
+                start: start,
+                end: end,
+                locationCity: locationCity,
+                locationState: locationState,
+                description: description,
+            }
+            setExperience(experiences => [...experiences, newExperience]);
+        }
+
+    const [interests, setInterest] = useState([
+            {
+                jobType:"Intership",
+                cities:"San Jose, CA",
+                role:"Software Engineer",
+            },
+            {
+                jobType:"Full time",
+                cities:"San Francisco, CA",
+                role:"Software Developer",
+            }
+        ]);
+    
+    function addInterest(jobType, cities, role) {
+        let newInterest = 
+        {
+            jobType :jobType,
+            cities: cities,
+            role: role,
+        }
+        setInterest(interests => [...interests, newInterest]);
+    }
 
     const [skills, setSkills] = useState([
         {
@@ -74,6 +145,13 @@ function UserProfile(props) {
     function deleteSkill() {
         alert("delete skill function here");
     }
+    function editExperience() {
+        alert("add experience function here");
+    }
+
+    function editInterest(){
+        alert("add interest function here");
+    }
 
     function addSkill(){
         alert("add skill function here");
@@ -102,16 +180,17 @@ function UserProfile(props) {
                 <Button onClick={editSchools} variant="outlined"> Add School </Button>
                 
                 <h2> Experience Details </h2>
-                <ExpDetail 
-                    title="Software Developer Intern" 
-                    company="Apple" 
-                    start="May 2020" 
-                    end="Aug 2020" 
-                    locationCity="Cupertino" 
-                    locationState="CA"
-                    description="
-                    -Developed 3 projects during duration. -Collaborated in a team of 10" 
-                    />
+                {
+                  experiences.map((experience) => ( <ExpDetail
+                  title={experience.title}
+                  company={experience.company}
+                  start={experience.start}
+                  end = {experience.end}
+                  locationCity={experience.locationCity}
+                  locationState = {experience.locationState}
+                  description = {experience.description}/>))
+                }
+                <button onClick={editExperience}> Add Experience </button>
                
                 <h2> Skills </h2>
                 <Stack spacing={2} direction="row" alignItems="center" justifyContent="center">
@@ -127,7 +206,6 @@ function UserProfile(props) {
                 <p> Roles </p>
 
             </div>
-            
         </div>
 
     );
