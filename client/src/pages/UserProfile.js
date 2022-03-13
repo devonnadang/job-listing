@@ -9,6 +9,7 @@ import styles from './UserProfile.module.css'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Avatar from '@mui/material/Avatar';
+import InterestDetail from "../component/InterestDetail";
 
 
 
@@ -69,6 +70,18 @@ function UserProfile(props) {
             
         ]);
 
+    const [jobInterests, setJobInterests] = useState([
+        "Internship", "Part-Time"
+    ]);
+
+    const [cityInterests, setCityInterests] = useState([
+        "San Jose, CA", "San Francisco, CA"
+    ]);
+
+    const [roleInterests, setRoleInterests] = useState([
+        "Software Engineer", "Software Developer"
+    ]);
+ 
     function addExperience (title, company, start, end, locationCity, locationState, description) {
             let newExperience = 
             {
@@ -82,29 +95,6 @@ function UserProfile(props) {
             }
             setExperience(experiences => [...experiences, newExperience]);
         }
-
-    const [interests, setInterest] = useState([
-            {
-                jobType:"Intership",
-                cities:"San Jose, CA",
-                role:"Software Engineer",
-            },
-            {
-                jobType:"Full time",
-                cities:"San Francisco, CA",
-                role:"Software Developer",
-            }
-        ]);
-    
-    function addInterest(jobType, cities, role) {
-        let newInterest = 
-        {
-            jobType :jobType,
-            cities: cities,
-            role: role,
-        }
-        setInterest(interests => [...interests, newInterest]);
-    }
 
     const [skills, setSkills] = useState([
         {
@@ -157,9 +147,15 @@ function UserProfile(props) {
         alert("add skill function here");
     }
 
+    function editEducation() {
+        alert("edit education function here");
+    }
+
     function editInterests() {
         alert("edit interests function here");
     }
+
+
 
     return  (
         <div>
@@ -168,7 +164,7 @@ function UserProfile(props) {
             <div className={styles.main}>
                 <h1> Jane Doe </h1>
                 <Avatar sx={{width:100, height: 100}}> </Avatar>
-                <h2> Education Details </h2>
+                <h2> Education Details  <Button variant="text" onClick={editEducation}> Edit </Button> </h2> 
                 {
                     schools.map((school) => (<EduDetail 
                         name={school.name} 
@@ -179,7 +175,7 @@ function UserProfile(props) {
                 }
                 <Button onClick={editSchools} variant="outlined"> Add School </Button>
                 
-                <h2> Experience Details </h2>
+                <h2> Experience Details <Button variant="text" onClick={editExperience}> Edit </Button> </h2>
                 {
                   experiences.map((experience) => ( <ExpDetail
                   title={experience.title}
@@ -190,7 +186,7 @@ function UserProfile(props) {
                   locationState = {experience.locationState}
                   description = {experience.description}/>))
                 }
-                <button onClick={editExperience}> Add Experience </button>
+                <Button variant ="outlined" onClick={editExperience}> Add Experience </Button>
                
                 <h2> Skills </h2>
                 <Stack spacing={2} direction="row" alignItems="center" justifyContent="center">
@@ -201,9 +197,7 @@ function UserProfile(props) {
                 <TextField variant="outlined" size="small"> </TextField> <Button variant ="outlined" onClick={addSkill}> Add </Button>
                 
                 <h2> Your Interests <Button variant="text" onClick={editInterests}> Edit </Button> </h2>
-                <p> Job Schedule </p>
-                <p> Cities </p>
-                <p> Roles </p>
+                <InterestDetail jobs={jobInterests} cities={cityInterests} roles={roleInterests}/>
 
             </div>
         </div>
