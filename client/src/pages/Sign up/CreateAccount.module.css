@@ -49,6 +49,11 @@
 }
 
 .Email{
+    position: absolute; 
+    top: 203px; 
+    left: 46px;
+    width: 240px;
+    height: 64px;
     width: 529px;
     height: 64px;
     
@@ -66,6 +71,11 @@
 }
 
 .Password{
+    position: absolute; 
+    top: 311px; 
+    left: 46px;
+    width: 240px;
+    height: 64px;
     width: 529px;
     height: 64px;
     
@@ -83,6 +93,9 @@
 }
 
 .FirstName{
+    position: absolute; 
+    top: 95px; 
+    left: 46px;
     width: 240px;
     height: 64px;
     
@@ -100,6 +113,11 @@
 }
 
 .LastName{
+    position: absolute; 
+    top: 95px; 
+    left: 335px;
+    width: 240px;
+    height: 64px;
     width: 240px;
     height: 64px;
     
@@ -114,26 +132,6 @@
     line-height: 30px;
     padding-left: 23px;
     color: #C4C4C4;
-}
-
-.loginButton{
-    position: absolute;
-    top: 337px;
-    left: 46px;
-    width: 549px;
-    height: 64px;
-
-    background: #76ABDE;
-    border-radius: 12px;
-    border-style: hidden;
-
-    font-family: Poppins;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 30px;
-
-    color: #FFFFFF;
 }
 
 .submit{
@@ -154,6 +152,16 @@
     line-height: 30px;
 
     color: #FFFFFF;
+}
+
+.submit:hover{
+    background: #36abde;
+}
+
+.submit:active{
+    background: #36abde;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
 }
 
 .square{

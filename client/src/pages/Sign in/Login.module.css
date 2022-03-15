@@ -50,6 +50,9 @@
 }
 
 .Email{
+    position: absolute; 
+    top: 122px; 
+    left: 46px;
     width: 529px;
     height: 64px;
     
@@ -67,6 +70,9 @@
 }
 
 .Password{
+    position: absolute;
+    top: 214px; 
+    left: 46px;
     width: 529px;
     height: 64px;
     
@@ -103,24 +109,14 @@
     color: #FFFFFF;
 }
 
-.submit{
-    position: absolute;
-    top: 337px;
-    left: 46px;
-    width: 549px;
-    height: 64px;
+.loginButton:hover{
+    background: #36ABDE;
+}
 
-    background: #76ABDE;
-    border-radius: 12px;
-    border-style: hidden;
-
-    font-family: Poppins;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 30px;
-
-    color: #FFFFFF;
+.loginButton:active{
+    background: #36abde;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
 }
 
 .square{

@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import uuid from 'react-uuid';
 import EduDetail from "../component/EduDetail";
-import ExpDetail from "../component/ExpDetail"
+import ExpDetail from "../component/ExpDetail";
 import SkillTag from "../component/SkillTag";
 import Stack from '@mui/material/Stack';
-import Navigation from './Navigation';
+import Navigation from '../component/Navigation';
 import styles from './UserProfile.module.css'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -130,6 +130,10 @@ function UserProfile(props) {
 
     function editSchools() {
         alert("add school function here");
+    }
+
+    function editExperience() {
+        alert("add experience function here");
     }
 
     function deleteSkill() {
