@@ -1,13 +1,12 @@
 import React, {useState} from "react";
 import uuid from 'react-uuid';
 import EduDetail from "../component/EduDetail";
-import ExpDetail from "../component/ExpDetail"
+import ExpDetail from "../component/ExpDetail";
 import SkillTag from "../component/SkillTag";
 import Stack from '@mui/material/Stack';
 import Navigation from '../component/Navigation';
 import { StylesContext } from "@material-ui/styles";
 import styles from './UserProfile.module.css';
-
 
 
 function UserProfile(props) {
@@ -78,7 +77,9 @@ function UserProfile(props) {
     return  (
         <div>
             <Navigation />
+            
             <div className={styles.contents}>
+
             <h1> Jane Doe </h1>
             <h2> Education Details </h2>
             {
