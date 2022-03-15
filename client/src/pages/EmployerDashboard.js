@@ -49,6 +49,7 @@ function EmployerDashboard(props) {
         <div>
             <Navigation />
             
+            <div style={{position: 'absolute', top: 300, left: 300}}>
             <div className={styles.contents}>
             
             <h1> Interviews </h1>
@@ -64,6 +65,7 @@ function EmployerDashboard(props) {
             }
             <button className={styles.button} onClick={editInterviews}> Edit Interviews </button>
             </div>
+        </div>
         </div>
 
     );
