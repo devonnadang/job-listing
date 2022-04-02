@@ -3,7 +3,7 @@ import Messages from './pages/Messages'
 import Applied from './pages/Applied'
 import Saved from './pages/Saved'
 import Login from './pages/Sign in/Login'
-import UserDashboard from './pages/UserDashboard';
+import UserDashboard from './pages/UserDash/UserDashboard';
 import UserProfile from './pages/UserProfile'
 import CreateAccount from './pages/Sign up/CreateAccount'
 import EmployerDashboard from './pages/EmployerDashboard'

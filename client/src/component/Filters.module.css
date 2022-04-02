@@ -1,0 +1,60 @@
+.search{
+    position: absolute;
+    left: 60px;
+    top: 160px;
+    width: 208px;
+    height: 41px;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 12px;
+}
+
+.type{
+    position: absolute;
+    top: 160px;
+    left: 384px;
+    width: 208px;
+    height: 41px;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 12px;}
+
+.location{
+    position: absolute;
+    top: 160px;
+    left: 663px;
+    width: 208px;
+    height: 41px;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 12px;}
+
+.experience{
+    position: absolute;
+    top: 160px;
+    left: 950px;
+    width: 208px;
+    height: 41px;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 12px;}
+
+.salary{
+    position: absolute;
+    top: 160px;
+    left: 1229px;
+    width: 208px;
+    height: 41px;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 12px;}
+
+.submit{}
+
+.submit:hover{
+
+}
+
+.submit:active{
+
+}
