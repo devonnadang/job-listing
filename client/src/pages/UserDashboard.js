@@ -4,8 +4,8 @@ import Navigation from './Navigation';
 const UserDashboard = () =>{
     return (
         <div>
-            <div><Navigation /></div>
             <label>Dashboard</label>
+           
         </div>);
 }
 

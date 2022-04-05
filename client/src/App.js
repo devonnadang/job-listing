@@ -2,38 +2,73 @@ import React from 'react';
 import Messages from './pages/Messages'
 import Applied from './pages/Applied'
 import Saved from './pages/Saved'
-import Login from './pages/Sign in/Login'
 import UserDashboard from './pages/UserDashboard';
 import UserProfile from './pages/UserProfile'
 import CreateAccount from './pages/Sign up/CreateAccount'
 import EmployerDashboard from './pages/EmployerDashboard'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import Navbar from './component/Navbar';
+import "./App.css"
+import Navigation from './pages/Navigation'
+import Login from './pages/Login'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 
-class App extends React.Component {
-  render() {return (
-    <Router>
-    <div>
-      <Link to="/">Login|</Link>
-      <Link to="/CreateAccount">CreateAccount|</Link>
-      <Switch>
-        <Route path="/Dashboard"><UserDashboard /></Route>
-        <Route path="/UserProf"><UserProfile /></Route>
-        <Route path="/CreateAccount"><CreateAccount /></Route>
-        <Route path="/EmployerDash"><EmployerDashboard /></Route>
-        <Route path="/Messages"><Messages /></Route>
-        <Route path="/Applied"><Applied /></Route>
-        <Route path="/Saved"><Saved /></Route>
-        <Route path="/"><Login /></Route>
-      </Switch>
-    </div>
-    </Router>
-  );}
-}
+const App = () => {
+  //const user = false;
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const getUser = () => {
+    fetch("http://localhost:5000/auth/login/success", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true,
+        },
+    })
+        .then((response) => {
+        if (response.status === 200) return response.json();
+        throw new Error("authentication has been failed!");
+        })
+        .then((resObject) => {
+        setUser(resObject.user);
+        })
+        .catch((err) => {
+        console.log(err);
+        });
+    };
+    getUser();
+}, []);
+
+  //console.log(user)
+  return (
+    <BrowserRouter>
+      <div>
+        <Navbar user = {user}/>
+        <Routes>
+          <Route path="/" element={<Navigation />} />
+          <Route 
+            path="/Login" 
+            element={user ? <Navigate to="/" /> : <Login />} 
+          />
+          <Route path="/UserProfile" element={user ? <UserProfile /> : <Login />} />
+          <Route path="/Navigation" element={<Navigation />} />
+          <Route path="/Applied" element={user ? <Applied /> : <Login />} />
+          <Route path="/Messages" element={user ? <Messages /> : <Login />} />
+          <Route path="/Saved" element={user ? <Saved/> : <Login/>} />
+          <Route path="/CreateAccount" element={user ? <Navigation/> : <CreateAccount/>} />      
+          <Route path="/EmployerDashboard" element={user ? <EmployerDashboard/> : <Login/>} />
+        </Routes>
+      </div>
+    </BrowserRouter>
+  );
+};
 
 export default App;
+/*
+<Route path="/"><Navigation/></Route>
+        <Route path="/Dashboard"><UserDashboard/></Route>
+*/

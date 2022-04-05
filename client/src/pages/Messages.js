@@ -4,8 +4,9 @@ import Navigation from './Navigation';
 const Messages = () =>{
     return (
         <div>
+            Messages
             <Navigation />
-            <label>Messages</label>
+            
         </div>);
 }
 

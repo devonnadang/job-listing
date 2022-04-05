@@ -2,13 +2,27 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import styles from './CreateAccount.module.css';
+import Login from '../Login'
+
+/*
+const CreateAccount  = () => {
+    return(
+        <div className='CreateAccount'>
+            <h1>Create new account</h1>
+        </div>
+    )
+}
+
+export default CreateAccount
+*/
+
 
 
 class CreateAccount extends React.Component{
         render () {return (
         <div>
             <h1 className={styles.pageTitle}>job finder</h1>
-            <h3 className={styles.signInMessage}>Already have an account? <Link to="/">Sign in</Link></h3>
+            <h3 className={styles.signInMessage}>Already have an account? <Link to="/Login">Sign in</Link></h3>
             <div className={styles.square}>
             <h2 className={styles.subTitle}>create an account</h2>
                 <LoginForm />
@@ -66,10 +80,7 @@ class LoginForm extends React.Component{
             this.setState({redirect: true});
     } 
 
-    render(){
-        if (this.state.redirect) {
-            return <Redirect push to="/Dashboard" />;
-        }        
+    render(){     
         return (   
         <form onSubmit={this.handleSubmit}>           
             <div style={{position: 'absolute', top: 95, left: 46}}>
@@ -92,3 +103,5 @@ class LoginForm extends React.Component{
 }
 
 export default CreateAccount
+
+
