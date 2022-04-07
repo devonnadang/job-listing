@@ -14,7 +14,6 @@ import InterestDetail from "../component/InterestDetail";
 
 
 
-
 function UserProfile(props) {
 
     const [schools, setSchools] = useState([
@@ -24,7 +23,8 @@ function UserProfile(props) {
             start: "Aug 2019",
             end: "May 2023",
             major: "Computer Science",
-            gpa: "3.7"
+            gpa: "3.7",
+            isEditing: false
         },
         {
             id: uuid(),
@@ -32,7 +32,8 @@ function UserProfile(props) {
             start: "Aug 2015",
             end: "May 2019",
             major: "",
-            gpa: "3.7"
+            gpa: "3.7",
+            isEditing: false
         }
     ]);
     
@@ -147,8 +148,13 @@ function UserProfile(props) {
         alert("add interest function here");
     }
 
-    function addSkill(){
-        alert("add skill function here");
+    function addSkill(e){
+        e.preventDefault();
+        // const {listSkills} = skills;
+        const newSkill = ({id:uuid(), skill:'test'});
+
+        const newSkillList = [...skills, newSkill];
+        setSkills(newSkillList);
     }
 
     function editEducation() {
@@ -171,13 +177,13 @@ function UserProfile(props) {
                 <h2> Education Details  <Button variant="text" onClick={editEducation}> Edit </Button> </h2> 
                 {
                     schools.map((school) => (<EduDetail 
+                        id={school.id}
                         name={school.name} 
                         start={school.start}
                         end={school.end}
                         major={school.major}
                         gpa={school.gpa}/>))
                 }
-                <Button onClick={editSchools} variant="outlined"> Add School </Button>
                 
                 <h2> Experience Details <Button variant="text" onClick={editExperience}> Edit </Button> </h2>
                 {
@@ -198,7 +204,10 @@ function UserProfile(props) {
                     skills.map((skill) => <SkillTag name={skill.skill} deleteSkill={deleteSkill}/>)
                 }
                 </Stack>
-                <TextField variant="outlined" size="small"> </TextField> <Button variant ="outlined" onClick={addSkill}> Add </Button>
+                <form onSubmit={(e) => addSkill(e)}>
+                    <TextField variant="outlined" size="small"> </TextField> <Button type = "submit" variant ="outlined" onClick={addSkill}> Add </Button>
+                </form>
+               
                 
                 <h2> Your Interests <Button variant="text" onClick={editInterests}> Edit </Button> </h2>
                 <InterestDetail jobs={jobInterests} cities={cityInterests} roles={roleInterests}/>
