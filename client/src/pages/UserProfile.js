@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import uuid from 'react-uuid';
 import EduDetail from "../component/EduDetail";
 import ExpDetail from "../component/ExpDetail";
@@ -16,61 +16,31 @@ import InterestDetail from "../component/InterestDetail";
 
 function UserProfile(props) {
 
-    const [schools, setSchools] = useState([
-        {
-            id: uuid(),
-            name: "San Jose State University",
-            start: "Aug 2019",
-            end: "May 2023",
-            major: "Computer Science",
-            gpa: "3.7",
-            isEditing: false
-        },
-        {
-            id: uuid(),
-            name: "SJ High School",
-            start: "Aug 2015",
-            end: "May 2019",
-            major: "",
-            gpa: "3.7",
-            isEditing: false
-        }
-    ]);
-    
-    const [experiences, setExperience] = useState([
-            {
-                title:"Software Engineer Summer Intern",
-                company:"Amazon",
-                start:"May 2019",
-                end:"Aug 2019",
-                locationCity: "San Francisco",
-                locationState:"CA",
-                description:"-Collaborate with experienced cross-disciplinary Amazonians to conceive, design, and bring to market innovative products and services.",
-    
-            },
-            {
-                title:"Software Developer Intern",
-                company:"Apple",
-                start:"May 2020", 
-                end:"Aug 2020",
-                locationCity:"Cupertino", 
-                locationState:"CA",
-                description:"-Developed 3 projects during duration. -Collaborated in a team of 10",
-    
-            },
-            {
-                title:"Web Developer Intership",
-                company:"Office Depot",
-                start:"May 2021",
-                end:"Aug 2021",
-                locationCity:"San Francisco",
-                locationState:"CA",
-                description:"- Writes unit tests and automated tests to ensure software quality. Writes automated software deployment pipelines.",
+    const userID = 1
 
-        }
-            
-        ]);
+    const [schools, setSchools] = useState([]);
+    
+    useEffect(() => {
+        fetch("/education/" + userID)
+            .then((res) => res.json())
+            .then(resJson => {
+                setSchools(resJson.data);
+            });
+    }, []);
 
+    const [experiences, setExperience] = useState([]);
+
+    
+    useEffect(() => {
+        fetch("/experience/" + userID)
+            .then((res) => res.json())
+            .then(resJson => {
+                setExperience(resJson.data);
+            });
+    }, []);
+    
+
+    
     const [jobInterests, setJobInterests] = useState([
         "Internship", "Part-Time"
     ]);
@@ -97,24 +67,15 @@ function UserProfile(props) {
             setExperience(experiences => [...experiences, newExperience]);
         }
 
-    const [skills, setSkills] = useState([
-        {
-            id: uuid(),
-            skill: "React"
-        },
-        {
-            id: uuid(),
-            skill: "Javascript"
-        },
-        {
-            id: uuid(),
-            skill: "Java"
-        },
-        {
-            id: uuid(),
-            skill: "Github"
-        },
-    ]);
+    const [skills, setSkills] = useState([]);
+
+    useEffect(() => {
+        fetch("/skill/" + userID)
+            .then((res) => res.json())
+            .then(resJson => {
+                setSkills(resJson.data);
+            });
+    }, []);
 
     function addSchool (name, start, end, major, gpa) {
         let newSchool = 
@@ -165,6 +126,16 @@ function UserProfile(props) {
         alert("edit interests function here");
     }
 
+    
+    const [name, setName] = useState([]);
+
+    useEffect(() => {
+        fetch("/profile/" + userID)
+            .then((res) => res.json())
+            .then(resJson => {
+                setName(resJson.data[0]);
+            });
+    }, []); 
 
 
     return  (
@@ -172,15 +143,14 @@ function UserProfile(props) {
             <Navigation />
 
             <div className={styles.main}>
-                <h1> Jane Doe </h1>
+                <h1> {name.first_name} {name.last_name} </h1>
                 <Avatar sx={{width:100, height: 100}}> </Avatar>
                 <h2> Education Details  <Button variant="text" onClick={editEducation}> Edit </Button> </h2> 
                 {
                     schools.map((school) => (<EduDetail 
-                        id={school.id}
-                        name={school.name} 
-                        start={school.start}
-                        end={school.end}
+                        name={school.school_name} 
+                        start={school.start_date}
+                        end={school.end_date}
                         major={school.major}
                         gpa={school.gpa}/>))
                 }
@@ -188,12 +158,12 @@ function UserProfile(props) {
                 <h2> Experience Details <Button variant="text" onClick={editExperience}> Edit </Button> </h2>
                 {
                   experiences.map((experience) => ( <ExpDetail
-                  title={experience.title}
-                  company={experience.company}
-                  start={experience.start}
-                  end = {experience.end}
-                  locationCity={experience.locationCity}
-                  locationState = {experience.locationState}
+                  title={experience.job_title}
+                  company={experience.company_name}
+                  start={experience.start_date}
+                  end = {experience.end_date}
+                  locationCity={experience.job_title}
+                  locationState = {experience.job_title}
                   description = {experience.description}/>))
                 }
                 <Button variant ="outlined" onClick={editExperience}> Add Experience </Button>
@@ -201,7 +171,7 @@ function UserProfile(props) {
                 <h2> Skills </h2>
                 <Stack spacing={2} direction="row" alignItems="center" justifyContent="center">
                 {
-                    skills.map((skill) => <SkillTag name={skill.skill} deleteSkill={deleteSkill}/>)
+                    skills.map((skill) => <SkillTag name={skill.skill_name} deleteSkill={deleteSkill}/>)
                 }
                 </Stack>
                 <form onSubmit={(e) => addSkill(e)}>
