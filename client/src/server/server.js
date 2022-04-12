@@ -89,7 +89,7 @@ app.post("/skill/add", (req, res) => {
 })
 
 app.get("/skill/names", (req, res) => {
-    const query = "SELECT skill_name FROM skill_set"
+    const query = "SELECT skill_name FROM skill_set ORDER BY skill_name"
     con.query(query, (err, result) => {
         res.json({
             data: result

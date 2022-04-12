@@ -198,7 +198,7 @@ function UserProfile(props) {
                 <form onSubmit={addSkill}>
                     <Autocomplete
                         id="combo-box-demo"
-                        freeSolo
+                        
                         options={skillNames.map((option) => option.skill_name)}
                         sx={{ width: 300 }}
                         onChange={(event, value) => setSkillText(value)}
