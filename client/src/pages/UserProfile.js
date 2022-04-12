@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import uuid from 'react-uuid';
 import EduDetail from "../component/EduDetail";
+import AddEdu from "../component/AddEdu";
+import AddExp from "../component/AddExp";
 import ExpDetail from "../component/ExpDetail";
 import SkillTag from "../component/SkillTag";
 import Stack from '@mui/material/Stack';
@@ -78,23 +80,6 @@ function UserProfile(props) {
             });
     }, []);
 
-    function addSchool (name, start, end, major, gpa) {
-        let newSchool = 
-        {
-            id: uuid(),
-            name: name,
-            start: start,
-            end: end,
-            major: major,
-            gpa: gpa
-        }
-        setSchools(schools => [...schools, newSchool]);
-    }
-
-    function editSchools() {
-        alert("add school function here");
-    }
-
     function editExperience() {
         alert("add experience function here");
     }
@@ -150,7 +135,7 @@ function UserProfile(props) {
                         major={school.major}
                         gpa={school.gpa}/>))
                 }
-                <Button onClick={editSchools} variant="outlined"> Add School </Button>
+                <AddEdu />
                 
                 <h2> Experience Details <Button variant="text" onClick={editExperience}> Edit </Button> </h2>
                 {
@@ -163,7 +148,7 @@ function UserProfile(props) {
                   locationState = {experience.job_title}
                   description = {experience.description}/>))
                 }
-                <Button variant ="outlined" onClick={editExperience}> Add Experience </Button>
+               <AddExp />
                
                 <h2> Skills </h2>
                 <Stack spacing={2} direction="row" alignItems="center" justifyContent="center">
