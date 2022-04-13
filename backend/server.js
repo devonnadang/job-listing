@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const dbconfig = require('../config/config.js')
+const dbconfig = require('./config/config.js')
 var mysql = require('mysql');
 
 app.use(express.json())
