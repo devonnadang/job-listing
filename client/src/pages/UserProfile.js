@@ -10,6 +10,7 @@ import Navigation from '../component/Navigation';
 import styles from './UserProfile.module.css'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete'
 import Avatar from '@mui/material/Avatar';
 import InterestDetail from "../component/InterestDetail";
 
@@ -73,7 +74,7 @@ function UserProfile(props) {
     const [skills, setSkills] = useState([]);
 
     useEffect(() => {
-        fetch("/skill/" + userID)
+        fetch("/skill/list/" + userID)
             .then((res) => res.json())
             .then(resJson => {
                 setSkills(resJson.data);
@@ -95,9 +96,32 @@ function UserProfile(props) {
         alert("add interest function here");
     }
 
-    function addSkill(){
-        alert("add skill function here");
+
+    const [skillText, setSkillText] = useState(null);
+
+    const addSkill = (e) => {
+        e.preventDefault()
+        fetch("/skill/add", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                id: userID,
+                skill_name: skillText
+            })
+        }).then(() => setSkills(skills => [...skills, {skill_name: skillText}]))
     }
+
+    const [skillNames, setSkillNames] = useState([])
+
+    
+    useEffect(() => {
+        fetch("/skill/names")
+            .then((res) => res.json())
+            .then(resJson => {
+                setSkillNames(resJson.data);
+            });
+    }, []);
+    
 
     function editEducation() {
         alert("edit education function here");
@@ -156,7 +180,18 @@ function UserProfile(props) {
                     skills.map((skill) => <SkillTag name={skill.skill_name} deleteSkill={deleteSkill}/>)
                 }
                 </Stack>
-                <TextField variant="outlined" size="small"> </TextField> <Button variant ="outlined" onClick={addSkill}> Add </Button>
+                <form onSubmit={addSkill}>
+                    <Autocomplete
+                        id="combo-box-demo"
+                        
+                        options={skillNames.map((option) => option.skill_name)}
+                        sx={{ width: 300 }}
+                        onChange={(event, value) => setSkillText(value)}
+                        renderInput={(params) => <TextField {...params} label="Name" />}
+                    /> 
+                    <Button variant ="outlined" type="submit"> Add </Button>
+                </form>
+                
                 
                 <h2> Your Interests <Button variant="text" onClick={editInterests}> Edit </Button> </h2>
                 <InterestDetail jobs={jobInterests} cities={cityInterests} roles={roleInterests}/>
