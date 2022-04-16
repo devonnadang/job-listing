@@ -183,8 +183,7 @@ function UserProfile(props) {
                   company={experience.company_name}
                   start={experience.start_date}
                   end = {experience.end_date}
-                  locationCity={experience.job_title}
-                  locationState = {experience.job_title}
+                  location={experience.location}
                   description = {experience.description}/>))
                 }
                 <Button variant ="outlined" onClick={editExperience}> Add Experience </Button>
