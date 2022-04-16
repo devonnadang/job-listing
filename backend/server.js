@@ -93,6 +93,7 @@ app.post("/skill/delete", (req, res) => {
     const id = req.body.id
     const skill_name = req.body.skill_name
     const query = "DELETE FROM seeker_skill_set WHERE user_account_id = " + id + " AND skill_name = '" + skill_name + "'"
+    console.log(query)
     con.query(query, (err, result) => {
         if (err) throw err
         res.status(200).send("deleted 1 row from seeker_skill_set")

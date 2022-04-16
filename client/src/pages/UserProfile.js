@@ -100,9 +100,17 @@ function UserProfile(props) {
         alert("add experience function here");
     }
 
-    function deleteSkill() {
-        alert("delete skill function here");
+    function deleteSkill(user_account_id, skill_name) {
+        fetch("/skill/delete", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                id: user_account_id,
+                skill_name: skill_name
+            })
+        }).then(() => setSkills(skills.filter(item => item.skill_name !== skill_name)))
     }
+
     function editExperience() {
         alert("add experience function here");
     }
@@ -123,7 +131,8 @@ function UserProfile(props) {
                 id: userID,
                 skill_name: skillText
             })
-        }).then(() => setSkills(skills => [...skills, {skill_name: skillText}]))
+        }).then(() => setSkills(skills => [...skills, {user_account_id: userID, skill_name: skillText}]))
+            .then(() => setSkillNames(skillNames => [...skillNames, {skill_name: skillText}]))
     }
 
     const [skillNames, setSkillNames] = useState([])
@@ -191,16 +200,17 @@ function UserProfile(props) {
                 <h2> Skills </h2>
                 <Stack spacing={2} direction="row" alignItems="center" justifyContent="center">
                 {
-                    skills.map((skill) => <SkillTag name={skill.skill_name} deleteSkill={deleteSkill}/>)
+                    skills.map((skill) => <SkillTag name={skill.skill_name} id={skill.user_account_id} deleteSkill={deleteSkill}/>)
                 }
                 </Stack>
                 <form onSubmit={addSkill}>
                     <Autocomplete
                         id="combo-box-demo"
-                        
+                        freeSolo
                         options={skillNames.map((option) => option.skill_name)}
                         sx={{ width: 300 }}
                         onChange={(event, value) => setSkillText(value)}
+                        onInputChange={(event, value) => setSkillText(value)}
                         renderInput={(params) => <TextField {...params} label="Name" />}
                     /> 
                     <Button variant ="outlined" type="submit"> Add </Button>
