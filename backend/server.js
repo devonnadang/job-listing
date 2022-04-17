@@ -36,6 +36,24 @@ app.get("/education/:id", (req, res) => {
     })
 })
 
+app.post("/education/add", (req, res) => {
+    const id  = req.body.id
+    const major = req.body.major;
+    const school_name = req.body.school_name;
+    const start_date = req.body.start_date;
+    const end_date = req.body.end_date;
+    const gpa = req.body.gpa;
+
+    query = "INSERT INTO education_detail VALUES (" + id + ", " + major + "," + school_name + "," + start_date + "," + end_date + "," + gpa + ")";
+    con.query(query, function(err, result){
+        if (err) throw err
+        console.log(query)
+        console.log("inserted 1 row into education_detail")
+        res.send("inserted 1 row into education_detail")
+    })
+        
+
+})
 
 app.get("/profile/:id", (req, res) => {
     const id  = req.params.id
@@ -50,7 +68,7 @@ app.get("/profile/:id", (req, res) => {
     })
 })
 
-
+//skills specific to the user
 app.get("/skill/list/:id", (req, res) => {
     const id  = req.params.id
     const query = "SELECT skill_name FROM seeker_skill_set, skill_set WHERE seeker_skill_set.skill_id = skill_set.skill_id AND user_account_id = " + id;
@@ -64,7 +82,7 @@ app.get("/skill/list/:id", (req, res) => {
     })
 })
 
-
+//add new skill to user
 app.post("/skill/add", (req, res) => {
     const id  = req.body.id
     const skill_name = req.body.skill_name
@@ -88,6 +106,7 @@ app.post("/skill/add", (req, res) => {
     })
 })
 
+//list of all the skills, including ones not specific to the user
 app.get("/skill/names", (req, res) => {
     const query = "SELECT skill_name FROM skill_set ORDER BY skill_name"
     con.query(query, (err, result) => {
