@@ -198,22 +198,26 @@ function UserProfile(props) {
                 <Button variant ="outlined" onClick={editExperience}> Add Experience </Button>
                
                 <h2> Skills </h2>
-                <Stack spacing={2} direction="row" alignItems="center" justifyContent="center">
+                <Stack spacing={2} direction="row" alignItems="center">
                 {
                     skills.map((skill) => <SkillTag name={skill.skill_name} id={skill.user_account_id} deleteSkill={deleteSkill}/>)
                 }
                 </Stack>
+                <br></br>
                 <form onSubmit={addSkill}>
-                    <Autocomplete
-                        id="combo-box-demo"
-                        freeSolo
-                        options={skillNames.map((option) => option.skill_name)}
-                        sx={{ width: 300 }}
-                        onChange={(event, value) => setSkillText(value)}
-                        onInputChange={(event, value) => setSkillText(value)}
-                        renderInput={(params) => <TextField {...params} label="Name" />}
-                    /> 
-                    <Button variant ="outlined" type="submit"> Add </Button>
+                    <Stack direction="row">
+                        <Autocomplete
+                            id="combo-box-demo"
+                            freeSolo
+                            options={skillNames.map((option) => option.skill_name)}
+                            sx={{ width: 300 }}
+                            onChange={(event, value) => setSkillText(value)}
+                            onInputChange={(event, value) => setSkillText(value)}
+                            renderInput={(params) => <TextField {...params} label="Name" />}
+                        /> 
+                        <Button variant ="outlined" type="submit"> Add </Button>
+                    </Stack>
+                    
                 </form>
                 
                 
