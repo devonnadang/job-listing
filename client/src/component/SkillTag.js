@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 function SkillTag(props) {
     return (
         <Button size="small" variant="contained" >
-            {props.name} <ClearSharpIcon onClick={() => props.deleteSkill(props.id)}/> <br></br> 
+            {props.name} <ClearSharpIcon onClick={() => props.deleteSkill(props.id, props.name)}/> <br></br> 
         </Button>
     );
 }
