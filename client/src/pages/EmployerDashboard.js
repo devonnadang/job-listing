@@ -13,32 +13,6 @@ import EmployerJobPosting from './EmployerJobPosting.js'
 
 function EmployerDashboard(props) {
 
-const [interviews, setInterviews] = useState([
-        {
-            id: uuid(),
-            name: "Huge Michael",
-            date: "Mar 13, 2022",
-            start: "3:00",
-            end: "4:15",
-            location: "Online",
-            interviewstage: "Interviewing"
-        }
-    ]);
-
-    function update (name, date, start, end, location, interviewstage) {
-        let newInterviews = 
-        {
-            id: uuid(),
-            name: name,
-            date: date,
-            start: start,
-            end: end,
-            location: location,
-            interviewstage: interviewstage
-        }
-        setInterviews(interviews => [...interviews, newInterviews]);
-    }
-
     // function editInterviews() {
     //     alert("add edit interview function here");
     // }

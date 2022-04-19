@@ -9,31 +9,51 @@ import Stack from '@mui/material/Stack';
 import Navigation from '../component/Navigation';
 import { StylesContext } from "@material-ui/styles";
 import styles from './UserProfile.module.css';
+import Button from '@mui/material/Button';
+import EmployerDashboard from "./EmployerDashboard";
+import EmployerDashViewAll from "../component/EmployerDashViewAll";
 
 function EmployerJobPosting(props) {
 
     const [jobinfo, setjobinfo] = useState([
         {
             title: "Front End (UI) Software Engineer Intern - React.js",
-            start: "3:00",
-            end: "4:15",
-            location: "Online",
-            experience: "Passionate developers to architect, design, develop, and test the web application",
+            location: "San Jose",
+            experience: "3 years",
             description:"Delivered “as a service” and is built using cloud-native application technologies, a microservices-style architecture, and is deployed in application containers.",
-        }
+            application: "3",
+            unreadApp: "2",
+            interview: "1",
+        
+         }, 
+         {
+             title: "Software Engineer (Identify Team)",
+             location: "San Francisco",
+             experience: "10+ years",
+             description:"Gain knowledge about how next-generation firewalls inspect network packets",
+             application: "3",
+             unreadApp: "1",
+             interview: "1"
+         }
+        
     ]);
 
-    function update (title, start, end, location, experience, description) {
-        let newJobInfo = 
-        {
-            title: title,
-            start: start,
-            end: end,
-            location: location,
-            experience: experience,
-            description: description,
-        }
-        setjobinfo(joninfo=> [...jobinfo, newJobInfo]);
+    // function update (title, start, end, location, experience, description, application, unreadApp, interview) {
+    //     let newJobInfo = 
+    //     {
+    //         title: title,
+    //         location: location,
+    //         experience: experience,
+    //         description: description,
+    //         application: application,
+    //         unreadApp: unreadApp,
+    //         interview: interview
+    //     }
+    //     setjobinfo(joninfo=> [...jobinfo, newJobInfo]);
+    // }
+
+    function viewAll(name, education, experience){
+        alert("view all details here");
     }
 
     return  (
@@ -47,13 +67,15 @@ function EmployerJobPosting(props) {
             {
                 jobinfo.map((jobinfo) => (<EmployerJob
                     title = {jobinfo.title}
-                    start = {jobinfo.start}
-                    end = {jobinfo.end}
                     location = {jobinfo.location}
                     experience = {jobinfo.experience}
-                    description = {jobinfo.description}/>))       
-            }
-            <button className={styles.button}> Edit Interviews </button>
+                    description = {jobinfo.description}
+                    application = {jobinfo.application}
+                    unreadApp = {jobinfo.unreadApp}
+                    interview = {jobinfo.interview}
+                    />))        
+            } 
+                     
             </div>
         </div>
         </div>
