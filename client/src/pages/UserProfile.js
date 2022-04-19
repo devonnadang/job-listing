@@ -23,7 +23,7 @@ function UserProfile(props) {
     const [schools, setSchools] = useState([]);
     
     useEffect(() => {
-        fetch("/education/" + userID)
+        fetch("/education/list/" + userID)
             .then((res) => res.json())
             .then(resJson => {
                 setSchools(resJson.data);
@@ -34,7 +34,7 @@ function UserProfile(props) {
 
     
     useEffect(() => {
-        fetch("/experience/" + userID)
+        fetch("/experience/list/" + userID)
             .then((res) => res.json())
             .then(resJson => {
                 setExperience(resJson.data);
