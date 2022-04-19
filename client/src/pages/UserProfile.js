@@ -13,6 +13,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete'
 import Avatar from '@mui/material/Avatar';
 import InterestDetail from "../component/InterestDetail";
+import { CallEndTwoTone } from "@material-ui/icons";
 
 
 
@@ -24,6 +25,7 @@ function UserProfile(props) {
 
     const [schools, setSchools] = useState([]);
     
+    //runs once to display schools already in the database
     useEffect(() => {
         fetch("/education/" + userID)
             .then((res) => res.json())
@@ -31,6 +33,32 @@ function UserProfile(props) {
                 setSchools(resJson.data);
             });
     }, []);
+
+
+    function addEdu (schoolName, start, end, major, gpa){
+
+        fetch("/education/add", {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                user_account_id: userID,
+                major: major,
+                school_name : schoolName,
+                start_date: start,
+                end_date: end,
+                gpa: gpa
+            })
+        }).then(() => setSchools(schools => [...schools, 
+            {
+                user_account_id: userID,
+                id: uuid(),
+                major: major,
+                school_name: schoolName,
+                start_date: start,
+                end_date: end,
+                gpa: gpa}]))
+    }
+
 
     const [experiences, setExperience] = useState([]);
 
@@ -71,7 +99,7 @@ function UserProfile(props) {
             setExperience(experiences => [...experiences, newExperience]);
         }
 
-    const [skills, setSkills] = useState([]);
+    const [skills, setSkills] = useState([]); //skills specific to the user
 
     useEffect(() => {
         fetch("/skill/list/" + userID)
@@ -80,10 +108,6 @@ function UserProfile(props) {
                 setSkills(resJson.data);
             });
     }, []);
-
-    function editExperience() {
-        alert("add experience function here");
-    }
 
     function deleteSkill(user_account_id, skill_name) {
         fetch("/skill/delete", {
@@ -105,7 +129,7 @@ function UserProfile(props) {
     }
 
 
-    const [skillText, setSkillText] = useState(null);
+    const [skillText, setSkillText] = useState(null); //the current skill input
 
     const addSkill = (e) => {
         e.preventDefault()
@@ -120,7 +144,7 @@ function UserProfile(props) {
             .then(() => setSkillNames(skillNames => [...skillNames, {skill_name: skillText}]))
     }
 
-    const [skillNames, setSkillNames] = useState([])
+    const [skillNames, setSkillNames] = useState([]); //the skill drop down
 
     
     useEffect(() => {
@@ -161,18 +185,20 @@ function UserProfile(props) {
                 <Avatar sx={{width:100, height: 100}}> </Avatar>
                 <h2> Education Details  <Button variant="text" onClick={editEducation}> Edit </Button> </h2> 
                 {
-                    schools.map((school) => (<EduDetail 
+                    schools.map((school) => (<EduDetail
+                        key={uuid()}
                         name={school.school_name} 
                         start={school.start_date}
                         end={school.end_date}
                         major={school.major}
                         gpa={school.gpa}/>))
                 }
-                <AddEdu />
+                <AddEdu addEdu={addEdu}/>
                 
                 <h2> Experience Details <Button variant="text" onClick={editExperience}> Edit </Button> </h2>
                 {
                   experiences.map((experience) => ( <ExpDetail
+                  key={uuid()}
                   title={experience.job_title}
                   company={experience.company_name}
                   start={experience.start_date}
@@ -185,7 +211,7 @@ function UserProfile(props) {
                 <h2> Skills </h2>
                 <Stack spacing={2} direction="row" alignItems="center" justifyContent="center">
                 {
-                    skills.map((skill) => <SkillTag name={skill.skill_name} id={skill.user_account_id} deleteSkill={deleteSkill}/>)
+                    skills.map((skill) => <SkillTag name={skill.skill_name} id={skill.user_account_id} key={uuid()} deleteSkill={deleteSkill}/>)
                 }
                 </Stack>
                 <form onSubmit={addSkill}>

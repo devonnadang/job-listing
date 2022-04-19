@@ -37,7 +37,7 @@ app.get("/education/:id", (req, res) => {
 })
 
 app.post("/education/add", (req, res) => {
-    const id  = req.body.id
+    const id  = req.body.user_account_id
     const major = req.body.major;
     const school_name = req.body.school_name;
     const start_date = req.body.start_date;
@@ -49,7 +49,7 @@ app.post("/education/add", (req, res) => {
         if (err) throw err
         console.log(query)
         console.log("inserted 1 row into education_detail")
-        res.send("inserted 1 row into education_detail")
+        res.status(200).send("inserted 1 row into education_detail")
     })
         
 

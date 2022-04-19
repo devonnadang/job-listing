@@ -3,36 +3,40 @@ import React, {useEffect, useState}  from "react";
 function AddEdu(props) {
     const [form, setForm] = useState(false);
 
-    function EducationForm(props) {
+    const [schoolName, setName] = useState('');
+    const [start, setStart] = useState('');
+    const [end, setEnd] = useState('');
+    const [major, setMajor] = useState('');
+    const [gpa, setGPA] = useState(0);
 
-        function verify() {
-            verifyGpa();
-        }
-        
-        function verifyGpa(){
-            var gpa = document.getElementById("gpa").value;
-            var ver = parseFloat(gpa);
-            return ver >= 0 && ver <=4;
-        }
-    
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        props.addEdu(schoolName, start, end, major, gpa);
+        console.log(schoolName + start + end + major + gpa);
+    }
+
+    function EducationForm(props) {
         if (!props.formClicked) {
             return null;
         }
     
         return (
             <div>
-                <label> School Name </label>
-                    <input type="text"></input> <br></br><br></br>
-                <label> Start Date </label>
-                   <input type="month"></input>
-                <label> End Date </label>
-                    <input type="month"></input> <br></br><br></br>
-                <label> Major </label>
-                    <input type="text"></input>
-                <label> GPA </label> 
-                    <input type="text" id="gpa"></input> <br></br><br></br>
-                <button onClick={verify}> Add </button>
-                <br></br><br></br>
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor="schoolName"> School Name </label>
+                        <input type="text" id="schoolName" name="schoolName" onChange={(event, value)=>setName(value)}></input> <br></br><br></br>
+                    <label htmlFor="startDate"> Start Date </label>
+                    <input type="month" id="startDate" name="startDate" onChange={(event, value)=>setStart(value)}></input>
+                    <label htmlFor="endDate"> End Date </label>
+                        <input type="month" id="endDate" name="endDate" onChange={(event, value)=>setEnd(value)}></input> <br></br><br></br>
+                    <label htmlFor="major"> Major </label>
+                        <input type="text" id="major" name="major" onChange={(event, value)=>setMajor(value)}></input>
+                    <label htmlFor="gpa"> GPA </label> 
+                        <input type="text" name="gpa" id="gpa"  onChange={(event, value)=>setGPA(value)}></input> <br></br><br></br>
+                    <button type="submit"> Add </button>
+                    <br></br><br></br>
+                </form>
             </div>
         );
     }
