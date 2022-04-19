@@ -101,6 +101,35 @@ app.post("/skill/delete", (req, res) => {
 })
 
 
+app.get("/saved/:id", (req, res) => {
+    const id = req.params.id
+    const query = "SELECT * FROM bookmarks, job_listing WHERE bookmarks.job_listing_id = job_listing.job_listing_id AND user_account_id = " + id
+    con.query(query, (err, result) => {
+        res.json({
+            data: result
+        })
+    })
+})
+
+
+app.get("/company/:id", (req, res) => {
+    const id = req.params.id
+    const query = "SELECT company_name FROM company WHERE company_id = " + id
+    con.query(query, (err, result) => {
+        res.json({
+            data: result
+        })
+    })
+})
+
+app.get("/dashboard", (req, res) => {
+    const query = "SELECT * FROM job_listing"
+    con.query(query, (err, result) => {
+        res.json({
+            data: result
+        })
+    })
+})
 var con = mysql.createConnection(dbconfig);
 
 con.connect(function(err) {
