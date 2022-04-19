@@ -99,6 +99,18 @@ app.get("/skill/names", (req, res) => {
     })
 })
 
+// dashboard
+app.get("/dashboard", (req, res) => {
+    const query = "SELECT * FROM job_listing";
+    con.query(query, function(err, result){
+        if (err) throw err
+        res.json({
+            data: result
+        });
+        console.log(query)
+        console.log(result)
+    })
+})
 
 var con = mysql.createConnection(dbconfig);
 
