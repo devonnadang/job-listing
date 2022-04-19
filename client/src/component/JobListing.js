@@ -19,6 +19,7 @@ function JobListing(props) {
             <p className={styles.JobTitle}> {props.job_title} </p>
             <p> {company.company_name} </p>
             <p> Description: {props.job_description} </p>
+            <p> Experience: {props.job_experience} </p>
             <p> Salary: {props.salary} </p>
             <Stack direction="row" spacing={2}>
                 <Button variant="outlined" onClick={() => {alert("clicked apply")}}>Apply</Button>
