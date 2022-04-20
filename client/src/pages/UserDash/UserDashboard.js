@@ -27,6 +27,7 @@ function UserDashboard() {
                     job_title={job.job_title}
                     company_id={job.company_id}
                     job_description={job.job_description}
+                    job_experience={job.job_experience}
                     salary={job.salary}/>)
                 }
             </div>
