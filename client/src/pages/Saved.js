@@ -15,6 +15,19 @@ function Saved() {
             .then(response => setSavedJobs(response.data))
     }, []);
 
+    function unsaveJob(jobListingID) {
+        fetch("/joblisting/unsave", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                id: userID,
+                jobID: jobListingID
+            })
+        }).then(() => alert("unsave job id = " + jobListingID + " from account id " + userID))
+        .then(() => setSavedJobs(savedJobs.filter(item => item.job_listing_id !== jobListingID)))
+        
+    }
+
     return (
         <div>
             <Navigation />
@@ -22,11 +35,14 @@ function Saved() {
             <div style={{padding:100}}>
             {
                 savedJobs.map((job) => (<JobListing
+                    job_listing_id={job.job_listing_id}
                     job_title={job.job_title}
                     company_id={job.company_id}
                     job_description={job.job_description}
                     job_experience={job.job_experience}
                     salary={job.salary}
+                    save="Unsave"
+                    clickSave={unsaveJob}
                     />))
             }
             </div>

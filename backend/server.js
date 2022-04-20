@@ -58,12 +58,39 @@ app.get("/company/:id", (req, res) => {
     })
 })
 
-app.get("/dashboard", (req, res) => {
+app.get("/joblisting/all", (req, res) => {
     const query = "SELECT * FROM job_listing"
     con.query(query, (err, result) => {
         res.json({
             data: result
         })
+    })
+})
+
+app.post("/joblisting/save", (req, res) => {
+    const userID = req.body.id
+    const jobID = req.body.jobID
+    const query = "INSERT INTO bookmarks VALUES (" + userID + ", " + jobID + ")"
+    con.query(query, function(err, result){
+       if (err) {
+           console.log(err)
+           res.send(err.message)
+       }
+       else {
+           res.send("inserted 1 row into bookmarks")
+       }
+    })
+})
+
+app.post("/joblisting/unsave", (req, res) => {
+    const userID = req.body.id
+    const jobID = req.body.jobID
+    const query = "DELETE FROM bookmarks WHERE user_account_id = " + userID + " AND job_listing_id = " + jobID
+    con.query(query, function(err, result){
+        if (err) throw err
+        console.log(query)
+        console.log("deleted 1 row from bookmarks")
+        res.send("deleted 1 row into bookmarks")
     })
 })
 

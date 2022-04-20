@@ -23,7 +23,7 @@ function JobListing(props) {
             <p> Salary: {props.salary} </p>
             <Stack direction="row" spacing={2}>
                 <Button variant="outlined" onClick={() => {alert("clicked apply")}}>Apply</Button>
-                <Button variant="outlined" onClick={() => {alert('clicked unsave')}}>Save</Button>
+                <Button variant="outlined" onClick={() => {props.clickSave(props.job_listing_id)}}>{props.save}</Button>
             </Stack>
             <br></br>
         </div>
