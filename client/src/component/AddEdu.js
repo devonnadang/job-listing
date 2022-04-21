@@ -1,22 +1,48 @@
 import React, {useEffect, useState}  from "react"; 
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+
+
 
 function AddEdu(props) {
     const [form, setForm] = useState(false);
 
-    const [schoolName, setName] = useState('');
-    const [start, setStart] = useState('');
-    const [end, setEnd] = useState('');
-    const [major, setMajor] = useState('');
-    const [gpa, setGPA] = useState(0);
-
-
-    const handleSubmit = e => {
-        e.preventDefault();
-        props.addEdu(schoolName, start, end, major, gpa);
-        console.log(schoolName + start + end + major + gpa);
-    }
-
     function EducationForm(props) {
+        const [values, setValues] = useState({
+            major: "",
+            school_name: "",
+            start_date: "",
+            end_date: "",
+            gpa: "",
+        });
+    
+        const handleSchoolNameInputChange = (event) => {
+            setValues({...values, school_name: event.target.value});
+        }
+    
+        const handleStartDateInputChange = (event) => {
+            setValues({...values, start_date: event.target.value});
+        }
+    
+        const handleEndDateInputChange = (event) => {
+            setValues({...values, end_date: event.target.value});
+        }
+    
+        const handleMajorInputChange = (event) => {
+            setValues({...values, major: event.target.value});
+        }
+    
+        const handleGpaInputChange = (event) => {
+            setValues({...values, gpa: event.target.value});
+        }
+    
+    
+        const handleSubmit = e => {
+            e.preventDefault();
+         //   props.addEdu(values.school_name, values.start, values.end, values.major, values.gpa);
+            console.log(values.school_name + " " +values.start + " "+ values.end +  " " + values.major +  " " + values.gpa);
+        }
+        
         if (!props.formClicked) {
             return null;
         }
@@ -24,17 +50,63 @@ function AddEdu(props) {
         return (
             <div>
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="schoolName"> School Name </label>
-                        <input type="text" id="schoolName" name="schoolName" onChange={(event, value)=>setName(value)}></input> <br></br><br></br>
-                    <label htmlFor="startDate"> Start Date </label>
-                    <input type="month" id="startDate" name="startDate" onChange={(event, value)=>setStart(value)}></input>
-                    <label htmlFor="endDate"> End Date </label>
-                        <input type="month" id="endDate" name="endDate" onChange={(event, value)=>setEnd(value)}></input> <br></br><br></br>
-                    <label htmlFor="major"> Major </label>
-                        <input type="text" id="major" name="major" onChange={(event, value)=>setMajor(value)}></input>
-                    <label htmlFor="gpa"> GPA </label> 
-                        <input type="text" name="gpa" id="gpa"  onChange={(event, value)=>setGPA(value)}></input> <br></br><br></br>
-                    <button type="submit"> Add </button>
+                        <TextField variant="outlined" 
+                            label="School Name"
+                            type="text" 
+                            id="schoolName" 
+                            name="schoolName" 
+                            size="small"
+                            value={values.school_name}
+                            onChange={handleSchoolNameInputChange} 
+                        />
+                    <br></br><br></br>
+                        <TextField
+                            id="startDate"
+                            label="Start Date"
+                            name="startDate"
+                            type="date"
+                            value={values.start_date}
+                            sx={{ width: 220 }}
+                            InputLabelProps={{
+                            shrink: true,
+                            }}
+                            onChange={handleStartDateInputChange}
+                        />
+                        <TextField
+                            id="endDate"
+                            label="End Date"
+                            name="endDate"
+                            type="date"
+                            value={values.end_date}
+                            sx={{ width: 220 }}
+                            InputLabelProps={{
+                            shrink: true,
+                            }}
+                            onChange={handleEndDateInputChange}
+                        />
+                     <br></br><br></br>
+                        <TextField 
+                            variant="outlined" 
+                            label="Major"
+                            type="text" 
+                            id="major" 
+                            name="major" 
+                            size="small"
+                            value={values.major}
+                            onChange={handleMajorInputChange} 
+                        />
+                        <TextField 
+                            variant="outlined" 
+                            label="GPA"
+                            type="text" 
+                            id="gpa" 
+                            name="gpa" 
+                            size="small"
+                            value={values.gpa}
+                            onChange={handleGpaInputChange} 
+                        /> 
+                    <br></br><br></br>
+                        <Button type="submit" variant="contained"> Add </Button>
                     <br></br><br></br>
                 </form>
             </div>
@@ -44,7 +116,7 @@ function AddEdu(props) {
     return(
         <div>
             <EducationForm formClicked={form} />
-            <button onClick={() => setForm((prevForm => !prevForm))} variant="outlined"> {form ? 'Cancel' : 'Add Education Section'} </button>
+            <Button onClick={() => setForm((prevForm => !prevForm))} variant="outlined"> {form ? 'Cancel' : 'Add Education Section'} </Button>
         </div>
     );
     

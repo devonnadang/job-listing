@@ -1,4 +1,6 @@
 import React, {useEffect, useState}  from "react"; 
+import Button from '@mui/material/Button';
+
 
 function AddExp(props) {
     const [form, setForm] = useState(false);
@@ -23,7 +25,7 @@ function AddExp(props) {
                     <input type="text"></input><br></br><br></br>
                 <label> Description </label><br></br>
                 <textarea name="desc" cols="40" rows="5"></textarea><br></br><br></br>
-                <button> Add </button><br></br><br></br>
+                <Button variant="contained"> Add </Button><br></br><br></br>
             </div>
         );
     }
@@ -32,7 +34,7 @@ function AddExp(props) {
     return(
         <div>
             <ExpForm formClicked={form} />
-            <button onClick={() => setForm((prevForm => !prevForm))} variant="outlined"> {form ? 'Cancel' : 'Add Experience Section'} </button>
+            <Button onClick={() => setForm((prevForm => !prevForm))} variant="outlined"> {form ? 'Cancel' : 'Add Experience Section'} </Button>
         </div>
     );
 }

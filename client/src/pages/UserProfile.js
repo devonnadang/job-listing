@@ -24,40 +24,63 @@ function UserProfile(props) {
     const userID = 1
 
     const [schools, setSchools] = useState([]);
-    
+
+    async function getSchoolData() {
+        let response = await fetch("/education/" + userID);
+
+        console.log(response.staus); //200
+        console.log(response.statusText); //OK
+
+        if (response.status == 200) {
+            const schoolData = await response.json();
+            console.log(schoolData.data);
+            return schoolData.data;
+        } else {
+            console.log("error getting school data");
+        }
+    }
+
+    // useEffect(() => {
+    //     fetch("/education/" + userID)
+    //         .then((res) => res.json())
+    //         .then(resJson => {
+    //             setSchools(resJson.data);
+    //         });
+    // }, []);
+
     //runs once to display schools already in the database
     useEffect(() => {
-        fetch("/education/" + userID)
-            .then((res) => res.json())
-            .then(resJson => {
-                setSchools(resJson.data);
-            });
-    }, []);
-
-
-    function addEdu (schoolName, start, end, major, gpa){
-
-        fetch("/education/add", {
-            method: "POST",
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                user_account_id: userID,
-                major: major,
-                school_name : schoolName,
-                start_date: start,
-                end_date: end,
-                gpa: gpa
+        getSchoolData()
+            .then(result => {
+                setSchools(result);
             })
-        }).then(() => setSchools(schools => [...schools, 
-            {
-                user_account_id: userID,
-                id: uuid(),
-                major: major,
-                school_name: schoolName,
-                start_date: start,
-                end_date: end,
-                gpa: gpa}]))
-    }
+            .catch(() => []);
+    }, [])
+
+
+    // function addEdu (schoolName, start, end, major, gpa){
+
+    //     fetch("/education/add", {
+    //         method: "POST",
+    //         headers: {'Content-Type': 'application/json'},
+    //         body: JSON.stringify({
+    //             user_account_id: userID,
+    //             major: major,
+    //             school_name : schoolName,
+    //             start_date: start,
+    //             end_date: end,
+    //             gpa: gpa
+    //         })
+    //     }).then(() => setSchools(schools => [...schools, 
+    //         {
+    //             user_account_id: userID,
+    //             id: uuid(),
+    //             major: major,
+    //             school_name: schoolName,
+    //             start_date: start,
+    //             end_date: end,
+    //             gpa: gpa}]))
+    // }
 
 
     const [experiences, setExperience] = useState([]);
@@ -68,7 +91,8 @@ function UserProfile(props) {
             .then((res) => res.json())
             .then(resJson => {
                 setExperience(resJson.data);
-            });
+            })
+            .catch(() => []);
     }, []);
     
 
@@ -106,7 +130,8 @@ function UserProfile(props) {
             .then((res) => res.json())
             .then(resJson => {
                 setSkills(resJson.data);
-            });
+            })
+            .catch(() => []);
     }, []);
 
     function deleteSkill(user_account_id, skill_name) {
@@ -184,7 +209,8 @@ function UserProfile(props) {
             .then((res) => res.json())
             .then(resJson => {
                 setName(resJson.data[0]);
-            });
+            })
+            .catch(() => []);
     }, []); 
 
 
@@ -205,7 +231,7 @@ function UserProfile(props) {
                         major={school.major}
                         gpa={school.gpa}/>))
                 }
-                <AddEdu addEdu={addEdu}/>
+                <AddEdu/>
                 
                 <h2> Experience Details <Button variant="text" onClick={editExperience}> Edit </Button> </h2>
                 {
