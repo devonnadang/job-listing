@@ -50,7 +50,7 @@ app.get("/saved/:id", (req, res) => {
 
 app.get("/company/:id", (req, res) => {
     const id = req.params.id
-    const query = "SELECT company_name FROM company WHERE company_id = " + id
+    const query = "SELECT * FROM company WHERE company_id = " + id
     con.query(query, (err, result) => {
         res.json({
             data: result
@@ -91,6 +91,19 @@ app.post("/joblisting/unsave", (req, res) => {
         console.log(query)
         console.log("deleted 1 row from bookmarks")
         res.send("deleted 1 row into bookmarks")
+    })
+})
+
+app.get("/joblisting/tags/:id", (req, res) => {
+    const jobID = req.params.id
+    const query = "SELECT * FROM job_types, type WHERE job_types.type_id = type.type_id AND job_listing_id = " + jobID
+    con.query(query, (err, result) => {
+        if (err){
+            res.send(err.message)
+        }
+        else {
+            res.json(result)
+        }
     })
 })
 

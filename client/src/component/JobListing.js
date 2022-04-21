@@ -2,6 +2,8 @@ import React, {useState, useEffect} from "react";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import styles from './JobListing.module.css';
+import JobTag from './JobTag'
+import Avatar from '@mui/material/Avatar';
 
 
 function JobListing(props) {
@@ -14,16 +16,36 @@ function JobListing(props) {
             .then(response => setCompany(response.data[0]))
     }, []);
 
+    const [jobTags, setJobTags] = useState([])
+
+    useEffect(() => {
+        fetch("joblisting/tags/" + props.job_listing_id)
+        .then((res) => res.json())
+        .then(response => setJobTags(response))
+    }, []);
+
     return (
         <div>
+            <Avatar src={company.company_image_url} sx={{width:50, height: 50}}></Avatar>
             <p className={styles.JobTitle}> {props.job_title} </p>
             <p> {company.company_name} </p>
             <p> Description: {props.job_description} </p>
             <p> Experience: {props.job_experience} </p>
             <p> Salary: {props.salary} </p>
-            <Stack direction="row" spacing={2}>
-                <Button variant="outlined" onClick={() => {alert("clicked apply")}}>Apply</Button>
-                <Button variant="outlined" onClick={() => {props.clickSave(props.job_listing_id)}}>{props.save}</Button>
+            <Stack direction="row" justifyContent="space-between">
+                <Stack direction="row" spacing={1}>
+                    {
+                        jobTags.map((tag) => <JobTag
+                            job_listing_id={tag.job_listing_id}
+                            name={tag.job_type_name}
+                        />)
+                    }
+                </Stack>
+                <br></br>
+                <Stack direction="row" spacing={2} justifyContent="flex-end">
+                    <Button variant="outlined" onClick={() => {alert("clicked apply")}}>Apply</Button>
+                    <Button variant="outlined" onClick={() => {props.clickSave(props.job_listing_id)}}>{props.save}</Button>
+                </Stack>
             </Stack>
             <br></br>
         </div>
