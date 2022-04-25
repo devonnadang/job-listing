@@ -27,7 +27,9 @@ app.get("/education/:id", (req, res) => {
     const id  = req.params.id
     const query = "SELECT * FROM education_detail WHERE user_account_id = " + id;
     con.query(query, function(err, result){
-        if (err) throw err
+        if (err) {
+            return res.sendStatus(500);
+        }
         res.json({
             data: result
         });
@@ -46,7 +48,9 @@ app.post("/education/add", (req, res) => {
 
     query = "INSERT INTO education_detail VALUES (" + id + ", " + major + "," + school_name + "," + start_date + "," + end_date + "," + gpa + ")";
     con.query(query, function(err, result){
-        if (err) throw err
+        if (err) {
+            return res.sendStatus(500);
+        }
         console.log(query)
         console.log("inserted 1 row into education_detail")
         res.status(200).send("inserted 1 row into education_detail")

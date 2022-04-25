@@ -58,29 +58,30 @@ function UserProfile(props) {
     }, [])
 
 
-    // function addEdu (schoolName, start, end, major, gpa){
+    const addEdu = (schoolName, start, end, major, gpa) => {
+        fetch("/education/add", {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                user_account_id: userID,
+                major: major,
+                school_name : schoolName,
+                start_date: start,
+                end_date: end,
+                gpa: gpa
+            })
+        }).then(() => setSchools(schools => [...schools, 
+            {
+                user_account_id: userID,
+                id: uuid(),
+                major: major,
+                school_name: schoolName,
+                start_date: start,
+                end_date: end,
+                gpa: gpa}]))
+    }
 
-    //     fetch("/education/add", {
-    //         method: "POST",
-    //         headers: {'Content-Type': 'application/json'},
-    //         body: JSON.stringify({
-    //             user_account_id: userID,
-    //             major: major,
-    //             school_name : schoolName,
-    //             start_date: start,
-    //             end_date: end,
-    //             gpa: gpa
-    //         })
-    //     }).then(() => setSchools(schools => [...schools, 
-    //         {
-    //             user_account_id: userID,
-    //             id: uuid(),
-    //             major: major,
-    //             school_name: schoolName,
-    //             start_date: start,
-    //             end_date: end,
-    //             gpa: gpa}]))
-    // }
+    
 
 
     const [experiences, setExperience] = useState([]);
@@ -145,17 +146,6 @@ function UserProfile(props) {
         }).then(() => setSkills(skills.filter(item => item.skill_name !== skill_name)))
     }
 
-
-    function deleteSkill(user_account_id, skill_name) {
-        fetch("/skill/delete", {
-            method: "POST",
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                id: user_account_id,
-                skill_name: skill_name
-            })
-        }).then(() => setSkills(skills.filter(item => item.skill_name !== skill_name)))
-    }
 
     function editExperience() {
         alert("add experience function here");
@@ -231,7 +221,7 @@ function UserProfile(props) {
                         major={school.major}
                         gpa={school.gpa}/>))
                 }
-                <AddEdu/>
+                <AddEdu addEdu={addEdu}/>
                 
                 <h2> Experience Details <Button variant="text" onClick={editExperience}> Edit </Button> </h2>
                 {

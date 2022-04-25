@@ -39,8 +39,8 @@ function AddEdu(props) {
     
         const handleSubmit = e => {
             e.preventDefault();
-         //   props.addEdu(values.school_name, values.start, values.end, values.major, values.gpa);
-            console.log(values.school_name + " " +values.start + " "+ values.end +  " " + values.major +  " " + values.gpa);
+            props.addEdu(values.school_name, values.start_date, values.end_date, values.major, values.gpa);
+            console.log(values.school_name + " " +values.start_date + " "+ values.end_date +  " " + values.major +  " " + values.gpa);
         }
         
         if (!props.formClicked) {
@@ -115,7 +115,7 @@ function AddEdu(props) {
     
     return(
         <div>
-            <EducationForm formClicked={form} />
+            <EducationForm formClicked={form} addEdu={props.addEdu}/>
             <Button onClick={() => setForm((prevForm => !prevForm))} variant="outlined"> {form ? 'Cancel' : 'Add Education Section'} </Button>
         </div>
     );
