@@ -1,140 +1,129 @@
 const express = require('express')
 const app = express()
-const dbconfig = require('./config/config.js')
-var mysql = require('mysql');
+
+const con = require("./DBConnection")
+
+const SkillsRoute = require('./routes/SkillsRoute')
+const ExperienceRoute = require('./routes/ExperienceRoute')
+const EducationRoute = require('./routes/EducationRoute')
 
 app.use(express.json())
+app.use("/skill", SkillsRoute)
+app.use("/experience", ExperienceRoute)
+app.use("/education", EducationRoute)
 
 app.get("/", (req, res) => {
     console.log("server called");
     res.send("hello");
 })
 
-app.get("/experience/:id", (req, res) => {
-    const id  = req.params.id
-    const query = "SELECT * FROM experience_detail WHERE user_account_id = " + id;
-    con.query(query, function(err, result) {
-        if (err) throw err
-        res.json({
-            data: result
-        });
-        console.log(query)
-        console.log(result)
-    });
-})
 
-app.get("/education/:id", (req, res) => {
-    const id  = req.params.id
-    const query = "SELECT * FROM education_detail WHERE user_account_id = " + id;
-    con.query(query, function(err, result){
-        if (err) throw err
-        res.json({
-            data: result
-        });
-        console.log(query)
-        console.log(result)
-    })
-})
 
 
 app.get("/profile/:id", (req, res) => {
     const id  = req.params.id
     const query = "SELECT * FROM seeker_profile WHERE user_account_id = " + id;
     con.query(query, function(err, result){
-        if (err) throw err
-        res.json({
-            data: result
-        });
+        if (err) {
+            res.status(500).json({ message: err.message })
+        }
+        else {
+            res.status(200).json({data: result})
+        }
         console.log(query)
         console.log(result)
     })
 })
 
 
-app.get("/skill/list/:id", (req, res) => {
-    const id  = req.params.id
-    const query = "SELECT * FROM seeker_skill_set WHERE user_account_id = " + id;
-    con.query(query, function(err, result){
-        if (err) throw err
-        res.json({
-            data: result
-        });
-        console.log(query)
-        console.log(result)
-    })
-})
 
-
-app.post("/skill/add", (req, res) => {
-    const id  = req.body.id
-    const skill_name = req.body.skill_name
-    query = "INSERT INTO seeker_skill_set VALUES (" + id + ", '" + skill_name + "')"
-    con.query(query, function(err, result){
-        if (err) throw err
-        console.log(query)
-        console.log("inserted 1 row into seeker_skill_set")
-        res.send("inserted 1 row into seeker_skill_set")
-    })
-                
-})
-
-app.get("/skill/names", (req, res) => {
-    const query = "SELECT DISTINCT skill_name FROM seeker_skill_set ORDER BY skill_name"
-    con.query(query, (err, result) => {
-        res.json({
-            data: result
-        })
-        console.log(query)
-        console.log(result)
-    })
-})
-
-app.post("/skill/delete", (req, res) => {
-    const id = req.body.id
-    const skill_name = req.body.skill_name
-    const query = "DELETE FROM seeker_skill_set WHERE user_account_id = " + id + " AND skill_name = '" + skill_name + "'"
-    console.log(query)
-    con.query(query, (err, result) => {
-        if (err) throw err
-        res.status(200).send("deleted 1 row from seeker_skill_set")
-    })
-})
 
 
 app.get("/saved/:id", (req, res) => {
     const id = req.params.id
     const query = "SELECT * FROM bookmarks, job_listing WHERE bookmarks.job_listing_id = job_listing.job_listing_id AND user_account_id = " + id
     con.query(query, (err, result) => {
-        res.json({
-            data: result
-        })
+       if (err) {
+           res.status(500).json({ message: err.message})
+       }
+       else {
+           res.status(200).json({data: result})
+       }
+       console.log(query)
+       console.log(result)
     })
 })
 
 
 app.get("/company/:id", (req, res) => {
     const id = req.params.id
-    const query = "SELECT company_name FROM company WHERE company_id = " + id
+    const query = "SELECT * FROM company WHERE company_id = " + id
     con.query(query, (err, result) => {
-        res.json({
-            data: result
-        })
+        if (err) {
+            res.status(500).json({ message: err.message})
+        }
+        else {
+            res.status(200).json({data: result})
+        }
+        console.log(query)
+        console.log(result)
     })
 })
 
-app.get("/dashboard", (req, res) => {
+app.get("/joblisting/all", (req, res) => {
     const query = "SELECT * FROM job_listing"
     con.query(query, (err, result) => {
-        res.json({
-            data: result
-        })
+        if (err) {
+            res.status(500).json({ message: err.message})
+        }
+        else {
+            res.status(200).json({data: result})
+        }
+        console.log(query)
+        console.log(result)
     })
 })
-var con = mysql.createConnection(dbconfig);
 
-con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-});
+app.post("/joblisting/save", (req, res) => {
+    const userID = req.body.id
+    const jobID = req.body.jobID
+    const query = "INSERT INTO bookmarks VALUES (" + userID + ", " + jobID + ")"
+    con.query(query, function(err, result){
+        if (err) {
+           res.status(500).json({message: err.message})
+        }
+        else {
+           res.status(200).json({message: "inserted 1 row into bookmarks"})
+        }
+    })
+})
+
+app.post("/joblisting/unsave", (req, res) => {
+    const userID = req.body.id
+    const jobID = req.body.jobID
+    const query = "DELETE FROM bookmarks WHERE user_account_id = " + userID + " AND job_listing_id = " + jobID
+    con.query(query, function(err, result){
+        if (err) {
+            res.status(500).json({message: err.message})
+        }
+        else {
+            res.status(200).json({message: "deleted 1 row from bookmarks"})
+        }
+        console.log(query)
+    })
+})
+
+app.get("/joblisting/tags/:id", (req, res) => {
+    const jobID = req.params.id
+    const query = "SELECT * FROM job_types, type WHERE job_types.type_id = type.type_id AND job_listing_id = " + jobID
+    con.query(query, (err, result) => {
+        if (err){
+            res.send(err.message)
+        }
+        else {
+            res.json(result)
+        }
+    })
+})
 
 app.listen(3001)

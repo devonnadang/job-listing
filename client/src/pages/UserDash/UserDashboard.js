@@ -6,13 +6,27 @@ import styles from './UserDash.module.css'
 
 function UserDashboard() {
     
+    const userID = 1;
+
     const [jobListings, setJobListings] = useState([])
 
     useEffect(() => {
-        fetch("/dashboard")
+        fetch("/joblisting/all")
             .then((res) => res.json())
             .then(response => setJobListings(response.data))
     }, [])
+
+
+    function saveJob(jobListingID) {
+        fetch("/joblisting/save", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                id: userID,
+                jobID: jobListingID
+            })
+        }).then(() => alert("save job id = " + jobListingID + " from account id " + userID))
+    }
 
     return (
         <div>
@@ -24,11 +38,14 @@ function UserDashboard() {
                 
                 {
                     jobListings.map((job) => <JobListing
+                    job_listing_id={job.job_listing_id}
                     job_title={job.job_title}
                     company_id={job.company_id}
                     job_description={job.job_description}
                     job_experience={job.job_experience}
-                    salary={job.salary}/>)
+                    salary={job.salary}
+                    save="Save"
+                    clickSave={saveJob}/>)
                 }
             </div>
 
