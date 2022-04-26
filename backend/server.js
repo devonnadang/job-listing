@@ -46,12 +46,12 @@ app.post("/education/add", (req, res) => {
     const end_date = req.body.end_date;
     const gpa = req.body.gpa;
 
-    query = "INSERT INTO education_detail VALUES (" + id + ", " + major + "," + school_name + "," + start_date + "," + end_date + "," + gpa + ")";
+    query = "INSERT INTO education_detail VALUES (" + id + ", '" + major + "','" + school_name + "','" + start_date + "','" + end_date + "'," + gpa + ")";
     con.query(query, function(err, result){
         if (err) {
+            console.log(err);
             return res.sendStatus(500);
         }
-        console.log(query)
         console.log("inserted 1 row into education_detail")
         res.status(200).send("inserted 1 row into education_detail")
     })
