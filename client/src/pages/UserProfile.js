@@ -83,12 +83,11 @@ function UserProfile(props) {
 
     
 
-
     const [experiences, setExperience] = useState([]);
 
     
     useEffect(() => {
-        fetch("/experience/" + userID)
+        fetch("/experience/list/" + userID)
             .then((res) => res.json())
             .then(resJson => {
                 setExperience(resJson.data);
@@ -192,15 +191,15 @@ function UserProfile(props) {
     }
 
     
-    const [name, setName] = useState([]);
+    const [profile, setProfile] = useState([]);
 
     useEffect(() => {
         fetch("/profile/" + userID)
             .then((res) => res.json())
             .then(resJson => {
-                setName(resJson.data[0]);
-            })
-            .catch(() => []);
+                setProfile(resJson.data[0]);
+            });
+
     }, []); 
 
 
@@ -209,8 +208,8 @@ function UserProfile(props) {
             <Navigation />
 
             <div className={styles.main}>
-                <h1> {name.first_name} {name.last_name} </h1>
-                <Avatar sx={{width:100, height: 100}}> </Avatar>
+                <h1> {profile.first_name} {profile.last_name} </h1>
+                <Avatar src={profile.image_url} sx={{width:100, height: 100}}> </Avatar>
                 <h2> Education Details  <Button variant="text" onClick={editEducation}> Edit </Button> </h2> 
                 {
                     schools.map((school) => (<EduDetail
