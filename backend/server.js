@@ -17,9 +17,6 @@ app.get("/", (req, res) => {
     res.send("hello");
 })
 
-
-
-
 app.get("/profile/:id", (req, res) => {
     const id  = req.params.id
     const query = "SELECT * FROM seeker_profile WHERE user_account_id = " + id;
@@ -36,9 +33,6 @@ app.get("/profile/:id", (req, res) => {
 })
 
 
-
-
-
 app.get("/saved/:id", (req, res) => {
     const id = req.params.id
     const query = "SELECT * FROM bookmarks, job_listing WHERE bookmarks.job_listing_id = job_listing.job_listing_id AND user_account_id = " + id
@@ -51,6 +45,7 @@ app.get("/saved/:id", (req, res) => {
        }
        console.log(query)
        console.log(result)
+
     })
 })
 
