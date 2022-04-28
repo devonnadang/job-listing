@@ -26,7 +26,7 @@ function UserProfile(props) {
     const [schools, setSchools] = useState([]);
 
     async function getSchoolData() {
-        let response = await fetch("/education/" + userID);
+        let response = await fetch("/education/list/" + userID);
 
         console.log(response.staus); //200
         console.log(response.statusText); //OK
@@ -40,14 +40,6 @@ function UserProfile(props) {
         }
     }
 
-    // useEffect(() => {
-    //     fetch("/education/" + userID)
-    //         .then((res) => res.json())
-    //         .then(resJson => {
-    //             setSchools(resJson.data);
-    //         });
-    // }, []);
-
     //runs once to display schools already in the database
     useEffect(() => {
         getSchoolData()
@@ -55,7 +47,7 @@ function UserProfile(props) {
                 setSchools(result);
             })
             .catch(() => []);
-    }, [])
+    }, []);
 
 
     const addEdu = (schoolName, start, end, major, gpa) => {
@@ -80,21 +72,59 @@ function UserProfile(props) {
                 end_date: end,
                 gpa: gpa}]))
     }
-
     
 
     const [experiences, setExperience] = useState([]);
 
-    
+    async function getExperienceData() {
+        let response = await fetch("/experience/list/" + userID);
+
+        console.log(response.staus); //200
+        console.log(response.statusText); //OK
+
+        if (response.status == 200) {
+            const experienceData = await response.json();
+            console.log(experienceData.data);
+            return experienceData.data;
+        } else {
+            console.log("error getting school data");
+        }
+    }
+
+    //runs once to display schools already in the database
     useEffect(() => {
-        fetch("/experience/list/" + userID)
-            .then((res) => res.json())
-            .then(resJson => {
-                setExperience(resJson.data);
+        getExperienceData()
+            .then(result => {
+                setExperience(result);
             })
             .catch(() => []);
     }, []);
     
+    const addExp = (jobTitle, start, end, company, description, location) => {
+        fetch("/experience/add", {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                user_account_id: userID,
+                job_title: jobTitle,
+                start_date: start,
+                end_date: end,
+                company_name : company,
+                description: description,
+                location: location
+            })
+        }).then(() => setExperience(experience => [...experiences, 
+            {
+                user_account_id: userID,
+                id: uuid(),
+                job_title: jobTitle,
+                start_date: start,
+                end_date: end,
+                company_name: company,
+                description: description,
+                location: location
+            }]))
+    }
 
     
     const [jobInterests, setJobInterests] = useState([
@@ -233,7 +263,7 @@ function UserProfile(props) {
                   location={experience.location}
                   description = {experience.description}/>))
                 }
-               <AddExp />
+               <AddExp addExp={addExp}/>
                
                 <h2> Skills </h2>
                 <Stack spacing={2} direction="row" alignItems="center">

@@ -17,28 +17,6 @@ app.get("/", (req, res) => {
     res.send("hello");
 })
 
-
-app.post("/education/add", (req, res) => {
-    const id  = req.body.user_account_id
-    const major = req.body.major;
-    const school_name = req.body.school_name;
-    const start_date = req.body.start_date;
-    const end_date = req.body.end_date;
-    const gpa = req.body.gpa;
-
-    query = "INSERT INTO education_detail VALUES (" + id + ", '" + major + "','" + school_name + "','" + start_date + "','" + end_date + "'," + gpa + ")";
-    con.query(query, function(err, result){
-        if (err) {
-            console.log(err);
-            return res.sendStatus(500);
-        }
-        console.log("inserted 1 row into education_detail")
-        res.status(200).send("inserted 1 row into education_detail")
-    })
-        
-
-})
-
 app.get("/profile/:id", (req, res) => {
     const id  = req.params.id
     const query = "SELECT * FROM seeker_profile WHERE user_account_id = " + id;

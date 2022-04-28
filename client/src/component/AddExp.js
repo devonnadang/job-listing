@@ -14,7 +14,8 @@ function AddExp(props) {
             start_date: "",
             end_date: "",
             company_name: "",
-            description: ""
+            description: "",
+            location: ""
         });
 
         const handleJobTitleInputChange = (event) => {
@@ -37,10 +38,14 @@ function AddExp(props) {
             setValues({...values, description: event.target.value});
         }
 
+        const handleLocationInputChange = (event) => {
+            setValues({...values, location: event.target.value});
+        }
+
         const handleSubmit = e => {
             e.preventDefault();
-         //   props.addEdu(values.school_name, values.start, values.end, values.major, values.gpa);
-            console.log(values.job_title + " " +values.start_date + " "+ values.end_date +  " " + values.company_name +  " " + values.description);
+            props.addExp(values.job_title, values.start_date, values.end_date, values.company_name, values.description, values.location);
+            console.log(values.job_title + " " +values.start_date + " "+ values.end_date +  " " + values.company_name +  " " + values.description + " " + values.location);
         }
 
         if (!props.formClicked) {
@@ -96,6 +101,15 @@ function AddExp(props) {
                     />
                     <br></br><br></br>
                     <TextField 
+                        id="location"
+                        label="Location"
+                        name="location"
+                        value={values.location}
+                        onChange={handleLocationInputChange}
+                    />
+                    <br></br><br></br>
+
+                    <TextField 
                         id="description"
                         label="Description"
                         name="description"
@@ -116,7 +130,7 @@ function AddExp(props) {
 
     return(
         <div>
-            <ExpForm formClicked={form} />
+            <ExpForm formClicked={form} addExp={props.addExp}/>
             <Button onClick={() => setForm((prevForm => !prevForm))} variant="outlined"> {form ? 'Cancel' : 'Add Experience Section'} </Button>
         </div>
     );
