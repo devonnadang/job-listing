@@ -24,6 +24,12 @@ function JobListing(props) {
         .then(response => setJobTags(response))
     }, []);
 
+    let applyButton, saveButton;
+    if (props.buttons) {
+        applyButton = <Button variant="outlined" onClick={() => {props.clickApply(props.job_listing_id)}}>Apply</Button>
+        saveButton = <Button variant="outlined" onClick={() => {props.clickSave(props.job_listing_id)}}>{props.save}</Button>
+    }
+
     return (
         <div>
             <Avatar src={company.company_image_url} sx={{width:50, height: 50}}></Avatar>
@@ -43,8 +49,7 @@ function JobListing(props) {
                 </Stack>
                 <br></br>
                 <Stack direction="row" spacing={2} justifyContent="flex-end">
-                    <Button variant="outlined" onClick={() => {alert("clicked apply")}}>Apply</Button>
-                    <Button variant="outlined" onClick={() => {props.clickSave(props.job_listing_id)}}>{props.save}</Button>
+                    {applyButton}{saveButton}
                 </Stack>
             </Stack>
             <br></br>
