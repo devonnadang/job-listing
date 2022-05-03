@@ -46,6 +46,8 @@ function Saved() {
             <div style={{padding:100}}>
             {
                 savedJobs.map((job) => (<JobListing
+                    image_url={job.image_url}
+                    company_name={job.company_name}
                     job_listing_id={job.job_listing_id}
                     job_title={job.job_title}
                     company_id={job.company_id}
