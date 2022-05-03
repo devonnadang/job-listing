@@ -6,12 +6,15 @@ const con = require("./DBConnection")
 const SkillsRoute = require('./routes/SkillsRoute')
 const ExperienceRoute = require('./routes/ExperienceRoute')
 const EducationRoute = require('./routes/EducationRoute')
+const EmployerRoute = require('./routes/EmployerRoute')
 const JobListingRoute = require('./routes/JobListingRoute')
+
 
 app.use(express.json())
 app.use("/skill", SkillsRoute)
 app.use("/experience", ExperienceRoute)
 app.use("/education", EducationRoute)
+app.use("/employer", EmployerRoute)
 app.use("/joblisting", JobListingRoute)
 
 app.get("/", (req, res) => {
