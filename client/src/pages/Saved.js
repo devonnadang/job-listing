@@ -28,6 +28,17 @@ function Saved() {
         
     }
 
+    function applyJob(jobListingID) {
+        fetch("/joblisting/apply", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                id: userID,
+                jobID: jobListingID
+            })
+        }).then(() => alert("apply job id = " + jobListingID + " to account id " + userID))
+    }
+
     return (
         <div>
             <Navigation />
@@ -42,6 +53,8 @@ function Saved() {
                     job_experience={job.job_experience}
                     salary={job.salary}
                     save="Unsave"
+                    buttons={true}
+                    clickApply={applyJob}
                     clickSave={unsaveJob}
                     />))
             }

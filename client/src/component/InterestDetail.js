@@ -6,21 +6,21 @@ function InterestDetail(props) {
             <h3> Job Type </h3>
             {
                 props.jobs.map(job => 
-                    <p> {job} </p>
+                    <p id={job} key={job}> {job} </p>
                 )
             }
 
             <h3> Cities </h3>
             {
                 props.cities.map(city =>
-                    <p> {city} </p>
+                    <p id={city} key={city}> {city} </p>
                 )
             }
 
             <h3> Roles </h3>
             {
                 props.roles.map(role =>
-                    <p> {role} </p>
+                    <p id={role} key={role}> {role} </p>
                 )
             }
             <br></br>

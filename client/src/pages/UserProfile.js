@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import uuid from 'react-uuid';
 import EduDetail from "../component/EduDetail";
+import AddEdu from "../component/AddEdu";
+import AddExp from "../component/AddExp";
 import ExpDetail from "../component/ExpDetail";
 import SkillTag from "../component/SkillTag";
 import Stack from '@mui/material/Stack';
@@ -11,6 +13,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete'
 import Avatar from '@mui/material/Avatar';
 import InterestDetail from "../component/InterestDetail";
+import { CallEndTwoTone } from "@material-ui/icons";
 
 
 
@@ -21,26 +24,107 @@ function UserProfile(props) {
     const userID = 1
 
     const [schools, setSchools] = useState([]);
-    
+
+    async function getSchoolData() {
+        let response = await fetch("/education/list/" + userID);
+
+        console.log(response.staus); //200
+        console.log(response.statusText); //OK
+
+        if (response.status == 200) {
+            const schoolData = await response.json();
+            console.log(schoolData.data);
+            return schoolData.data;
+        } else {
+            console.log("error getting school data");
+        }
+    }
+
+    //runs once to display schools already in the database
     useEffect(() => {
-        fetch("/education/list/" + userID)
-            .then((res) => res.json())
-            .then(resJson => {
-                setSchools(resJson.data);
-            });
+        getSchoolData()
+            .then(result => {
+                setSchools(result);
+            })
+            .catch(() => []);
     }, []);
+
+
+    const addEdu = (schoolName, start, end, major, gpa) => {
+        fetch("/education/add", {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                user_account_id: userID,
+                major: major,
+                school_name : schoolName,
+                start_date: start,
+                end_date: end,
+                gpa: gpa
+            })
+        }).then(() => setSchools(schools => [...schools, 
+            {
+                user_account_id: userID,
+                id: uuid(),
+                major: major,
+                school_name: schoolName,
+                start_date: start,
+                end_date: end,
+                gpa: gpa}]))
+    }
+    
 
     const [experiences, setExperience] = useState([]);
 
-    
+    async function getExperienceData() {
+        let response = await fetch("/experience/list/" + userID);
+
+        console.log(response.staus); //200
+        console.log(response.statusText); //OK
+
+        if (response.status == 200) {
+            const experienceData = await response.json();
+            console.log(experienceData.data);
+            return experienceData.data;
+        } else {
+            console.log("error getting school data");
+        }
+    }
+
+    //runs once to display schools already in the database
     useEffect(() => {
-        fetch("/experience/list/" + userID)
-            .then((res) => res.json())
-            .then(resJson => {
-                setExperience(resJson.data);
-            });
+        getExperienceData()
+            .then(result => {
+                setExperience(result);
+            })
+            .catch(() => []);
     }, []);
     
+    const addExp = (jobTitle, start, end, company, description, location) => {
+        fetch("/experience/add", {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                user_account_id: userID,
+                job_title: jobTitle,
+                start_date: start,
+                end_date: end,
+                company_name : company,
+                description: description,
+                location: location
+            })
+        }).then(() => setExperience(experience => [...experiences, 
+            {
+                user_account_id: userID,
+                id: uuid(),
+                job_title: jobTitle,
+                start_date: start,
+                end_date: end,
+                company_name: company,
+                description: description,
+                location: location
+            }]))
+    }
 
     
     const [jobInterests, setJobInterests] = useState([
@@ -69,36 +153,16 @@ function UserProfile(props) {
             setExperience(experiences => [...experiences, newExperience]);
         }
 
-    const [skills, setSkills] = useState([]);
+    const [skills, setSkills] = useState([]); //skills specific to the user
 
     useEffect(() => {
         fetch("/skill/list/" + userID)
             .then((res) => res.json())
             .then(resJson => {
                 setSkills(resJson.data);
-            });
+            })
+            .catch(() => []);
     }, []);
-
-    function addSchool (name, start, end, major, gpa) {
-        let newSchool = 
-        {
-            id: uuid(),
-            name: name,
-            start: start,
-            end: end,
-            major: major,
-            gpa: gpa
-        }
-        setSchools(schools => [...schools, newSchool]);
-    }
-
-    function editSchools() {
-        alert("add school function here");
-    }
-
-    function editExperience() {
-        alert("add experience function here");
-    }
 
     function deleteSkill(user_account_id, skill_name) {
         fetch("/skill/delete", {
@@ -111,6 +175,7 @@ function UserProfile(props) {
         }).then(() => setSkills(skills.filter(item => item.skill_name !== skill_name)))
     }
 
+
     function editExperience() {
         alert("add experience function here");
     }
@@ -120,7 +185,7 @@ function UserProfile(props) {
     }
 
 
-    const [skillText, setSkillText] = useState(null);
+    const [skillText, setSkillText] = useState(null); //the current skill input
 
     const addSkill = (e) => {
         e.preventDefault()
@@ -135,7 +200,7 @@ function UserProfile(props) {
             .then(() => setSkillNames(skillNames => [...skillNames, {skill_name: skillText}]))
     }
 
-    const [skillNames, setSkillNames] = useState([])
+    const [skillNames, setSkillNames] = useState([]); //the skill drop down
 
     
     useEffect(() => {
@@ -164,6 +229,7 @@ function UserProfile(props) {
             .then(resJson => {
                 setProfile(resJson.data[0]);
             });
+
     }, []); 
 
 
@@ -176,18 +242,20 @@ function UserProfile(props) {
                 <Avatar src={profile.image_url} sx={{width:100, height: 100}}> </Avatar>
                 <h2> Education Details  <Button variant="text" onClick={editEducation}> Edit </Button> </h2> 
                 {
-                    schools.map((school) => (<EduDetail 
+                    schools.map((school) => (<EduDetail
+                        key={uuid()}
                         name={school.school_name} 
                         start={school.start_date}
                         end={school.end_date}
                         major={school.major}
                         gpa={school.gpa}/>))
                 }
-                <Button onClick={editSchools} variant="outlined"> Add School </Button>
+                <AddEdu addEdu={addEdu}/>
                 
                 <h2> Experience Details <Button variant="text" onClick={editExperience}> Edit </Button> </h2>
                 {
                   experiences.map((experience) => ( <ExpDetail
+                  key={uuid()}
                   title={experience.job_title}
                   company={experience.company_name}
                   start={experience.start_date}
@@ -195,12 +263,14 @@ function UserProfile(props) {
                   location={experience.location}
                   description = {experience.description}/>))
                 }
-                <Button variant ="outlined" onClick={editExperience}> Add Experience </Button>
+               <AddExp addExp={addExp}/>
                
                 <h2> Skills </h2>
                 <Stack spacing={2} direction="row" alignItems="center">
                 {
-                    skills.map((skill) => <SkillTag name={skill.skill_name} id={skill.user_account_id} deleteSkill={deleteSkill}/>)
+
+                    skills.map((skill) => <SkillTag name={skill.skill_name} id={skill.user_account_id} key={uuid()} deleteSkill={deleteSkill}/>)
+
                 }
                 </Stack>
                 <br></br>
@@ -217,7 +287,6 @@ function UserProfile(props) {
                         /> 
                         <Button variant ="outlined" type="submit"> Add </Button>
                     </Stack>
-                    
                 </form>
                 
                 
