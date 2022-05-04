@@ -55,9 +55,9 @@ function UserDashboard() {
                     company_name={job.company_name}
                     job_listing_id={job.job_listing_id}
                     job_title={job.job_title}
-                    company_id={job.company_id}
                     job_description={job.job_description}
                     job_experience={job.job_experience}
+                    job_location={job.job_location}
                     salary={job.salary}
                     save="Save"
                     buttons={true}

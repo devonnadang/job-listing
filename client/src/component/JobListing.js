@@ -28,7 +28,7 @@ function JobListing(props) {
         <div>
             <Avatar src={props.image_url} sx={{width:50, height: 50}}></Avatar>
             <p className={styles.JobTitle}> {props.job_title} </p>
-            <p> {props.company_name} </p>
+            <p> {props.company_name}, {props.job_location} </p>
             <p> Description: {props.job_description} </p>
             <p> Experience: {props.job_experience} </p>
             <p> Salary: {props.salary} </p>
