@@ -8,7 +8,7 @@ class CreateAccount extends React.Component{
         render () {return (
         <div>
             <h1 className={styles.pageTitle}>job finder</h1>
-            <h3 className={styles.signInMessage}>Already have an account? <Link to="/" style={{textDecoration: 'none'}}>Sign in</Link></h3>
+            <h3 className={styles.signInMessage}>Already have an account? <Link to="/Login" style={{textDecoration: 'none'}}>Sign in</Link></h3>
             <div className={styles.square}>
             <h2 className={styles.subTitle}>create an account</h2>
                 <LoginForm />

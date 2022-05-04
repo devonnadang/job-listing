@@ -1,4 +1,5 @@
 import React from 'react';
+import Navigation from './component/Navigation'
 import Messages from './pages/Messages'
 import Applied from './pages/Applied'
 import Saved from './pages/Saved'
@@ -7,14 +8,37 @@ import UserDashboard from './pages/UserDash/UserDashboard';
 import UserProfile from './pages/UserProfile'
 import CreateAccount from './pages/Sign up/CreateAccount'
 import EmployerDashboard from './pages/EmployerDashboard'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
+const App = () => {
 
+  //console.log(user)
+  return (
+    <BrowserRouter>
+      <div>
+        <Routes>
+          <Route path="/" element={<Login/>}/>
+          <Route path="/Navigation" element={<Navigation />} />
+          <Route path="/Login" element={<Login/>}/>
+          <Route path="/Dashboard" element={<UserDashboard/>}/>
+
+          <Route path="/UserProf" element={<UserProfile/>}/>
+          <Route path="/CreateAccount" element={<CreateAccount/>}/>
+          <Route path="/EmployerDash" element={<EmployerDashboard/>}/>
+          <Route path="/Messages" element={<Messages/>}/>
+          <Route path="/Applied" element={<Applied/>}/>
+          <Route path="/Saved" element={<Saved/>}/>
+
+          
+          
+        </Routes>
+      </div>
+    </BrowserRouter>
+  );
+};
+
+export default App;
+/*
 class App extends React.Component {
   render() {return (
     <Router>
@@ -37,3 +61,4 @@ class App extends React.Component {
 }
 
 export default App;
+*/
