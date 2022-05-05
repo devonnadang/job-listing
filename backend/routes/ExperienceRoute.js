@@ -37,4 +37,22 @@ router.post("/add", (req, res) => {
     })
 });
 
+router.post("/delete", (req, res) => {
+    const id = req.body.user_account_id;
+    const job_title = req.body.job_title;
+    const company_name = req.body.company_name;
+
+    query = "DELETE FROM experience_detail WHERE user_account_id = " + id + " AND job_title = '" + job_title + "' AND company_name = '" + company_name + "'";
+
+    con.query(query, (err, result) => {
+        if (err) {
+            res.status(500).json({message: err.message})
+        } else {
+            res.status(200).json({message: "deleted 1 row from experience_detail"})
+        }
+
+        console.log(query);
+    })
+})
+
 module.exports = router;

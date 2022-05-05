@@ -9,8 +9,30 @@ function UserDashboard() {
     
     const userID = 1;
 
-    const [jobListings, setJobListings] = useState([])
+    const [jobListings, setJobListings] = useState([]);
+    const [filteredData, setFilteredDate] = useState([]);
 
+    // useEffect(() => {
+    //     fetch("/joblisting/all")
+    //         .then((res) => res.json())
+    //         .then(response => setJobListings(response.data))
+    // }, [])
+
+    async function getJobListings() {
+        let response = await fetch("/joblisting/all");
+        console.log(response.status); //200
+        console.log(response.statusText); //0K
+
+        if (response.status == 200) {
+            const jobListingData = await response.json();
+            console.log(jobListingData);
+            return jobListingData.data;
+        } else {
+            console.log("error getting job listings");
+        }
+    }
+
+    //runs once to display job listings already in the database
     useEffect(() => {
         fetch("/joblisting/all")
             .then((res) => res.json())
@@ -131,7 +153,7 @@ function UserDashboard() {
                 </Stack>
             </div>
             <div style={{padding: 100}}>
-                
+
                 {
                     data.map((job) => <JobListing
                     image_url={job.image_url}
