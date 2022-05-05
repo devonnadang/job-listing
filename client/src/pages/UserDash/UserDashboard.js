@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Filters from '../../component/Filters';
 import Navigation from '../../component/Navigation';
 import JobListing from '../../component/JobListing'
+import { TextField, Slider, Box, Stack } from '@mui/material';
 import styles from './UserDash.module.css'
 
 function UserDashboard() {
@@ -13,7 +14,10 @@ function UserDashboard() {
     useEffect(() => {
         fetch("/joblisting/all")
             .then((res) => res.json())
-            .then(response => setJobListings(response.data))
+            .then(response => {
+                setJobListings(response.data)
+                setData(response.data)
+            })
     }, [])
 
 
@@ -39,18 +43,97 @@ function UserDashboard() {
         }).then(() => alert("apply job id = " + jobListingID + " to account id " + userID))
     }
 
+    const filterDefaults = {
+        search: "",
+        company: "",
+        location: "",
+        salary: 0
+    }
+    const [filters, setFilters] = useState(filterDefaults)
+
+    const [data, setData] = useState([])
+
+    const handleInputChange = (e) => {
+        const {name, value} = e.target;
+        setFilters({
+            ...filters,
+            [name]: value
+        })
+    }
+
+    useEffect(() => {
+        filterData(filters)
+    }, [filters])
+
+    const filterData = (filter) => {
+        const searchLowerCase = filter.search.toLowerCase().trim();
+        const companyLowerCase = filter.company.toLowerCase().trim();
+        const locationLowerCase = filter.location.toLowerCase().trim();
+        const filteredData = jobListings.filter(job => {
+            return (job.job_title.toString().toLowerCase().includes(searchLowerCase)) 
+            && (job.salary >= filter.salary) 
+            && (job.company_name.toString().toLowerCase().includes(companyLowerCase)) 
+            && (job.job_location.toString().toLowerCase().includes(locationLowerCase));
+        })
+        setData(filteredData)
+    }
+
 
 
     return (
         <div>
             <div><Navigation /></div>
-            <div><Filters /></div>
+            
             <label>Dashboard</label>
-            <br></br><br></br><br></br>
+            <br/><br/><br/><br/><br/><br/>
+            <div>
+                <Stack direction="row" justifyContent="space-around">
+                    <Box width={250}>
+                        <TextField
+                            fullWidth
+                            name="search"
+                            label="Search"
+                            value={filters.search}
+                            onChange={handleInputChange}
+                        />
+                    </Box>
+                    <Box width={250}>
+                        <TextField
+                            fullWidth
+                            name="company"
+                            label="Company"
+                            value={filters.company}
+                            onChange={handleInputChange}
+                        />
+                    </Box>
+                    <Box width={250}>
+                        <TextField
+                            fullWidth
+                            name="location"
+                            label="Location"
+                            value={filters.location}
+                            onChange={handleInputChange}
+                        />
+                    </Box>
+                    
+                    <Box width={250}>
+                        Minimum Salary:
+                        <Slider
+                            label="Salary"
+                            name="salary"
+                            step={10000}
+                            min={0}
+                            max={350000}
+                            valueLabelDisplay="auto"
+                            onChange={handleInputChange}
+                        />
+                    </Box>
+                </Stack>
+            </div>
             <div style={{padding: 100}}>
                 
                 {
-                    jobListings.map((job) => <JobListing
+                    data.map((job) => <JobListing
                     image_url={job.image_url}
                     company_name={job.company_name}
                     job_listing_id={job.job_listing_id}
