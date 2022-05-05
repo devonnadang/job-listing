@@ -20,7 +20,9 @@ function Login() {
             if(response.data.message) {
                 setLoginStatus(response.data.message)
             } else {
-                setLoginStatus("Welcome " + response.data[0].FirstName)
+                // accessing id
+                //setLoginStatus("Welcome " + response.data[0].FirstName + "id: " + response.data[0].id_Users)
+                setLoginStatus("Welcome " + response.data[0].FirstName);
             }
         });
     };
