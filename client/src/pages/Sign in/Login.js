@@ -1,69 +1,41 @@
-import React from 'react';
-import { Redirect } from 'react-router';
+import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import styles from './Login.module.css';
+import Axios from 'axios';
+
+function Login() {
+    const [email_login, setEmail] = useState("");
+    const [password_login, setPassword] = useState("");
+
+    const login = () => {
+        Axios.post("http://localhost:3001/login", {
+            email : email_login,
+            password : password_login,
+        }).then((res) => {
+            console.log(res);
+        });
+    };
 
 
-class Login extends React.Component{
-        render () {return (
+    return (
         <div>
-            <h1 className={styles.pageTitle}>job finder</h1>
-            <h3 className={styles.createAccountMessage}>Dont have an account? <Link to="/CreateAccount" style={{textDecoration: 'none'}}>Sign up</Link></h3>
+            <h1 className={styles.pageTitle}>Job Listings</h1>
+            <h3 className={styles.createAccountMessage}>Don't have an account? <Link to="/CreateAccount">Sign Up</Link></h3>
             <div className={styles.square}>
-            <h2 className={styles.subTitle}>Sign In</h2>
-                <LoginForm />
+                <h2 className={styles.subTitle}>Sign In</h2>
+
+               <input className={styles.Email} name='email' type='email' placeholder='Email'
+                    onChange={(e) => {
+                        setEmail(e.target.value);
+                    }}/>
+                <input className={styles.Password} name='password' type='password' placeholder='Password'
+                    onChange={(e) => {
+                        setPassword(e.target.value);
+                    }}/>
+
+                <button onClick={login} className={styles.loginButton} type="submit" >Sign In</button>
             </div>
         </div>);
-        }
-}
-
-class LoginForm extends React.Component{
-    constructor(props){
-        super(props)
-        this.state = {
-            email: '',
-            password: ''};
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleUserInput (e){
-        const name = e.target.name;
-        const value = e.target.value;
-        this.setState({[name]: value});
-    }
-
-    handleSubmit(event){
-        alert("email: " + this.state.email + "\npassword: " + this.state.password);
-        this.setState({redirect: true});
-    } 
-
-    render(){
-        if (this.state.redirect) {
-            return <Redirect push to="/Dashboard" />;
-        }        
-        return (   
-        <form onSubmit={this.handleSubmit}>           
-            <input 
-            className={styles.Email} 
-            name="email"
-            type="email" 
-            value={this.state.field1} 
-            placeholder="Email"
-            onChange={
-                (event) => this.handleUserInput(event)}/>
-            <input 
-            className={styles.Password} 
-            name="password"
-            type="password" 
-            value={this.state.field2} 
-            placeholder="Password"
-            onChange={
-                (event) => this.handleUserInput(event)}/>
-            <button 
-            type="submit" 
-            className={styles.loginButton}>Sign in</button>
-        </form>  );
-    }
 }
 
 export default Login

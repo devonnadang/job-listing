@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const cors = require("cors")
 
 const con = require("./DBConnection")
 
@@ -8,6 +9,43 @@ const ExperienceRoute = require('./routes/ExperienceRoute')
 const EducationRoute = require('./routes/EducationRoute')
 
 app.use(express.json())
+app.use(cors());
+
+//create route to insert registration info
+app.post("/register", (req, res) => {
+    const firstName = req.body.FirstName;
+    const lastName = req.body.LastName; 
+    const email = req.body.email;
+    const password = req.body.password;
+
+    con.query("INSERT INTO job_finder.Users (FirstName, LastName, email, password) VALUES (?,?,?,?)", 
+    [firstName, lastName, email, password], 
+    (err, result) => {
+        console.log(err);
+    });
+})
+
+// create route for validating Login
+app.post("/login", (req, res) =>{
+    const email = req.body.email;
+    const password = req.body.password;
+
+    con.query(
+        "SELECT * FROM job_finder.Users WHERE email = ? AND password = ?", 
+    [email, password], 
+    (err, result) => {
+        if (err) {
+            res.send({ err: err });
+        } 
+
+        if (result.length > 0) {
+            res.send(result);
+        } else {
+             res.send({message: "Wrong email/password"});
+        }
+    });
+});
+
 app.use("/skill", SkillsRoute)
 app.use("/experience", ExperienceRoute)
 app.use("/education", EducationRoute)

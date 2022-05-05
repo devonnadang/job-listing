@@ -8,7 +8,7 @@ import UserDashboard from './pages/UserDash/UserDashboard';
 import UserProfile from './pages/UserProfile'
 import CreateAccount from './pages/Sign up/CreateAccount'
 import EmployerDashboard from './pages/EmployerDashboard'
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 
 const App = () => {
 
