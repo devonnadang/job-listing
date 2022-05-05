@@ -34,8 +34,22 @@ router.post("/add", (req, res) => {
         console.log("inserted 1 row into education_detail")
         res.status(200).send("inserted 1 row into education_detail")
     })
-        
+})
 
+router.post("/delete", (req, res) => {
+    const id = req.body.user_account_id;
+    const major = req.body.major;
+    const school_name = req.body.school_name;
+
+    query = "DELETE FROM education_detail WHERE user_account_id = " + id + " AND major = '" + major + "' AND school_name = '" + school_name + "'";
+    con.query(query, (err, result) => {
+        if (err) {
+            res.status(500).json({message: err.message})
+        } else {
+            res.status(200).json({message: "deleted 1 row from education_detail"})
+        }
+        console.log(query);
+    })
 })
 
 
