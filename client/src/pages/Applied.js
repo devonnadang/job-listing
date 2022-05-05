@@ -21,9 +21,11 @@ const Applied = () =>{
             <div style={{padding: 100}}>
             {
                 appliedJobs.map((job) => (<JobListing
+                    image_url={job.image_url}
+                    company_name={job.company_name}
                     job_listing_id={job.job_listing_id}
                     job_title={job.job_title}
-                    company_id={job.company_id}
+                    job_location={job.job_location}
                     job_description={job.job_description}
                     job_experience={job.job_experience}
                     salary={job.salary}
