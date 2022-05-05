@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import styles from './Login.module.css';
 import Axios from 'axios';
@@ -7,15 +7,34 @@ function Login() {
     const [email_login, setEmail] = useState("");
     const [password_login, setPassword] = useState("");
 
+    const[loginStatus, setLoginStatus] = useState("");
+
+    Axios.defaults.withCredentials = true; // needed for sessions
+
     const login = () => {
         Axios.post("http://localhost:3001/login", {
             email : email_login,
             password : password_login,
-        }).then((res) => {
-            console.log(res);
+        }).then((response) => {
+
+            if(response.data.message) {
+                setLoginStatus(response.data.message)
+            } else {
+                setLoginStatus("Welcome " + response.data[0].FirstName)
+            }
         });
     };
 
+    // whenever we refresh page we check if logged in -> 'get'
+    useEffect(()=> {
+        Axios.get("http://localhost:3001/login").then((response) => {
+            //console.log(response); // console logs user data to front end 
+            if(response.data.loggedIn == true) {
+                setLoginStatus("Welcome " + response.data.user[0].FirstName);
+            }
+            
+        });
+    }, []);
 
     return (
         <div>
@@ -35,6 +54,7 @@ function Login() {
 
                 <button onClick={login} className={styles.loginButton} type="submit" >Sign In</button>
             </div>
+            <h1>{loginStatus}</h1>
         </div>);
 }
 
