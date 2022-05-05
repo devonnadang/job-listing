@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
 
 app.get("/profile/:id", (req, res) => {
     const id  = req.params.id
-    const query = "SELECT * FROM seeker_profile WHERE user_account_id = " + id;
+    const query = "SELECT * FROM user_account WHERE user_account_id = " + id;
     con.query(query, function(err, result){
         if (err) {
             res.status(500).json({ message: err.message })
