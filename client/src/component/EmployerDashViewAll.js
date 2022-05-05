@@ -1,3 +1,5 @@
+import { spacing } from "@mui/system";
+import "./EmployerDash.css"
 import React, {useEffect, useState}  from "react"; 
 
 function EmployerDashViewAll(props){
@@ -11,8 +13,10 @@ function EmployerDashViewAll(props){
         }
 
         return(
+            
             <div>
                 <h3>Applicants</h3><br></br><br></br>
+
                 <table >
                     <tr>
                         <th>Name</th>
@@ -21,9 +25,19 @@ function EmployerDashViewAll(props){
                     </tr>
 
                     <tr>
-                        <td>Jane Doe</td>
-                        <td>San Jose State University</td>
-                        <td>3 years, Java, Python, C++</td>
+                        <td>Alfreds Futterkiste</td>
+                        <td >San Jose State University</td>
+                        <td >Java, Python, C++</td>
+                    </tr>
+                    <tr>
+                        <td>Jane Smith</td>
+                        <td >Santa Clara University</td>
+                        <td >Java, C, Assembley Language</td>
+                    </tr>
+                    <tr>
+                        <td>Haomiao Wang</td>
+                        <td >Stanford University</td>
+                        <td >Python, Java, C++</td>
                     </tr>
 
                 </table>
@@ -36,9 +50,14 @@ function EmployerDashViewAll(props){
                     </tr>
 
                     <tr>
-                        <td>Jane Doe</td>
-                        <td>San Jose State University</td>
-                        <td>3 years, Java, Python, C++</td>
+                        <td>Maria Anders</td>
+                        <td>University of California, Davis</td>
+                        <td>HTML, CSS, JavaScript</td>
+                    </tr>
+                    <tr>
+                        <td>Chuqi Huang</td>
+                        <td>De Anza Community College</td>
+                        <td>SQL, Prolog, JavaScript</td>
                     </tr>
 
                 </table>
@@ -52,7 +71,7 @@ function EmployerDashViewAll(props){
                     </tr>
 
                     <tr>
-                        <td>Jane Doe</td>
+                        <td>Francisco Chang</td>
                         <td>4/16/2022</td>
                         <td>3:00 pm</td>
                         <td>3</td>

@@ -13,13 +13,8 @@ import EmployerJobPosting from './EmployerJobPosting.js'
 
 function EmployerDashboard(props) {
 
-    // function editInterviews() {
-    //     alert("add edit interview function here");
-    // }
 
-    function deleteInterview() {
-        alert("delete interview function here");
-    }
+    
 
     return  (
         <div>

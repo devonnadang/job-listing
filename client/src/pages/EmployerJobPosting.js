@@ -18,7 +18,7 @@ function EmployerJobPosting(props) {
     const [jobinfo, setjobinfo] = useState([
         {
             title: "Front End (UI) Software Engineer Intern - React.js",
-            location: "San Jose",
+            location: "San Jose, CA",
             experience: "3 years",
             description:"Delivered “as a service” and is built using cloud-native application technologies, a microservices-style architecture, and is deployed in application containers.",
             application: "3",
@@ -28,37 +28,51 @@ function EmployerJobPosting(props) {
          }, 
          {
              title: "Software Engineer (Identify Team)",
-             location: "San Francisco",
-             experience: "10+ years",
+             location: "San Francisco, CA",
+             experience: "2 years",
              description:"Gain knowledge about how next-generation firewalls inspect network packets",
              application: "3",
-             unreadApp: "1",
+             unreadApp: "2",
              interview: "1"
+         },
+
+         {
+            title: "AI Python Engineer",
+            location: "Piscataway, NJ",
+            experience: "4 years",
+            description:"Conceptualize the design for AI application/functionality using Python.",
+            application: "3",
+            unreadApp: "2",
+            interview: "1",
+        
+         },
+
+         {
+            title: "Summer Associate - Data Analysis",
+            location: "Houston, TX",
+            experience: "1 year",
+            description:"Garner hands-on experience through relevant projects and assignments",
+            application: "3",
+            unreadApp: "2",
+            interview: "1",
+        
+         },
+
+         {
+            title: "Digital Artist Intern (Remote)",
+            location: "Riverside, CA",
+            experience: "1 year",
+            description:"We are seeking a digital artist interns and volunteers to join our team. You will report directly to the Animation Director. You will be working on animation backgrounds, prop design.",
+            application: "3",
+            unreadApp: "2",
+            interview: "1",
+        
          }
         
     ]);
 
-    // function update (title, start, end, location, experience, description, application, unreadApp, interview) {
-    //     let newJobInfo = 
-    //     {
-    //         title: title,
-    //         location: location,
-    //         experience: experience,
-    //         description: description,
-    //         application: application,
-    //         unreadApp: unreadApp,
-    //         interview: interview
-    //     }
-    //     setjobinfo(joninfo=> [...jobinfo, newJobInfo]);
-    // }
-
-    function viewAll(name, education, experience){
-        alert("view all details here");
-    }
-
     return  (
         <div>
-            <Navigation />
             
             <div style={{position: 'absolute', top: 300, left: 300}}>
             <div className={styles.contents}>
