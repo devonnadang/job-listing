@@ -83,7 +83,6 @@ function UserProfile(props) {
                 school_name: schoolName
             })
         })
-        .then(console.log("print id: " + id +  " major: " + major + " and schoolName: " + schoolName))
         .then(setSchools(schools.filter(school => school.major!=major && school.school_name != schoolName)))
     }
     
@@ -139,6 +138,18 @@ function UserProfile(props) {
                 location: location
             }]))
     }
+    const deleteExp = (id, job_title, company_name) => {
+        fetch("/experience/delete", {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                user_account_id: id,
+                job_title: job_title,
+                company_name: company_name
+            })
+        })
+        .then(setExperience(experiences.filter(experience => experience.job_title!=job_title && experience.company_name!= company_name)))
+    }
 
     
     const [jobInterests, setJobInterests] = useState([
@@ -189,11 +200,6 @@ function UserProfile(props) {
         }).then(() => setSkills(skills.filter(item => item.skill_name !== skill_name)))
     }
 
-
-    function editExperience() {
-        alert("add experience function here");
-    }
-
     function editInterest(){
         alert("add interest function here");
     }
@@ -224,11 +230,7 @@ function UserProfile(props) {
                 setSkillNames(resJson.data);
             });
     }, []);
-    
 
-    function editEducation() {
-        alert("edit education function here");
-    }
 
     function editInterests() {
         alert("edit interests function here");
@@ -254,7 +256,7 @@ function UserProfile(props) {
             <div className={styles.main}>
                 <h1> {profile.first_name} {profile.last_name} </h1>
                 <Avatar src={profile.image_url} sx={{width:100, height: 100}}> </Avatar>
-                <h2> Education Details  <Button variant="text" onClick={editEducation}> Edit </Button> </h2> 
+                <h2> Education Details </h2> 
                 {
                     schools.map((school) => (<EduDetail
                         key={uuid()}
@@ -269,16 +271,18 @@ function UserProfile(props) {
                 }
                 <AddEdu addEdu={addEdu}/>
                 
-                <h2> Experience Details <Button variant="text" onClick={editExperience}> Edit </Button> </h2>
+                <h2> Experience Details </h2>
                 {
                   experiences.map((experience) => ( <ExpDetail
                   key={uuid()}
+                  user_id={userID}
                   title={experience.job_title}
                   company={experience.company_name}
                   start={experience.start_date}
                   end = {experience.end_date}
                   location={experience.location}
-                  description = {experience.description}/>))
+                  description = {experience.description}
+                  deleteExp={deleteExp}/>))
                 }
                <AddExp addExp={addExp}/>
                
