@@ -28,7 +28,7 @@ function UserProfile(props) {
     async function getSchoolData() {
         let response = await fetch("/education/list/" + userID);
 
-        console.log(response.staus); //200
+        console.log(response.status); //200
         console.log(response.statusText); //OK
 
         if (response.status == 200) {
@@ -71,6 +71,20 @@ function UserProfile(props) {
                 start_date: start,
                 end_date: end,
                 gpa: gpa}]))
+    }
+
+    const deleteEdu = (id, major, schoolName) => {
+        fetch("/education/delete", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                user_account_id: id,
+                major: major,
+                school_name: schoolName
+            })
+        })
+        .then(console.log("print id: " + id +  " major: " + major + " and schoolName: " + schoolName))
+        .then(setSchools(schools.filter(school => school.major!=major && school.school_name != schoolName)))
     }
     
 
@@ -244,11 +258,14 @@ function UserProfile(props) {
                 {
                     schools.map((school) => (<EduDetail
                         key={uuid()}
+                        user_id={userID}
                         name={school.school_name} 
                         start={school.start_date}
                         end={school.end_date}
                         major={school.major}
-                        gpa={school.gpa}/>))
+                        gpa={school.gpa}
+                        deleteEdu={deleteEdu}
+                        />))
                 }
                 <AddEdu addEdu={addEdu}/>
                 
