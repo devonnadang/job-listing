@@ -5,7 +5,7 @@ const Messages = () =>{
     return (
         <div>
             <Navigation />
-            <label>Messages</label>
+            {/*<label>Messages</label>*/}
         </div>);
 }
 

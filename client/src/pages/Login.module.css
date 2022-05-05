@@ -1,0 +1,132 @@
+.pageTitle{
+    position: absolute;
+    width: 590px;
+    height: 74px;
+    left: 71px;
+    top: 56px;
+    
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 56px;
+    line-height: 84px;
+    letter-spacing: 0.06em;
+    
+    color: #383F4B;
+}
+
+.subTitle{
+    position: absolute;
+    width: 590px;
+    height: 74px;
+    left: 243px;
+    top: 20px;
+    
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 54px;
+    letter-spacing: 0.06em;
+    
+    color: #383F4B;    
+}
+
+.createAccountMessage{
+    position: absolute;
+    width: 359px;
+    height: 34px;
+    right: 65px;
+    top: 96px;
+    
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+    
+    color: #C4C4C4;    
+}
+
+.Email{
+    position: absolute; 
+    top: 122px; 
+    left: 46px;
+    width: 529px;
+    height: 64px;
+    
+    background: #FFFFFF;
+    border-radius: 12px;
+    border-style: hidden;
+
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 30px;
+    padding-left: 23px;
+    color: #C4C4C4;
+}
+
+.Password{
+    position: absolute;
+    top: 214px; 
+    left: 46px;
+    width: 529px;
+    height: 64px;
+    
+    background: #FFFFFF;
+    border-radius: 12px;
+    border-style: hidden;
+
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 30px;
+    padding-left: 23px;
+    color: #C4C4C4;
+}
+
+.loginButton{
+    position: absolute;
+    top: 337px;
+    left: 46px;
+    width: 549px;
+    height: 64px;
+
+    background: #76ABDE;
+    border-radius: 12px;
+    border-style: hidden;
+
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+
+    color: #FFFFFF;
+}
+
+.loginButton:hover{
+    background: #36ABDE;
+}
+
+.loginButton:active{
+    background: #36abde;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+.square{
+position: absolute;
+width: 642px;
+height: 456px;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -25%);
+z-index: -10;
+
+background: linear-gradient(0deg, #FFFFFF -40.2%, rgba(255, 255, 255, 0) 0%), #DCEEFF;
+border-radius: 37px;
+}
