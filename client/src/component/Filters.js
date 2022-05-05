@@ -79,7 +79,8 @@ class Filters extends React.Component{
                     className={styles.submit}
                     type="submit"
                     name="apply">
-                    Apply</button>
+                    Apply
+                </button>
             </form>
         );
     }
