@@ -28,6 +28,17 @@ function Saved() {
         
     }
 
+    function applyJob(jobListingID) {
+        fetch("/joblisting/apply", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                id: userID,
+                jobID: jobListingID
+            })
+        }).then(() => alert("apply job id = " + jobListingID + " to account id " + userID))
+    }
+
     return (
         <div>
             <Navigation />
@@ -35,13 +46,17 @@ function Saved() {
             <div style={{padding:100}}>
             {
                 savedJobs.map((job) => (<JobListing
+                    image_url={job.image_url}
+                    company_name={job.company_name}
                     job_listing_id={job.job_listing_id}
                     job_title={job.job_title}
-                    company_id={job.company_id}
+                    job_location={job.job_location}
                     job_description={job.job_description}
                     job_experience={job.job_experience}
                     salary={job.salary}
                     save="Unsave"
+                    buttons={true}
+                    clickApply={applyJob}
                     clickSave={unsaveJob}
                     />))
             }

@@ -8,13 +8,7 @@ import Avatar from '@mui/material/Avatar';
 
 function JobListing(props) {
 
-    const [company, setCompany] = useState([])
-
-    useEffect(() => {
-        fetch("/company/" + props.company_id)
-            .then((res) => res.json())
-            .then(response => setCompany(response.data[0]))
-    }, []);
+ 
 
     const [jobTags, setJobTags] = useState([])
 
@@ -24,11 +18,17 @@ function JobListing(props) {
         .then(response => setJobTags(response))
     }, []);
 
+    let applyButton, saveButton;
+    if (props.buttons) {
+        applyButton = <Button variant="outlined" onClick={() => {props.clickApply(props.job_listing_id)}}>Apply</Button>
+        saveButton = <Button variant="outlined" onClick={() => {props.clickSave(props.job_listing_id)}}>{props.save}</Button>
+    }
+
     return (
         <div>
-            <Avatar src={company.company_image_url} sx={{width:50, height: 50}}></Avatar>
+            <Avatar src={props.image_url} sx={{width:50, height: 50}}></Avatar>
             <p className={styles.JobTitle}> {props.job_title} </p>
-            <p> {company.company_name} </p>
+            <p> {props.company_name}, {props.job_location} </p>
             <p> Description: {props.job_description} </p>
             <p> Experience: {props.job_experience} </p>
             <p> Salary: {props.salary} </p>
@@ -43,8 +43,7 @@ function JobListing(props) {
                 </Stack>
                 <br></br>
                 <Stack direction="row" spacing={2} justifyContent="flex-end">
-                    <Button variant="outlined" onClick={() => {alert("clicked apply")}}>Apply</Button>
-                    <Button variant="outlined" onClick={() => {props.clickSave(props.job_listing_id)}}>{props.save}</Button>
+                    {applyButton}{saveButton}
                 </Stack>
             </Stack>
             <br></br>

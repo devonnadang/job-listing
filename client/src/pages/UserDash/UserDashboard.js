@@ -52,6 +52,19 @@ function UserDashboard() {
         }).then(() => alert("save job id = " + jobListingID + " from account id " + userID))
     }
 
+    function applyJob(jobListingID) {
+        fetch("/joblisting/apply", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                id: userID,
+                jobID: jobListingID
+            })
+        }).then(() => alert("apply job id = " + jobListingID + " to account id " + userID))
+    }
+
+
+
     return (
         <div>
             <div><Navigation /></div>
@@ -61,13 +74,17 @@ function UserDashboard() {
             <div style={{padding: 120}}>
                 {
                     jobListings.map((job) => <JobListing
+                    image_url={job.image_url}
+                    company_name={job.company_name}
                     job_listing_id={job.job_listing_id}
                     job_title={job.job_title}
-                    company_id={job.company_id}
                     job_description={job.job_description}
                     job_experience={job.job_experience}
+                    job_location={job.job_location}
                     salary={job.salary}
                     save="Save"
+                    buttons={true}
+                    clickApply={applyJob}
                     clickSave={saveJob}/>)
                 }
             </div>
