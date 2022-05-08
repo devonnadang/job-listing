@@ -18,6 +18,7 @@ function CreateAccount() {
         }).then((res) => {
             console.log(res);
         });
+        console.log("Account Created!\n Sign in")
     };
 
 

@@ -11,14 +11,26 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete'
 import Avatar from '@mui/material/Avatar';
 import InterestDetail from "../component/InterestDetail";
-
-
+import Axios from 'axios';
 
 
 
 function UserProfile(props) {
+    //const [userID, setUserID] = useState();
+   
+    const userID = 1;
 
-    const userID = 1
+    // Axios.get("http://localhost:3001/login").then((response) => {
+    //       if(response.data.loggedIn === true) {
+    //           setUserID(response.data.user[0].user_account_id);
+    //       }});
+    
+
+    //userID is printed to console
+    //console.log("user id: " + userID);
+
+
+   
 
     const [schools, setSchools] = useState([]);
     
@@ -28,7 +40,7 @@ function UserProfile(props) {
             .then(resJson => {
                 setSchools(resJson.data);
             });
-    }, []);
+    }, [userID]);
 
     const [experiences, setExperience] = useState([]);
 
@@ -39,7 +51,7 @@ function UserProfile(props) {
             .then(resJson => {
                 setExperience(resJson.data);
             });
-    }, []);
+    }, [userID]);
     
 
     
@@ -77,7 +89,7 @@ function UserProfile(props) {
             .then(resJson => {
                 setSkills(resJson.data);
             });
-    }, []);
+    }, [userID]);
 
     function addSchool (name, start, end, major, gpa) {
         let newSchool = 
@@ -132,7 +144,7 @@ function UserProfile(props) {
                 skill_name: skillText
             })
         }).then(() => setSkills(skills => [...skills, {user_account_id: userID, skill_name: skillText}]))
-            .then(() => setSkillNames(skillNames => [...skillNames, {skill_name: skillText}]))
+            .then(() => setSkillNames(skillNames => [...skillNames, {skill_name: skillText}, userID]))
     }
 
     const [skillNames, setSkillNames] = useState([])
@@ -164,7 +176,7 @@ function UserProfile(props) {
             .then(resJson => {
                 setProfile(resJson.data[0]);
             });
-    }, []); 
+    }, [userID]); 
 
 
     return  (

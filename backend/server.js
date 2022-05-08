@@ -25,7 +25,7 @@ app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(session({
-    key: "id_Users",
+    key: "user_account_id",
     secret: "CS160-job-listing",
     resave: false, 
     saveUninitialized: false, 
@@ -46,8 +46,8 @@ app.post("/register", (req, res) => {
         if(err) {
             console.log(err)
         }
-        con.query("INSERT INTO job_finder.Users (FirstName, LastName, email, password) VALUES (?,?,?,?)", 
-        [firstName, lastName, email, hash], 
+        con.query("INSERT INTO job_finder.user_account (email, user_type_id, token, first_name, last_name, image_url) VALUES (?,?,?,?,?,?)", 
+        [email, 1, hash, firstName, lastName, null], // note that 1 represents an employee type (default)
         (err, result) => {
             console.log(err);
         });
@@ -57,28 +57,29 @@ app.post("/register", (req, res) => {
 
 // create route for Login persistance app.get
 app.get("/login", (req, res) => {
+    // if user is logged in
     if (req.session.user) {
         res.send({loggedIn: true, user: req.session.user});
     } else {
         res.send({loggedIn: false});
     }
-})
+});
 
 // create route for validating Login
 app.post("/login", (req, res) =>{
     const email = req.body.email;
-    const password = req.body.password;
+    const password = req.body.token; // token comes from login.js - axios.post function
 
     con.query(
-        "SELECT * FROM job_finder.Users WHERE email = ?;", 
+        "SELECT * FROM job_finder.user_account WHERE email = ?;", 
         email, 
         (err, result) => {
             if (err) {
                 res.send({ err: err });
             } 
 
-            if (result.length > 0) {
-                bcrypt.compare(password, result[0].password, (error, response) => {
+            if (result.length > 0) {    // token is the field for password in DB (result[0].token)
+                bcrypt.compare(password, result[0].token, (error, response) => {
                     if(response) {
                         // creating a session called user
                         // contains the result we fetched from database
