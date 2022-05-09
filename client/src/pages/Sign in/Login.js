@@ -1,69 +1,63 @@
-import React from 'react';
-import { Redirect } from 'react-router';
+import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import styles from './Login.module.css';
+import Axios from 'axios';
+import Navigation from "../../component/Navigation";
 
+function Login() {
+    const [email_login, setEmail] = useState("");
+    const [password_login, setPassword] = useState("");
 
-class Login extends React.Component{
-        render () {return (
+    const[loginStatus, setLoginStatus] = useState("");
+
+    Axios.defaults.withCredentials = true; // needed for sessions
+
+    const login = () => {
+        Axios.post("http://localhost:3001/login", {
+            email : email_login,
+            token : password_login,
+        }).then((response) => {
+
+            if(response.data.message) {
+                setLoginStatus(response.data.message);
+            } else {
+                // accessing id
+                //setLoginStatus("Welcome " + response.data[0].first_name + "id: " + response.data[0].user_account_id)
+                setLoginStatus("Welcome " + response.data[0].first_name);
+            }
+        });
+    };
+
+    //whenever we refresh page we check if logged in -> 'get'
+    useEffect(()=> {
+        Axios.get("http://localhost:3001/login").then((response) => {
+            console.log(response); // console logs user data to front end *************
+            if(response.data.loggedIn == true) {
+                setLoginStatus("Welcome " + response.data.user[0].first_name);
+            }
+        });
+    }, []);
+
+    return (
         <div>
-            <h1 className={styles.pageTitle}>job finder</h1>
-            <h3 className={styles.createAccountMessage}>Dont have an account? <Link to="/CreateAccount" style={{textDecoration: 'none'}}>Sign up</Link></h3>
+            <h1 className={styles.pageTitle}>Job Listings</h1>
+            <h3 className={styles.createAccountMessage}>Don't have an account? <Link to="/CreateAccount">Sign Up</Link></h3>
             <div className={styles.square}>
-            <h2 className={styles.subTitle}>Sign In</h2>
-                <LoginForm />
+                <h2 className={styles.subTitle}>Sign In</h2>
+
+               <input className={styles.Email} name='email' type='email' placeholder='Email'
+                    onChange={(e) => {
+                        setEmail(e.target.value);
+                    }}/>
+                <input className={styles.Password} name='password' type='password' placeholder='Password'
+                    onChange={(e) => {
+                        setPassword(e.target.value);
+                    }}/>
+
+                <button onClick={login} className={styles.loginButton} type="submit" >Sign In</button>
             </div>
+            <h1>{loginStatus}</h1>
         </div>);
-        }
-}
-
-class LoginForm extends React.Component{
-    constructor(props){
-        super(props)
-        this.state = {
-            email: '',
-            password: ''};
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleUserInput (e){
-        const name = e.target.name;
-        const value = e.target.value;
-        this.setState({[name]: value});
-    }
-
-    handleSubmit(event){
-        alert("email: " + this.state.email + "\npassword: " + this.state.password);
-        this.setState({redirect: true});
-    } 
-
-    render(){
-        if (this.state.redirect) {
-            return <Redirect push to="/Dashboard" />;
-        }        
-        return (   
-        <form onSubmit={this.handleSubmit}>           
-            <input 
-            className={styles.Email} 
-            name="email"
-            type="email" 
-            value={this.state.field1} 
-            placeholder="Email"
-            onChange={
-                (event) => this.handleUserInput(event)}/>
-            <input 
-            className={styles.Password} 
-            name="password"
-            type="password" 
-            value={this.state.field2} 
-            placeholder="Password"
-            onChange={
-                (event) => this.handleUserInput(event)}/>
-            <button 
-            type="submit" 
-            className={styles.loginButton}>Sign in</button>
-        </form>  );
-    }
 }
 
 export default Login
