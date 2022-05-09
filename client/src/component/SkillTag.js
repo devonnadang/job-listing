@@ -14,7 +14,7 @@ function SkillTag(props) {
     */
    
    return (
-       <Chip color="info" label={props.name} onDelete={() => props.deleteSkill(props.id, props.name)}/>
+       <Chip color="info" label={props.name} onDelete={() => props.deleteSkill(props.name)}/>
    )
    
 }

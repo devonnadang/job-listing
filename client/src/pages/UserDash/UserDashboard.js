@@ -7,10 +7,8 @@ import styles from './UserDash.module.css'
 
 function UserDashboard() {
     
-    const userID = 1;
 
     const [jobListings, setJobListings] = useState([]);
-    const [filteredData, setFilteredDate] = useState([]);
 
     // useEffect(() => {
     //     fetch("/joblisting/all")
@@ -46,23 +44,23 @@ function UserDashboard() {
     function saveJob(jobListingID) {
         fetch("/joblisting/save", {
             method: "POST",
+            credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                id: userID,
                 jobID: jobListingID
             })
-        }).then(() => alert("save job id = " + jobListingID + " from account id " + userID))
+        })
     }
 
     function applyJob(jobListingID) {
         fetch("/joblisting/apply", {
             method: "POST",
+            credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                id: userID,
                 jobID: jobListingID
             })
-        }).then(() => alert("apply job id = " + jobListingID + " to account id " + userID))
+        }).then(() => alert("apply job id = " + jobListingID))
     }
 
     const filterDefaults = {

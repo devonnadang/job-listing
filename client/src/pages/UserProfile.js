@@ -15,7 +15,7 @@ import Avatar from '@mui/material/Avatar';
 import InterestDetail from "../component/InterestDetail";
 import { CallEndTwoTone } from "@material-ui/icons";
 
-    function UserProfile(props) {
+function UserProfile(props) {
 
     // const [userID1, setUserID] = useState();
     // Axios.get("http://localhost:3001/login").then((response, req) => {
@@ -24,12 +24,14 @@ import { CallEndTwoTone } from "@material-ui/icons";
     //       }});
     //console.log("user id: " + userID);//userID is printed to console
 
-    const userID = 1;
 
     const [schools, setSchools] = useState([]);
 
     async function getSchoolData() {
-        let response = await fetch("/education/list/" + userID);
+        let response = await fetch("/education/list", {
+            method: 'GET',
+            credentials: 'include'
+        });
 
         console.log(response.status); //200
         console.log(response.statusText); //OK
@@ -56,9 +58,9 @@ import { CallEndTwoTone } from "@material-ui/icons";
     const addEdu = (schoolName, start, end, major, gpa) => {
         fetch("/education/add", {
             method: "POST",
+            credentials: 'include',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                user_account_id: userID,
                 major: major,
                 school_name : schoolName,
                 start_date: start,
@@ -67,7 +69,6 @@ import { CallEndTwoTone } from "@material-ui/icons";
             })
         }).then(() => setSchools(schools => [...schools, 
             {
-                user_account_id: userID,
                 id: uuid(),
                 major: major,
                 school_name: schoolName,
@@ -76,12 +77,12 @@ import { CallEndTwoTone } from "@material-ui/icons";
                 gpa: gpa}]))
     }
 
-    const deleteEdu = (id, major, schoolName) => {
+    const deleteEdu = (major, schoolName) => {
         fetch("/education/delete", {
             method: "POST",
+            credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                user_account_id: id,
                 major: major,
                 school_name: schoolName
             })
@@ -93,7 +94,10 @@ import { CallEndTwoTone } from "@material-ui/icons";
     const [experiences, setExperience] = useState([]);
 
     async function getExperienceData() {
-        let response = await fetch("/experience/list/" + userID);
+        let response = await fetch("/experience/list" , {
+            method: 'GET',
+            credentials: 'include'
+        });
 
         console.log(response.staus); //200
         console.log(response.statusText); //OK
@@ -119,9 +123,9 @@ import { CallEndTwoTone } from "@material-ui/icons";
     const addExp = (jobTitle, start, end, company, description, location) => {
         fetch("/experience/add", {
             method: "POST",
+            credentials: 'include',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                user_account_id: userID,
                 job_title: jobTitle,
                 start_date: start,
                 end_date: end,
@@ -131,7 +135,6 @@ import { CallEndTwoTone } from "@material-ui/icons";
             })
         }).then(() => setExperience(experience => [...experiences, 
             {
-                user_account_id: userID,
                 id: uuid(),
                 job_title: jobTitle,
                 start_date: start,
@@ -141,12 +144,12 @@ import { CallEndTwoTone } from "@material-ui/icons";
                 location: location
             }]))
     }
-    const deleteExp = (id, job_title, company_name) => {
+    const deleteExp = (job_title, company_name) => {
         fetch("/experience/delete", {
             method: "POST",
+            credentials: 'include',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                user_account_id: id,
                 job_title: job_title,
                 company_name: company_name
             })
@@ -184,7 +187,10 @@ import { CallEndTwoTone } from "@material-ui/icons";
     const [skills, setSkills] = useState([]); //skills specific to the user
 
     useEffect(() => {
-        fetch("/skill/list/" + userID)
+        fetch("/skill/list", {
+            method: 'GET',
+            credentials: 'include'
+        })
             .then((res) => res.json())
             .then(resJson => {
                 setSkills(resJson.data);
@@ -192,12 +198,12 @@ import { CallEndTwoTone } from "@material-ui/icons";
             .catch(() => []);
     }, []);
 
-    function deleteSkill(user_account_id, skill_name) {
+    function deleteSkill(skill_name) {
         fetch("/skill/delete", {
             method: "POST",
+            credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                id: user_account_id,
                 skill_name: skill_name
             })
         }).then(() => setSkills(skills.filter(item => item.skill_name !== skill_name)))
@@ -214,12 +220,12 @@ import { CallEndTwoTone } from "@material-ui/icons";
         e.preventDefault()
         fetch("/skill/add", {
             method: "POST",
+            credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                id: userID,
                 skill_name: skillText
             })
-        }).then(() => setSkills(skills => [...skills, {user_account_id: userID, skill_name: skillText}]))
+        }).then(() => setSkills(skills => [...skills, {skill_name: skillText}]))
             .then(() => setSkillNames(skillNames => [...skillNames, {skill_name: skillText}]))
     }
 
@@ -243,7 +249,10 @@ import { CallEndTwoTone } from "@material-ui/icons";
     const [profile, setProfile] = useState([]);
 
     useEffect(() => {
-        fetch("/profile/" + userID)
+        fetch("/profile", {
+            method: 'GET',
+            credentials: 'include'
+        })
             .then((res) => res.json())
             .then(resJson => {
                 setProfile(resJson.data[0]);
@@ -263,7 +272,6 @@ import { CallEndTwoTone } from "@material-ui/icons";
                 {
                     schools.map((school) => (<EduDetail
                         key={uuid()}
-                        user_id={userID}
                         name={school.school_name} 
                         start={school.start_date}
                         end={school.end_date}
@@ -278,7 +286,6 @@ import { CallEndTwoTone } from "@material-ui/icons";
                 {
                   experiences.map((experience) => ( <ExpDetail
                   key={uuid()}
-                  user_id={userID}
                   title={experience.job_title}
                   company={experience.company_name}
                   start={experience.start_date}

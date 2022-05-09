@@ -6,8 +6,8 @@ function EduDetail(props) {
 
     const handleSubmit = e => {
         e.preventDefault();
-        props.deleteEdu(props.user_id, props.major, props.name);
-        console.log("handle submit delete section " + props.user_id + " " + props.major + " " + props.name);
+        props.deleteEdu(props.major, props.name);
+        console.log("handle submit delete section " + props.major + " " + props.name);
     }
 
     return (

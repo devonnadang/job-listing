@@ -9,7 +9,7 @@ function ExpDetail(props) {
 
     const handleSubmit = e => {
         e.preventDefault();
-        props.deleteExp(props.user_id, props.title, props.company);
+        props.deleteExp(props.title, props.company);
     }
 
     return (

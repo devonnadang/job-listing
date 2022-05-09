@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const con = require('../DBConnection')
 
-router.get("/list/:id", (req, res) => {
-    const id  = req.params.id
+router.get("/list", (req, res) => {
+    const id  = req.session.user[0].user_account_id
     const query = "SELECT * FROM seeker_skill_set WHERE user_account_id = " + id;
     con.query(query, function(err, result){
         if (err) {
@@ -18,7 +18,7 @@ router.get("/list/:id", (req, res) => {
 
 
 router.post("/add", (req, res) => {
-    const id  = req.body.id
+    const id  = req.session.user[0].user_account_id
     const skill_name = req.body.skill_name
     query = "INSERT INTO seeker_skill_set VALUES (" + id + ", '" + skill_name + "')"
     con.query(query, function(err, result){
@@ -47,7 +47,7 @@ router.get("/names", (req, res) => {
 })
 
 router.post("/delete", (req, res) => {
-    const id = req.body.id
+    const id = req.session.user[0].user_account_id
     const skill_name = req.body.skill_name
     const query = "DELETE FROM seeker_skill_set WHERE user_account_id = " + id + " AND skill_name = '" + skill_name + "'"
     con.query(query, (err, result) => {

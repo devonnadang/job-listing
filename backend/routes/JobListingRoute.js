@@ -3,7 +3,7 @@ const router = express.Router();
 const con = require('../DBConnection')
 
 router.post("/save", (req, res) => {
-    const userID = req.body.id
+    const userID = req.session.user[0].user_account_id
     const jobID = req.body.jobID
     const query = "INSERT INTO bookmarks VALUES (" + userID + ", " + jobID + ")"
     con.query(query, function(err, result){
@@ -18,7 +18,7 @@ router.post("/save", (req, res) => {
 })
 
 router.post("/apply", (req, res) => {
-    const userID = req.body.id
+    const userID = req.session.user[0].user_account_id
     const jobID = req.body.jobID
     const query = "INSERT INTO applications VALUES (" + userID + ", " + jobID + ")"
     con.query(query, function(err, result){
@@ -47,7 +47,7 @@ router.get("/all", (req, res) => {
 
 
 router.post("/unsave", (req, res) => {
-    const userID = req.body.id
+    const userID = req.session.user[0].user_account_id
     const jobID = req.body.jobID
     const query = "DELETE FROM bookmarks WHERE user_account_id = " + userID + " AND job_listing_id = " + jobID
     con.query(query, function(err, result){

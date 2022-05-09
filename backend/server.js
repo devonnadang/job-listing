@@ -34,7 +34,7 @@ app.use(session({
     resave: false, 
     saveUninitialized: false, 
     cookie: {
-        expires: 60 * 60 * 24, // expires in 24 hours
+        maxAge: 1000 * 60 * 60 * 24, // expires in 24 hours
     },
 }));
 
@@ -112,8 +112,8 @@ app.get("/", (req, res) => {
     res.send("hello");
 })
 
-app.get("/profile/:id", (req, res) => {
-    const id  = req.params.id
+app.get("/profile", (req, res) => {
+    const id  = req.session.user[0].user_account_id
     const query = "SELECT * FROM user_account WHERE user_account_id = " + id;
     con.query(query, function(err, result){
         if (err) {
@@ -127,8 +127,8 @@ app.get("/profile/:id", (req, res) => {
 })
 
 
-app.get("/saved/:id", (req, res) => {
-    const id = req.params.id
+app.get("/saved", (req, res) => {
+    const id = req.session.user[0].user_account_id
     const query = "SELECT * FROM bookmarks, job_listing WHERE bookmarks.job_listing_id = job_listing.job_listing_id AND user_account_id = " + id
     con.query(query, (err, result) => {
        if (err) {
@@ -141,8 +141,8 @@ app.get("/saved/:id", (req, res) => {
     })
 })
 
-app.get("/applied/:id", (req, res) => {
-    const id = req.params.id
+app.get("/applied", (req, res) => {
+    const id = req.session.user[0].user_account_id
     const query = "SELECT * FROM applications, job_listing WHERE applications.job_listing_id = job_listing.job_listing_id AND user_account_id = " + id
     con.query(query, (err, result) => {
        if (err) {
