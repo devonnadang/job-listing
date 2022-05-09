@@ -7,13 +7,12 @@ router.get("/list/:id", (req, res) => {
     const query = "SELECT * FROM education_detail WHERE user_account_id = " + id;
     con.query(query, function(err, result){
         if (err) {
+            console.log(err)
             res.status(500).json({message: err.message})
         }
         else {
             res.status(200).json({data: result})
         }
-        console.log(query)
-        console.log(result)
     })
 })
 
@@ -44,11 +43,11 @@ router.post("/delete", (req, res) => {
     query = "DELETE FROM education_detail WHERE user_account_id = " + id + " AND major = '" + major + "' AND school_name = '" + school_name + "'";
     con.query(query, (err, result) => {
         if (err) {
+            console.log(err)
             res.status(500).json({message: err.message})
         } else {
             res.status(200).json({message: "deleted 1 row from education_detail"})
         }
-        console.log(query);
     })
 })
 

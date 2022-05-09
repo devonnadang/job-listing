@@ -117,13 +117,12 @@ app.get("/profile/:id", (req, res) => {
     const query = "SELECT * FROM user_account WHERE user_account_id = " + id;
     con.query(query, function(err, result){
         if (err) {
+            console.log(err)
             res.status(500).json({ message: err.message })
         }
         else {
             res.status(200).json({data: result})
         }
-        console.log(query)
-        console.log(result)
     })
 })
 
@@ -133,14 +132,12 @@ app.get("/saved/:id", (req, res) => {
     const query = "SELECT * FROM bookmarks, job_listing WHERE bookmarks.job_listing_id = job_listing.job_listing_id AND user_account_id = " + id
     con.query(query, (err, result) => {
        if (err) {
+            console.log(err)
            res.status(500).json({ message: err.message})
        }
        else {
            res.status(200).json({data: result})
        }
-       console.log(query)
-       console.log(result)
-
     })
 })
 
@@ -149,13 +146,12 @@ app.get("/applied/:id", (req, res) => {
     const query = "SELECT * FROM applications, job_listing WHERE applications.job_listing_id = job_listing.job_listing_id AND user_account_id = " + id
     con.query(query, (err, result) => {
        if (err) {
+            console.log(err)
            res.status(500).json({ message: err.message})
        }
        else {
            res.status(200).json(result)
        }
-       console.log(query)
-       console.log(result)
     })
 })
 
@@ -165,13 +161,12 @@ app.get("/company/:id", (req, res) => {
     const query = "SELECT * FROM company WHERE company_id = " + id
     con.query(query, (err, result) => {
         if (err) {
+            console.log(err)
             res.status(500).json({ message: err.message})
         }
         else {
             res.status(200).json({data: result})
         }
-        console.log(query)
-        console.log(result)
     })
 })
 

@@ -7,13 +7,12 @@ router.get("/list/:id", (req, res) => {
     const query = "SELECT * FROM experience_detail WHERE user_account_id = " + id;
     con.query(query, function(err, result) {
         if (err) {
+            console.log(err)
             res.status(500).json({message: err.message})
         }
         else {
             res.status(200).json({data: result})
         }
-        console.log(query)
-        console.log(result)
     });
 })
 
@@ -46,12 +45,11 @@ router.post("/delete", (req, res) => {
 
     con.query(query, (err, result) => {
         if (err) {
+            console.log(err)
             res.status(500).json({message: err.message})
         } else {
             res.status(200).json({message: "deleted 1 row from experience_detail"})
         }
-
-        console.log(query);
     })
 })
 
