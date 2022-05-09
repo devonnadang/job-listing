@@ -15,13 +15,22 @@ import Avatar from '@mui/material/Avatar';
 import InterestDetail from "../component/InterestDetail";
 import { CallEndTwoTone } from "@material-ui/icons";
 
+import Axios from 'axios';
 
+// Axios.defaults.withCredentials = true;
 
+    function UserProfile(props) {
 
+    // const [userID1, setUserID] = useState();
+    // Axios.get("http://localhost:3001/login").then((response, req) => {
+    //       if(response.data.loggedIn === true) {
+    //           setUserID(response.data.user[0].user_account_id);
+    //       }});
 
-function UserProfile(props) {
+    //userID is printed to console
+    //console.log("user id: " + userID);
 
-    const userID = 1
+    const userID = 6;
 
     const [schools, setSchools] = useState([]);
 
