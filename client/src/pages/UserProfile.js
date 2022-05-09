@@ -15,10 +15,6 @@ import Avatar from '@mui/material/Avatar';
 import InterestDetail from "../component/InterestDetail";
 import { CallEndTwoTone } from "@material-ui/icons";
 
-import Axios from 'axios';
-
-// Axios.defaults.withCredentials = true;
-
     function UserProfile(props) {
 
     // const [userID1, setUserID] = useState();
@@ -26,11 +22,9 @@ import Axios from 'axios';
     //       if(response.data.loggedIn === true) {
     //           setUserID(response.data.user[0].user_account_id);
     //       }});
+    //console.log("user id: " + userID);//userID is printed to console
 
-    //userID is printed to console
-    //console.log("user id: " + userID);
-
-    const userID = 6;
+    const userID = 1;
 
     const [schools, setSchools] = useState([]);
 
