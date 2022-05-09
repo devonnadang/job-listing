@@ -33,15 +33,6 @@ const App = () => {
       });
   }, [user]);
 
-  // const logout = () => {
-  //   setUser(false);
-  // }
-  // useEffect(()=>{
-  //   Axios.get("http://localhost:3001/logout").then((response) =>{
-
-  //   })
-  // })
-   
   return (
     <BrowserRouter>
       <div>
