@@ -17,7 +17,7 @@ const Applied = () =>{
     return (
         <div>
             <Navigation />
-            <label>Applied</label>
+            {/*<label>Applied</label>*/}
             <div style={{padding: 100}}>
             {
                 appliedJobs.map((job) => (<JobListing

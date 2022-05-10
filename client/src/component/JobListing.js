@@ -25,7 +25,8 @@ function JobListing(props) {
     }
 
     return (
-        <div>
+        <div className={styles.padding}>
+        <div className={styles.border}>
             <Avatar src={props.image_url} sx={{width:50, height: 50}}></Avatar>
             <p className={styles.JobTitle}> {props.job_title} </p>
             <p> {props.company_name}, {props.job_location} </p>
@@ -47,6 +48,7 @@ function JobListing(props) {
                 </Stack>
             </Stack>
             <br></br>
+        </div>
         </div>
     );
 }

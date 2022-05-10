@@ -106,7 +106,7 @@ function UserDashboard() {
         <div>
             <div><Navigation /></div>
             
-            <label>Dashboard</label>
+            {/*<label>Dashboard</label>*/}
             <br/><br/><br/><br/><br/><br/>
             <div>
                 <Stack direction="row" justifyContent="space-around">
