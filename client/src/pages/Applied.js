@@ -4,12 +4,14 @@ import JobListing from '../component/JobListing';
 
 const Applied = () =>{
 
-    const userID = 1
 
     const [appliedJobs, setAppliedJobs] = useState([])
 
     useEffect(() => {
-        fetch("/applied/" + userID)
+        fetch("/applied", {
+            method: 'GET',
+            credentials: 'include'
+        })
             .then((res) => res.json())
             .then(response => setAppliedJobs(response))
     }, []);

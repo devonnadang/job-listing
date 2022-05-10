@@ -4,13 +4,14 @@ import JobListing from '../component/JobListing';
 
 function Saved() {
 
-    const userID = 1
-
     const [savedJobs, setSavedJobs] = useState([]);
 
 
     useEffect(() => {
-        fetch("/saved/" + userID)
+        fetch("/saved", {
+            method: 'GET',
+            credentials: 'include'
+        })
             .then((res) => res.json())
             .then(response => setSavedJobs(response.data))
     }, []);
@@ -18,25 +19,24 @@ function Saved() {
     function unsaveJob(jobListingID) {
         fetch("/joblisting/unsave", {
             method: "POST",
+            credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                id: userID,
                 jobID: jobListingID
             })
-        }).then(() => alert("unsave job id = " + jobListingID + " from account id " + userID))
-        .then(() => setSavedJobs(savedJobs.filter(item => item.job_listing_id !== jobListingID)))
+        }).then(() => setSavedJobs(savedJobs.filter(item => item.job_listing_id !== jobListingID)))
         
     }
 
     function applyJob(jobListingID) {
         fetch("/joblisting/apply", {
             method: "POST",
+            credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                id: userID,
                 jobID: jobListingID
             })
-        }).then(() => alert("apply job id = " + jobListingID + " to account id " + userID))
+        }).then(() => alert("apply job id = " + jobListingID ))
     }
 
     return (

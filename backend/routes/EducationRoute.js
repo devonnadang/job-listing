@@ -2,23 +2,22 @@ const express = require('express');
 const router = express.Router();
 const con = require('../DBConnection')
 
-router.get("/list/:id", (req, res) => {
-    const id  = req.params.id
+router.get("/list", (req, res) => {
+    const id  = req.session.user[0].user_account_id
     const query = "SELECT * FROM education_detail WHERE user_account_id = " + id;
     con.query(query, function(err, result){
         if (err) {
+            console.log(err)
             res.status(500).json({message: err.message})
         }
         else {
             res.status(200).json({data: result})
         }
-        console.log(query)
-        console.log(result)
     })
 })
 
 router.post("/add", (req, res) => {
-    const id  = req.body.user_account_id;
+    const id  = req.session.user[0].user_account_id
     const major = req.body.major;
     const school_name = req.body.school_name;
     const start_date = req.body.start_date;
@@ -37,18 +36,18 @@ router.post("/add", (req, res) => {
 })
 
 router.post("/delete", (req, res) => {
-    const id = req.body.user_account_id;
+    const id = req.session.user[0].user_account_id
     const major = req.body.major;
     const school_name = req.body.school_name;
 
     query = "DELETE FROM education_detail WHERE user_account_id = " + id + " AND major = '" + major + "' AND school_name = '" + school_name + "'";
     con.query(query, (err, result) => {
         if (err) {
+            console.log(err)
             res.status(500).json({message: err.message})
         } else {
             res.status(200).json({message: "deleted 1 row from education_detail"})
         }
-        console.log(query);
     })
 })
 
