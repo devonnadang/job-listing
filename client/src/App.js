@@ -69,8 +69,8 @@ class App extends React.Component {
   render() {return (
     <Router>
     <div>
-      <Link to="/">Login|</Link>
-      <Link to="/CreateAccount">CreateAccount|</Link>
+      {/*<Link to="/">Login|</Link>
+      <Link to="/CreateAccount">CreateAccount|</Link>*/}
       <Switch>
         <Route path="/Dashboard"><UserDashboard /></Route>
         <Route path="/UserProf"><UserProfile /></Route>

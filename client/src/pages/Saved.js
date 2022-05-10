@@ -42,7 +42,7 @@ function Saved() {
     return (
         <div>
             <Navigation />
-            <label>Saved</label>
+            {/*<label>Saved</label>*/}
             <div style={{padding:100}}>
             {
                 savedJobs.map((job) => (<JobListing
