@@ -38,9 +38,6 @@ const App = () => {
       <div>
         <h1>{Login.loginStatus}</h1>
         <Link to ="/Login">Login|</Link>
-        {/* <div className='logoutButton' onClick={logout}>
-          <Link to ="/Login">Logout</Link>
-        </div> */}
         
         <Link to="/CreateAccount">CreateAccount</Link>
         <Routes>
@@ -64,24 +61,3 @@ const App = () => {
 };
 
 export default App;
-/*
-class App extends React.Component {
-  render() {return (
-    <Router>
-    <div>
-      {/*<Link to="/">Login|</Link>
-      <Link to="/CreateAccount">CreateAccount|</Link>*/}
-      <Switch>
-        <Route path="/Dashboard"><UserDashboard /></Route>
-        <Route path="/UserProf"><UserProfile /></Route>
-        <Route path="/CreateAccount"><CreateAccount /></Route>
-        <Route path="/EmployerDash"><EmployerDashboard /></Route>
-        <Route path="/Messages"><Messages /></Route>
-        <Route path="/Applied"><Applied /></Route>
-        <Route path="/Saved"><Saved /></Route>
-        <Route path="/"><Login /></Route>
-      </Switch>
-    </div>
-    </Router>
-  );}
-} */
