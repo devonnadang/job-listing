@@ -10,7 +10,7 @@ class Navigation extends React.Component{
             <div className={styles.navGroup}>
             <label className={styles.title}>job finder</label>
                 <Link className={styles.dashLink} to="/Dashboard">Jobs</Link>
-                <Link className={styles.messageLink} to="/Messages">Messages</Link>
+                <Link className={styles.messageLink} to="/Network">Network</Link>
                 <Link className={styles.appliedLink} to="/Applied">Applied</Link>
                 <Link className={styles.savedLink} to="/Saved">Saved</Link>
                 <Link className={styles.profileLink} to="/UserProf">Profile</Link>
