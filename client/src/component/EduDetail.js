@@ -21,7 +21,6 @@ function EduDetail(props) {
                 <Button variant="outlined" type="submit"> Delete </Button>
                 <br></br><br></br>
             </form>
-
         </div>
     );
 }

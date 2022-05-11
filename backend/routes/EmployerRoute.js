@@ -37,19 +37,19 @@ router.get("/list2/:id", (req, res) => {
 // post (create) a job listing
 router.post("/add", (req, res) => {
     const values = [
-        req.body.id,
+        req.body.job_listing_id,
+        req.body.posted_by_id,
         req.body.company_name,
         req.body.job_location,
         req.body.job_title,
         req.body.job_description,
         req.body.job_experience,
-        req.body.salary,
-        req.body.image_url
+        req.body.salary
     ]
     //req.body.id
     //const job_name = req.body.job_name
     //INSERT INTO job_finder.job_listing (posted_by_id, company_name, job_location, job_title, job_description, job_experience, salary, image_url) 
-    query = "INSERT INTO job_listing (posted_by_id, company_name, job_location, job_title, job_description, job_experience, salary, image_url) VALUES (?,?,?,?,?,?,?,?)"
+    query = "INSERT INTO job_listing (job_listing_id, posted_by_id, company_name, job_location, job_title, job_description, job_experience, salary, image_url) VALUES (?,?,?,?,?,?,?,?,?)"
     con.query(query, values, function(err, result){
         if (err) {
             res.status(500).json({message: err.message})

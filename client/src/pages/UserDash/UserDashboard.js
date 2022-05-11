@@ -3,7 +3,9 @@ import Filters from '../../component/Filters';
 import Navigation from '../../component/Navigation';
 import JobListing from '../../component/JobListing'
 import { TextField, Slider, Box, Stack } from '@mui/material';
-import styles from './UserDash.module.css'
+import styles from './UserDash.module.css';
+import uuid from "react-uuid";
+
 
 function UserDashboard() {
     
@@ -156,6 +158,7 @@ function UserDashboard() {
 
                 {
                     data.map((job) => <JobListing
+                    key={uuid()}
                     image_url={job.image_url}
                     company_name={job.company_name}
                     job_listing_id={job.job_listing_id}
