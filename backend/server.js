@@ -126,6 +126,34 @@ app.get("/profile", (req, res) => {
     })
 })
 
+app.post("/profile/edit", (req, res) => {
+    const id = req.session.user[0].user_account_id
+    //const id = req.body.id
+    const url = req.body.image_url
+    const query = "UPDATE user_account SET image_url = '" + url + "' WHERE user_account_id = " + id;
+    con.query(query, (err, result) => {
+        if (err) {
+            console.log(err)
+            res.status(500).json({message: err.message})
+        }
+        else {
+            res.status(200).send("updated 1 row of user_account")
+        }
+    })
+})
+
+app.get("/user/all", (req, res) => {
+    const query = "SELECT user_account_id, first_name, last_name, image_url FROM user_account"
+    con.query(query, (err, result) => {
+        if (err) {
+            console.log(err)
+            res.status(500).json({message: err.message})
+        }
+        else {
+            res.status(200).json(result)
+        }
+    })
+})
 
 app.get("/saved", (req, res) => {
     const id = req.session.user[0].user_account_id

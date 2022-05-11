@@ -6,6 +6,8 @@ import Saved from './pages/Saved'
 import Login from './pages/Sign in/Login'
 import UserDashboard from './pages/UserDash/UserDashboard';
 import UserProfile from './pages/UserProfile'
+import Network from './pages/Network'
+import ViewProfile from './pages/ViewProfile';
 import CreateAccount from './pages/Sign up/CreateAccount'
 import EmployerDashboard from './pages/EmployerDashboard'
 import { BrowserRouter, Routes, Route, Link, Navigate, Redirect} from "react-router-dom";
@@ -41,14 +43,15 @@ const App = () => {
         
         <Link to="/CreateAccount">CreateAccount</Link>
         <Routes>
-          <Route path="/" element={user ? <Navigation /> : <Login/>} />
+          <Route path="/" element={user ? <Navigate to="/Dashboard" /> : <Login/>} />
 
-          <Route path="/Login" element={user ? <Navigate to="/Navigation" /> : <Login/>} />
+          <Route path="/Login" element={user ? <Navigate to="/Dashboard" /> : <Login/>} />
           <Route path="/CreateAccount" element={user ? <Navigate to="/" /> : <CreateAccount/>} />
-
+          <Route path="/Network" element={user ? <Network/> : <Login/>} />
           <Route path="/Navigation" element={user ? <Navigation /> : <Login/>} />
           <Route path="/Dashboard" element={user ? <UserDashboard/> : <Login/>} />
           <Route path="/UserProf" element={user ? <UserProfile/> : <Login/>}/>
+          <Route path="/user/:id" element={user ? <ViewProfile/> : <Login/>}/>
           
           <Route path="/EmployerDash" element={user ? <EmployerDashboard/> : <Login/>}/>
           <Route path="/Messages" element={user ? <Messages/> : <Login/>}/>
