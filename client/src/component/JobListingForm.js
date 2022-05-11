@@ -9,6 +9,7 @@ import uuid from "react-uuid";
 function JobListingForm(props) {
     const[values, setValues] = useState({
         job_listing_id: uuid(),
+        posted_by_id: props.employerID,
         company_name: "",
         job_title: "",
         job_location: "",
@@ -39,7 +40,8 @@ function JobListingForm(props) {
 
     const handleSubmit = e => {
         e.preventDefault();
-        console.log(values.job_listing_id + " " + values.company_name + " " + values.job_title + " " + values.job_location + " " + values.job_experience + " " + values.salary + " " + values.job_description);
+        props.postJobListing(values.job_listing_id, values.posted_by_id, values.company_name, values.job_location, values.job_title, values.job_description, values.job_experience, values.salary)
+        console.log(values.job_listing_id + " " + " " + values.posted_by_id + " " + values.company_name + " " + values.job_title + " " + values.job_location + " " + values.job_experience + " " + values.salary + " " + values.job_description);
     }
 
     return(

@@ -41,19 +41,19 @@ function EmployerDashboard(props) {
             .catch(() => []);
     }, [])
 
-    const postJobListing = (job_listing_id, company_name, job_location, job_title, job_description, job_experience, salary) => {
+    const postJobListing = (job_listing_id, posted_by_id, company_name, job_location, job_title, job_description, job_experience, salary) => {
         fetch("/employer/add", {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                job_listing_id: job_listing_id,
-                posted_by_id: {employerID},
+                posted_by_id: posted_by_id,
                 company_name: company_name,
                 job_location: job_location,
                 job_title: job_title,
                 job_experience: job_experience, 
                 job_description: job_description,
-                salary: salary
+                salary: salary,
+                image_url: ""
             })
         }).then(() => setJobListings(jobListing => [...employerJobListings,
                 {
@@ -70,7 +70,7 @@ function EmployerDashboard(props) {
 
     return  (
         <div>
-            <JobListingForm postJobListing={postJobListing}/>
+            <JobListingForm postJobListing={postJobListing} employerID={employerID}/>
             <Navigation />
             <EmployerJobPosting employerID={employerID} jobListings = {employerJobListings}/>
         </div>
