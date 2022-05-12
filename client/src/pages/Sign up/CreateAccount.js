@@ -3,6 +3,8 @@ import Axios from 'axios';
 import { Link } from 'react-router-dom';
 import styles from './CreateAccount.module.css';
 
+Axios.defaults.withCredentials = true;
+
 function CreateAccount() {
     const [firstNameReg, setFirstName] = useState("");
     const [lastNameReg, setLastName] = useState("");
@@ -18,8 +20,10 @@ function CreateAccount() {
         }).then((res) => {
             console.log(res);
         });
-        console.log("Account Created!\n Sign in")
-    };
+
+        console.log("Account Created!\n Sign in");
+        window.location.replace("http://localhost:3000/login"); 
+    }
 
 
     return (
@@ -49,6 +53,7 @@ function CreateAccount() {
                 <button onClick={register} className={styles.submit} type="submit">Sign Up</button>
             </div>
         </div>);
+        
 }
 
 export default CreateAccount

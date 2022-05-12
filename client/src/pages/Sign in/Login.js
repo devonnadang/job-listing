@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import styles from './Login.module.css';
 import Axios from 'axios';
-import Navigation from "../../component/Navigation";
 
 function Login() {
     const [email_login, setEmail] = useState("");
     const [password_login, setPassword] = useState("");
 
     const[loginStatus, setLoginStatus] = useState("");
+    const[user, setUser] = useState(false);
 
     Axios.defaults.withCredentials = true; // needed for sessions
 
@@ -20,20 +20,27 @@ function Login() {
 
             if(response.data.message) {
                 setLoginStatus(response.data.message);
+                setUser(false);
             } else {
-                // accessing id
-                //setLoginStatus("Welcome " + response.data[0].first_name + "id: " + response.data[0].user_account_id)
                 setLoginStatus("Welcome " + response.data[0].first_name);
+                setUser(true);
+                window.location.replace("http://localhost:3000/");
             }
         });
+
+        
     };
 
     //whenever we refresh page we check if logged in -> 'get'
     useEffect(()=> {
         Axios.get("http://localhost:3001/login").then((response) => {
-            console.log(response); // console logs user data to front end *************
-            if(response.data.loggedIn == true) {
-                setLoginStatus("Welcome " + response.data.user[0].first_name);
+            //console.log(response); // console logs user data to front end 
+            if(response.data.message) {
+                setLoginStatus("Not logged in");
+                setUser(false);
+            } else {
+                setUser(true);
+                setLoginStatus("Welcome ");
             }
         });
     }, []);
@@ -54,9 +61,9 @@ function Login() {
                         setPassword(e.target.value);
                     }}/>
 
+                
                 <button onClick={login} className={styles.loginButton} type="submit" >Sign In</button>
             </div>
-            <h1>{loginStatus}</h1>
         </div>);
 }
 
