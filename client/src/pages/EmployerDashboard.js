@@ -1,75 +1,82 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import uuid from 'react-uuid';
 import EduDetail from "../component/EduDetail";
 import ExpDetail from "../component/ExpDetail";
+import EmployerJob from "../component/EmployerJob"
 import InterviewDetail from "../component/InterviewDetail";
 import SkillTag from "../component/SkillTag";
 import Stack from '@mui/material/Stack';
 import Navigation from '../component/Navigation';
 import { StylesContext } from "@material-ui/styles";
 import styles from './UserProfile.module.css';
+import EmployerJobPosting from '../component/EmployerJobPosting.js'
+import Button from '@mui/material/Button';
+import JobListingForm from '../component/JobListingForm'
 
 function EmployerDashboard(props) {
 
-    const [interviews, setInterviews] = useState([
-        {
-            id: uuid(),
-            name: "Huge Michael",
-            date: "Mar 13, 2022",
-            start: "3:00",
-            end: "4:15",
-            location: "Online",
-            interviewstage: "Interviewing"
+    //const employerID = 2;
+    const [employerJobListings, setJobListings] = useState([]);
+
+
+    async function getEmployerJobListings() {
+        let response = await fetch("/employer/list2", {
+            method: 'GET',
+            credentials: 'include'
+        });
+        console.log(response.status); //200
+        console.log(response.statusText); //OK
+
+        if (response.status == 200) {
+            const employerJobListingData = await response.json();
+            console.log(employerJobListingData);
+            return employerJobListingData.data;
+        } else {
+            console.log("error getting employer job listing");
         }
-    ]);
+    }
 
-    function update (name, date, start, end, location, interviewstage) {
-        let newInterviews = 
-        {
-            id: uuid(),
-            name: name,
-            date: date,
-            start: start,
-            end: end,
-            location: location,
-            interviewstage: interviewstage
+    useEffect(() => {
+        getEmployerJobListings()
+            .then(result => {
+                setJobListings(result);
+            })
+            .catch(() => []);
+    }, [])
+
+    const postJobListing = (job_listing_id, company_name, job_location, job_title, job_description, job_experience, salary) => {
+        fetch("/employer/add", {
+            method: "POST",
+            credentials: "include",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                company_name: company_name,
+                job_location: job_location,
+                job_title: job_title,
+                job_experience: job_experience, 
+                job_description: job_description,
+                salary: salary,
+                image_url: ""
+            })
+        }).then(() => setJobListings(jobListing => [...employerJobListings,
+                {
+                    key: job_listing_id,
+                    company_name: company_name,
+                    job_location: job_location,
+                    job_title: job_title,
+                    job_experience: job_experience, 
+                    job_description: job_description,
+                    salary: salary
+                }]))
         }
-        setInterviews(interviews => [...interviews, newInterviews]);
-    }
-
-    function editInterviews() {
-        alert("add edit interview function here");
-    }
-
-    function deleteInterview() {
-        alert("delete interview function here");
-    }
 
     return  (
         <div>
+            <JobListingForm postJobListing={postJobListing}/>
             <Navigation />
-            
-            <div style={{position: 'absolute', top: 300, left: 300}}>
-            <div className={styles.contents}>
-            
-            <h1> Interviews </h1>
-
-            <h2> Candidate Details </h2>
-            {
-                interviews.map((interview) => (<EduDetail 
-                    name={interview.name} 
-                    start={interview.start}
-                    end={interview.end}
-                    major={interview.location}
-                    gpa={interview.interviewstage}/>))
-            }
-            <button className={styles.button} onClick={editInterviews}> Edit Interviews </button>
-            </div>
-        </div>
+            <EmployerJobPosting jobListings = {employerJobListings}/>
         </div>
 
     );
 }
-
 export default EmployerDashboard;
-
