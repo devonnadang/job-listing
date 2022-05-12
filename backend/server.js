@@ -56,6 +56,21 @@ app.post("/register", (req, res) => {
             console.log(err);
         });
     })
+    return res.redirect("/login");
+})
+
+// create route for Logout 
+app.get("/logout", (req,res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            return next(err)
+        }
+        res.clearCookie(this.cookie, {path:'/'});
+        console.log(req);
+        return res.redirect("/login");
+    });
+
+    
     
 })
 
