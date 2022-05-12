@@ -18,15 +18,6 @@ import EditIcon from '@mui/icons-material/Edit'
 import { IconButton } from "@mui/material";
 
 function UserProfile(props) {
-
-    // const [userID1, setUserID] = useState();
-    // Axios.get("http://localhost:3001/login").then((response, req) => {
-    //       if(response.data.loggedIn === true) {
-    //           setUserID(response.data.user[0].user_account_id);
-    //       }});
-    //console.log("user id: " + userID);//userID is printed to console
-
-
     const [schools, setSchools] = useState([]);
 
     async function getSchoolData() {
