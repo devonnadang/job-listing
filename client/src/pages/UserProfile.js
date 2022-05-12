@@ -13,7 +13,9 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete'
 import Avatar from '@mui/material/Avatar';
 import InterestDetail from "../component/InterestDetail";
-import { CallEndTwoTone } from "@material-ui/icons";
+import EditProfile from "../component/EditProfile";
+import EditIcon from '@mui/icons-material/Edit'
+import { IconButton } from "@mui/material";
 
 function UserProfile(props) {
     const [schools, setSchools] = useState([]);
@@ -251,14 +253,33 @@ function UserProfile(props) {
 
     }, []); 
 
+    const [isEditing, setEditing] = useState(false);
+
+    function toggleEdit() {
+        setEditing(isEditing => !isEditing)
+    }
+
+    function submitEdit(image_url) {
+        fetch("/profile/edit", {
+            method: 'POST',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                image_url: image_url
+            })
+        }).then(toggleEdit).then(setProfile(profile => profile = {...profile, image_url: image_url}))
+    }
+
 
     return  (
         <div>
             <Navigation />
 
             <div className={styles.main}>
-                <h1> {profile.first_name} {profile.last_name} </h1>
+                <h1> {profile.first_name} {profile.last_name} <IconButton onClick={toggleEdit}><EditIcon/></IconButton></h1>
                 <Avatar src={profile.image_url} sx={{width:100, height: 100}}> </Avatar>
+                <br></br>
+                <EditProfile isEditing={isEditing} image_url={profile.image_url} submitEdit={submitEdit}></EditProfile>
                 <h2> Education Details </h2> 
                 {
                     schools.map((school) => (<EduDetail
