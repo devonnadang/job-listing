@@ -16,6 +16,7 @@ function JobListingForm(props) {
         job_experience: "",
         salary: "",
         job_description: "",
+        image_url: ""
     });
 
     const handleCompanyNameInputChange = (event) => {
@@ -37,10 +38,13 @@ function JobListingForm(props) {
     const handleJobDescriptionInputChange = (event) => {
         setValues({...values, job_description: event.target.value});
     }
+    const handleURLInputChange = (event) => {
+        setValues({...values, image_url: event.target.value});
+    }
 
     const handleSubmit = e => {
         e.preventDefault();
-        props.postJobListing(values.job_listing_id, values.company_name, values.job_location, values.job_title, values.job_description, values.job_experience, values.salary)
+        props.postJobListing(values.job_listing_id, values.company_name, values.job_location, values.job_title, values.job_description, values.job_experience, values.salary, values.image_url)
         console.log(values.job_listing_id + " " + " " + values.posted_by_id + " " + values.company_name + " " + values.job_title + " " + values.job_location + " " + values.job_experience + " " + values.salary + " " + values.job_description);
     }
 
@@ -105,6 +109,16 @@ function JobListingForm(props) {
                     sx={{ width: 500 }}
                     value={values.job_description}
                     onChange={handleJobDescriptionInputChange}
+                />
+                <br></br><br></br>
+                <TextField 
+                    id="image_url"
+                    label="Image URL"
+                    name="image_url"
+                    size="small"
+                    sx={{ width: 500 }}
+                    value={values.image_url}
+                    onChange={handleURLInputChange}
                 />
                 <br></br><br></br>
                 <Button type="submit" variant="contained"> Post Job Listing </Button>
