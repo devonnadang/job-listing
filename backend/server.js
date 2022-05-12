@@ -15,6 +15,7 @@ const ExperienceRoute = require('./routes/ExperienceRoute')
 const EducationRoute = require('./routes/EducationRoute')
 const EmployerRoute = require('./routes/EmployerRoute')
 const JobListingRoute = require('./routes/JobListingRoute')
+const UserRoute = require('./routes/UserRoute')
 
 
 app.use(express.json())
@@ -106,6 +107,7 @@ app.use("/experience", ExperienceRoute)
 app.use("/education", EducationRoute)
 app.use("/employer", EmployerRoute)
 app.use("/joblisting", JobListingRoute)
+app.use("/user", UserRoute)
 
 app.get("/", (req, res) => {
     console.log("server called");
@@ -142,18 +144,7 @@ app.post("/profile/edit", (req, res) => {
     })
 })
 
-app.get("/user/all", (req, res) => {
-    const query = "SELECT user_account_id, first_name, last_name, image_url FROM user_account"
-    con.query(query, (err, result) => {
-        if (err) {
-            console.log(err)
-            res.status(500).json({message: err.message})
-        }
-        else {
-            res.status(200).json(result)
-        }
-    })
-})
+
 
 app.get("/saved", (req, res) => {
     const id = req.session.user[0].user_account_id
