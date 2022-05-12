@@ -151,17 +151,7 @@ function UserProfile(props) {
     }
 
     
-    const [jobInterests, setJobInterests] = useState([
-        "Internship", "Part-Time"
-    ]);
 
-    const [cityInterests, setCityInterests] = useState([
-        "San Jose, CA", "San Francisco, CA"
-    ]);
-
-    const [roleInterests, setRoleInterests] = useState([
-        "Software Engineer", "Software Developer"
-    ]);
  
     function addExperience (title, company, start, end, locationCity, locationState, description) {
             let newExperience = 
@@ -202,9 +192,6 @@ function UserProfile(props) {
         }).then(() => setSkills(skills.filter(item => item.skill_name !== skill_name)))
     }
 
-    function editInterest(){
-        alert("add interest function here");
-    }
 
 
     const [skillText, setSkillText] = useState(null); //the current skill input
@@ -233,10 +220,6 @@ function UserProfile(props) {
             });
     }, []);
 
-
-    function editInterests() {
-        alert("edit interests function here");
-    }
 
     
     const [profile, setProfile] = useState([]);
@@ -280,6 +263,10 @@ function UserProfile(props) {
                 <Avatar src={profile.image_url} sx={{width:100, height: 100}}> </Avatar>
                 <br></br>
                 <EditProfile isEditing={isEditing} image_url={profile.image_url} submitEdit={submitEdit}></EditProfile>
+                <br></br>
+                <form action="/employerdash">
+                    <Button type="submit" variant="contained">Your Job Listings</Button>
+                </form>
                 <h2> Education Details </h2> 
                 {
                     schools.map((school) => (<EduDetail
@@ -331,10 +318,11 @@ function UserProfile(props) {
                         <Button variant ="outlined" type="submit"> Add </Button>
                     </Stack>
                 </form>
+
+                <br></br>
                 
                 
-                <h2> Your Interests <Button variant="text" onClick={editInterests}> Edit </Button> </h2>
-                <InterestDetail jobs={jobInterests} cities={cityInterests} roles={roleInterests}/>
+                
 
             </div>
         </div>
